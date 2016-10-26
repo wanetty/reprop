@@ -10,6 +10,7 @@ public class Palabra {
 	
 	//constructoras
 	public Palabra(){
+		palabra = "";
 		funcional = false;	
 	}
 	
