@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,4 +23,10 @@ public class Frase {
 		funcional = esfuncional();
 		
 	} 
+
+public class Frase {
+
+	private ArrayList<Palabra> frase;
+	private boolean funcional;
+	
 }
