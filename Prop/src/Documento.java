@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Date;
+
 
 public class Documento {
 
@@ -40,7 +43,7 @@ public class Documento {
 	
 	//consultoras
 	
-	public consulta_titulo() {
+	public Frase consulta_titulo() {
 		return titulo;
 	}
 	
