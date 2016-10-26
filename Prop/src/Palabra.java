@@ -58,6 +58,8 @@ public class Palabra {
 		
 	}
 	
+	
+	// Mira si la palabra que esta en la carpeta es funcional o no. 
 	private boolean comproba_funcional() throws IOException{
 		
 		BufferedReader in = new BufferedReader(new FileReader("empty.cat"));
