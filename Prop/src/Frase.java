@@ -9,10 +9,8 @@ public class Frase {
 		frase = ArrayList<Palabra>();	
 	}
 	
-	public Palabra (String pal) throws IOException{
-		palabra = pal;
-		funcional = esfuncional();
-		
+	public Frase (String pal) throws IOException{
+		frase.
 	}
 	
 	
