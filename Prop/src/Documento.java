@@ -28,15 +28,15 @@ public class Documento {
 	}
 	//modificadora
 	
-	public void añadir_titulo(Frase t){
+	public void anyadir_titulo(Frase t){
 		titulo = t;
 	}
 	
-	public void añadir_autor(Frase a){
+	public void anyadir_autor(Frase a){
 		autor = a;
 	}
 	
-	public void añadir_tema(Frase t){
+	public void anyadir_tema(Frase t){
 		tema = t;
 	}
 	*/
@@ -71,7 +71,7 @@ public class Documento {
 		if (i < contenido.size()) contenido.remove(i);
 	}
 	
-	public void añadir_frase(int i, Frase f){
+	public void anyadir_frase(int i, Frase f){
 		if (i < contenido.size()) contenido.add(i, f);
 		else if (i == contenido.size()) contenido.add(f);
 	}
