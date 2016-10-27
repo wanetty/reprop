@@ -3,11 +3,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Frase {
-	private ArrayList<Palabra> frase;
+	private ArrayList<Palabra> frase = new ArrayList<Palabra>();
 	
 	//constructoras
 	public Frase(){
-		frase = new ArrayList<Palabra>();	
+			
 	}
 	//crea una frase a partir de un string de frase acabado en punto o algun signo
 	public Frase (String fra) throws IOException{

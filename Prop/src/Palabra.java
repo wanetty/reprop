@@ -5,19 +5,14 @@ import java.io.IOException;
 
 public class Palabra {
 
-	private String palabra;
-	private boolean funcional;
-	
+	private String palabra;	
 	//constructoras
 	public Palabra(){
 		palabra = "";
-		funcional = false;	
 	}
 	
 	public Palabra (String pal) throws IOException{
-		palabra = pal;
-		funcional = esfuncional();
-		
+		palabra = pal;		
 	}
 	
 	
@@ -25,9 +20,7 @@ public class Palabra {
 	
 	public void modificar (String pal) throws IOException{
 		
-		palabra = pal;
-		funcional = esfuncional();
-		
+		palabra = pal;		
 	} 
 	
 	
@@ -62,7 +55,7 @@ public class Palabra {
 	// Mira si la palabra que esta en la carpeta es funcional o no. 
 	private boolean comproba_funcional() throws IOException{
 		
-		BufferedReader in = new BufferedReader(new FileReader("empty.cat"));
+		BufferedReader in = new BufferedReader(new FileReader("empty.eng"));
 		String funcional = in.readLine();
 		
 		while (funcional != null){
@@ -74,33 +67,6 @@ public class Palabra {
 			} 
 			funcional = in.readLine();
 			
-		}
-		in.close();
-		in = new BufferedReader(new FileReader("empty.sp"));
-		funcional = in.readLine();
-	
-		while (funcional != null){
-			
-			if(funcional.equals(palabra)){
-				
-				in.close();
-				return true;
-			} 
-			funcional = in.readLine();
-			
-		}
-		in.close();
-		in = new BufferedReader(new FileReader("empty.eng"));
-		funcional = in.readLine();
-	
-		while (funcional != null){
-			
-			if(funcional.equals(palabra)){
-				
-				in.close();
-				return true;
-			} 
-			funcional = in.readLine();
 		}
 		in.close();
 		return false;
