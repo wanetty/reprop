@@ -12,14 +12,13 @@ public class Palabra {
 	}
 	
 	public Palabra (String pal) throws IOException{
-		palabra = pal;		
+		palabra = pal;
 	}
 	
 	
 	//modificadora 
 	
 	public void modificar (String pal) throws IOException{
-		
 		palabra = pal;		
 	} 
 	
