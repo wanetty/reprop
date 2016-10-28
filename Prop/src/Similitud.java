@@ -21,11 +21,14 @@ public class Similitud {
 		if (lengthA <= 0.0 || lengthB <= 0.0){
 			similitudCos = 0.0;
 		}
+		//La fórmula del coseno
 		else {
 			similitudCos = (producto / (Math.sqrt(lengthA)*Math.sqrt(lengthB)));
 		}
 		return similitudCos;
 	}
+	
+	//calcula el length de los vectores. La suma del cuadrado de los pesos.
 	
 	public double getLength(Map<String,Double> a){
 		double res = 0.0d;
@@ -35,11 +38,15 @@ public class Similitud {
 		return res;
 	}
 	
+	//Guarda la intersección de los dos vectores en un set
+	
 	public Set<String> getIntersection(Map<String,Double> a, Map<String,Double> b){
 		Set<String> intersection = new HashSet<String>(a.keySet());
 		intersection.retainAll(b.keySet());
 		return intersection;
 	}
+	
+	//Calcula el dot product de los dos vectores
 	
 	public double producto(Map<String,Double> a, Map<String,Double> b, Set<String> intersection){
 		double prod = 0;
