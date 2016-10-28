@@ -21,7 +21,7 @@ public class Similitud {
 		if (lengthA <= 0.0 || lengthB <= 0.0){
 			similitudCos = 0.0;
 		}
-		//La fórmula del coseno
+		//La formula del coseno
 		else {
 			similitudCos = (producto / (Math.sqrt(lengthA)*Math.sqrt(lengthB)));
 		}
@@ -38,7 +38,7 @@ public class Similitud {
 		return res;
 	}
 	
-	//Guarda la intersección de los dos vectores en un set
+	//Guarda la interseccion de los dos vectores en un set
 	
 	public Set<String> getIntersection(Map<String,Double> a, Map<String,Double> b){
 		Set<String> intersection = new HashSet<String>(a.keySet());

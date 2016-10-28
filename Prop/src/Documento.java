@@ -12,9 +12,7 @@ public class Documento {
 	private Date fecha = new Date();
 	private ArrayList<Frase> contenido = new ArrayList<Frase>();
 	private Map<String, Double> pesos = new HashMap<String, Double>();//constructoras
-	public Documento(){
-	
-	}
+	public Documento(){}
 	
 	public Documento(Frase ti, Frase a, Frase te, ArrayList<Frase> c) throws IOException{
 		titulo = ti;

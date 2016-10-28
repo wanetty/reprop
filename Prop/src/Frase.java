@@ -11,7 +11,7 @@ public class Frase {
 	}
 	//crea una frase a partir de un string de frase acabado en punto o algun signo
 	public Frase (String fra) throws IOException{
-		String delimitadores= "[ .,;?!¡¿\'\"\\[\\]]+";
+		String delimitadores= "[ .,;?!\'\"\\[\\]]+";
 		String[] pseparadas = fra.split(delimitadores);
 		for(int i=0; i<pseparadas.length; ++i) {
 			String saux= pseparadas[i];
