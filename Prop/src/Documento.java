@@ -14,11 +14,12 @@ public class Documento {
 	private Map<String, Double> pesos = new HashMap<String, Double>();//constructoras
 	public Documento(){}
 	
-	public Documento(Frase ti, Frase a, Frase te, ArrayList<Frase> c) throws IOException{
+	public Documento(Frase ti, Frase a, Frase te, ArrayList<Frase> c, Date f) throws IOException{
 		titulo = ti;
 		autor = a;
 		tema = te;
 		contenido = c;
+		fecha=f;
 		construirPesos();
 	}
 	//Construye un mapa <string, double> que contiene palabras con su peso
