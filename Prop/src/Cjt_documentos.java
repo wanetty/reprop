@@ -88,7 +88,7 @@ public class Cjt_documentos {
 	//creo que no hace falta porque es lo mismo para nosotros que el usuario importe un fichero o que escriba por si solo, hasta que no confirma(en la interficie) lo que escribe no guardamos lo que ha escrito 
 	public void alta_sin_fichero(){}
 	
-	//Cuando sea una alta convencional n=0, cuando sea multiple n>0;
+	//Cuando sea una alta convencional n=1, cuando sea multiple n>0;
 	public void alta_conv_mult(String text, int n) throws IOException{
 		for (int i=0; i<n; ++i) alta(text);
 	}

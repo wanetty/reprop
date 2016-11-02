@@ -28,7 +28,7 @@ public class driver {
 		ArrayList<Frase> z = new ArrayList<Frase>();
 		//x.add(f);
 		z.add(f);
-		y.add(e);
+		y.add(e);/*
 		x.add(g);
 		Documento d1 = new Documento(f,f,f,y);
 		Documento d2 = new Documento(f,f,f,x);
@@ -40,7 +40,7 @@ public class driver {
 		System.out.println(test.calculaSimilitud(d1, d2));
 		//d1 y d3 son iguales
 		System.out.println(test.calculaSimilitud(d1, d3));
-		
+		*/
 	}
 
 }
