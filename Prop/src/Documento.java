@@ -14,12 +14,11 @@ public class Documento {
 	private Map<String, Double> pesos = new HashMap<String, Double>();//constructoras
 	public Documento(){}
 	
-	public Documento(Frase ti, Frase a, Frase te, ArrayList<Frase> c, Date f) throws IOException{
+	public Documento(Frase ti, Frase a, Frase te, ArrayList<Frase> c) throws IOException{
 		titulo = ti;
 		autor = a;
 		tema = te;
 		contenido = c;
-		fecha=f;
 		construirPesos();
 	}
 	//Construye un mapa <string, double> que contiene palabras con su peso
@@ -52,6 +51,17 @@ public class Documento {
 	
 	//modificadora
 	
+	//Modificaciones
+	//de momento suponemos que desde el progama principal le pasara la posicion de la palabra en la frase
+	//nota: hay que anyadir en el caso de usos que el usuario tendria que indicar el numero de la frase a la que pertenece la palabra que se quiere borrar y la palabra borrada.
+	//0<=numfras<=numero de frases en total del documento
+	public void borrar_palabra(int numfras, Palabra pborr) throws IOException{
+		contenido.get(numfras).borrarpalabra(pborr);
+	}
+	public void anyadir_palabra(int numfras, Palabra panyad) throws IOException{
+		contenido.get(numfras).anyadirpalabra(panyad, contenido.get(numfras).midafrase());
+	}
+		
 	public void set_titulo(Frase t){
 		titulo = t;
 	}

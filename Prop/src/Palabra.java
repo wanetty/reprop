@@ -25,6 +25,9 @@ public class Palabra {
 	
 	//consultoras
 	
+	public int midapalabra() throws IOException {
+		return palabra.length();
+	}
 	
 	public boolean son_iguales(Palabra pal){
 		

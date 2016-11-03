@@ -42,6 +42,26 @@ public class Frase {
 	
 	//consultora
 	
+	//devuelve la frase de la que es prefijo s si el string s es prefijo de la frase
+	public boolean es_prefijo(String s) throws IOException {
+	    int midas=s.length();
+	    int summida=0, i=0;
+	    String saux = null;//voy guardando los primeros segmentos de la frase incluyendo espacios
+	    while (i<frase.size() && summida < midas){
+	        saux.concat(frase.get(i).palabra());
+	        saux.concat(" ");
+	        summida=summida+frase.get(i).midapalabra()+1;
+	        ++i;
+	    }
+	    if (summida > midas) {
+	        String comp=saux.substring(0, s.length());//comp guarda un prefijo de mi frase de la misma mida que el string que entra
+	        if(s.equals(comp)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
 	//devuelve el numero de palabras que ocntiene la frase
 	public int midafrase() throws IOException{
 		return frase.size();
