@@ -103,3 +103,4 @@ public class Documento {
 		else if (i == contenido.size()) contenido.add(f);
 	}
 }
+joder pero que conyo quieres tio
