@@ -12,7 +12,7 @@ public class frecuencias_globales {
 	
 	public frecuencias_globales() {}
 	
-	private String frase_to_string(Frase f) throws IOException {//transforma una frase en string
+	private String frase_to_string(Frase f) throws IOException {///transforma una frase en string
 		String res = null;
 		for(int i=0; i<f.midafrase(); ++i) {
 			Palabra p=f.posfrase(i);

@@ -61,7 +61,7 @@ public class Documento {
 	public void anyadir_palabra(int numfras, Palabra panyad) throws IOException{
 		contenido.get(numfras).anyadirpalabra(panyad, contenido.get(numfras).midafrase());
 	}
-		
+	
 	public void set_titulo(Frase t){
 		titulo = t;
 	}
@@ -92,6 +92,9 @@ public class Documento {
 	}
 	public int get_num_frases(){
 		return contenido.size();
+	}
+	public ArrayList<Frase> get_contenido(){
+		return contenido;
 	}
 	
 	public Frase get_frase(int i){
