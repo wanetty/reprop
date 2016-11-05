@@ -94,7 +94,9 @@ public class Cjt_documentos {
 	//Modificaciones
 	//de momento suponemos que desde el progama principal le pasara la posicion de la palabra en la frase
 	//nota: hay que anyadir en el caso de usos que el usuario tendria que indicar el numero de la frase a la que pertenece la palabra que se quiere borrar y la palabra borrada.
-	public void borrar_palabra(int numfras, Palabra pborr){}
+	public void borrar_palabra(int numfras, Palabra pborr){
+		
+	}
 	
 	//Bajas
 	
@@ -116,7 +118,15 @@ public class Cjt_documentos {
 	   return conjDocumento_res;
 	}
 	public ArrayList<Documento> busqueda_por_tema(Frase tem){
-	   conjDocumento_res=por_tema.get(tem);
+		Iterator it=por_tema.get(tem).entrySet().iterator();
+		while (it.hasNext()) {
+			Integer k=(Integer) it.next();
+			Iterator it2=por_tema.get(tem).get(k).entrySet().iterator();
+			while (it2.hasNext()) {
+				Integer q=(Integer) it2.next();
+				conjDocumento_res.add(por_tema.get(tem).get(k).get(q));
+			}
+		}
 	   return conjDocumento_res;
 	}
 	
@@ -126,7 +136,15 @@ public class Cjt_documentos {
 	   int diaaux=d.getDate();
 	   Calendar nuevo = null;
 	   nuevo.set(anyoaux, mesaux, diaaux);
-	   conjDocumento_res=por_fecha.get(nuevo);
+	   Iterator it=por_fecha.get(nuevo).entrySet().iterator();
+		while (it.hasNext()) {
+			Integer k=(Integer) it.next();
+			Iterator it2=por_fecha.get(nuevo).get(k).entrySet().iterator();
+			while (it2.hasNext()) {
+				Integer q=(Integer) it2.next();
+				conjDocumento_res.add(por_fecha.get(nuevo).get(k).get(q));
+			}
+		}
 	   return conjDocumento_res;
 	}
 	public ArrayList<Frase> busqueda_por_prefijo(String pref) throws IOException{
