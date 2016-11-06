@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Similitud {
-	
+		
 	public double calculaSimilitud(Documento a, Documento b){
 		Map<String, Double> mapA = new HashMap<String, Double>();
 		Map<String, Double> mapB = new HashMap<String, Double>();
@@ -21,7 +21,7 @@ public class Similitud {
 		if (lengthA <= 0.0 || lengthB <= 0.0){
 			similitudCos = 0.0;
 		}
-		//La formula del coseno
+		//La fórmula del coseno
 		else {
 			similitudCos = (producto / (Math.sqrt(lengthA)*Math.sqrt(lengthB)));
 		}
@@ -38,7 +38,7 @@ public class Similitud {
 		return res;
 	}
 	
-	//Guarda la interseccion de los dos vectores en un set
+	//Guarda la intersección de los dos vectores en un set
 	
 	public Set<String> getIntersection(Map<String,Double> a, Map<String,Double> b){
 		Set<String> intersection = new HashSet<String>(a.keySet());
@@ -54,6 +54,18 @@ public class Similitud {
 			prod += a.get(clave)*b.get(clave);
 		}
 		return prod;
+	}
+	//FUNCIONES QUE AUN NO EXISTEN DENTRO
+	public double idf(Map<String, Double> global, String termino, Cjt_documentos cjt){
+		double n = global.get(termino); //frecuencia global del termino
+		return Math.log(cjt.get_cjt_size() / n);
+	}
+	
+	public void globalizar (Map<String,Double> a, Cjt_documentos cjt) {
+		for (String clave : a){
+			double frec = a.get(clave);
+			double frec_idf = 
+		}
 	}
 	
 }
