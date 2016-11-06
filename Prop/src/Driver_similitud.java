@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class driver {
+public class Driver_similitud {
 	
 	
 	public static void main (String[] args) throws IOException{
