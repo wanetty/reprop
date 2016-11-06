@@ -1,17 +1,26 @@
 import java.util.Map;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Similitud {
 		
-	public double calculaSimilitud(Documento a, Documento b){
+	public double calculaSimilitud(Documento a, Documento b/*, Cjt_documentos cjt*/) throws IOException{
 		Map<String, Double> mapA = new HashMap<String, Double>();
 		Map<String, Double> mapB = new HashMap<String, Double>();
 		mapA = a.get_pesos();
 		mapB = b.get_pesos();
 		//double lengthA = a.length();
 		//double lengthB = b.length();
+		double nA = a.get_total_words();
+		double nB =a.get_total_words();
+		tf(mapA,nA);
+		tf(mapB,nB);
+		//globalizar(mapA,cjt);
+		//globalizar(mapB,cjt);
+		System.out.println(mapA);
+		System.out.println(mapB);
 		Set<String> inter = new HashSet<String>();
 		inter = getIntersection(mapA,mapB);
 		double producto = producto(mapA,mapB,inter);
@@ -26,6 +35,13 @@ public class Similitud {
 			similitudCos = (producto / (Math.sqrt(lengthA)*Math.sqrt(lengthB)));
 		}
 		return similitudCos;
+	}
+	
+	public void tf(Map<String,Double> a, double n) {
+		for (String clave : a.keySet()){
+			double frec = a.get(clave);
+			a.put(clave, frec/n);
+		}
 	}
 	
 	//calcula el length de los vectores. La suma del cuadrado de los pesos.
@@ -55,17 +71,23 @@ public class Similitud {
 		}
 		return prod;
 	}
+	
+	/*
 	//FUNCIONES QUE AUN NO EXISTEN DENTRO
 	public double idf(Map<String, Double> global, String termino, Cjt_documentos cjt){
 		double n = global.get(termino); //frecuencia global del termino
-		return Math.log(cjt.get_cjt_size() / n);
+		return Math.log(cjt.get_cjt_size() / 1+n); //n puede ser 0 asi que sumamos 1
 	}
 	
 	public void globalizar (Map<String,Double> a, Cjt_documentos cjt) {
-		for (String clave : a){
+		Map<String, Double> global = new HashMap<String,Double>();
+		global = cjt.get_global_map();
+		for (String clave : a.keySet()){
 			double frec = a.get(clave);
-			double frec_idf = 
+			double frec_idf = global.get(clave);
+			a.put(clave, frec*frec_idf);
 		}
 	}
+	*/
 	
 }

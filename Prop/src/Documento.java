@@ -105,6 +105,17 @@ public class Documento {
 		return pesos;
 	}
 	
+	public double get_total_words() throws IOException{
+		double res = 0;
+		Frase aux = new Frase();
+		for (int i = 0; i < contenido.size(); ++i){
+			aux = contenido.get(i);
+			res = res + aux.midafrase_significativa();
+		}
+		return res;
+	}
+	
+	
 	//modificadoras
 	
 	public void borrar_frase(int i){

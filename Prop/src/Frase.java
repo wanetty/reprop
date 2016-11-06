@@ -66,7 +66,14 @@ public class Frase {
 	public int midafrase() throws IOException{
 		return frase.size();
 	}
-
+	
+	public int midafrase_significativa() throws IOException{
+		int res = 0;
+		for(int i = 0; i < frase.size(); ++i){
+			if (!frase.get(i).esfuncional()) ++res;
+		}
+		return res;
+	}
 	//devuelve la posicion en la que se encuentra la palabra pal en la frase
 	//devuelve -1 en caso de que no se encuentre en ella
 	public int posfrase(Palabra pal) throws IOException {
