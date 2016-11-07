@@ -22,6 +22,7 @@ public class palabra_driver {
 			System.out.println("4. Consultar si es funcional");
 			System.out.println("5. Devuelve palabra en String.");
 			System.out.println("6. Escribe palabra.");
+			System.out.println("7. Tamaño palabra.");
 			System.out.println("0. Salir del driver.");
 			var = opcion.nextInt();
 			switch(var){
@@ -50,16 +51,24 @@ public class palabra_driver {
 				break;
 				
 			case 3:
-
+				System.out.println("Introduce una palabra con la que comparar.");
+				palabra = texto.nextLine();
+				if(pal.son_iguales(palabra)) System.out.println("Son iguales");
+				else System.out.println("No són iguales");
 				break;
 			case 4:
-
+				System.out.print("La palabra "+ "\""+pal.palabra()+"\"");
+				if(pal.esfuncional()) System.out.println(" es funcional");
+				else System.out.println(" no es funcional");
 				break;
 			case 5:
-
+				System.out.println("La palabra es "+ "\""+pal.palabra()+"\"");
 				break;
 			case 6:	
-
+				System.out.println("La palabra "+ "\""+pal.palabra()+"\"");
+				break;
+			case 7:	
+				System.out.println("La palabra "+ "\""+pal.palabra()+"\" tiene como tamaño "+ pal.midapalabra());
 				break;
 			}
 

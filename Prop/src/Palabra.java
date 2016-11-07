@@ -36,6 +36,11 @@ public class Palabra {
 		return palabra.contentEquals(pal.palabra);
 		
 	}
+public boolean son_iguales(String pal){
+		
+		return palabra.contentEquals(pal);
+		
+	}
 	
 	public boolean esfuncional() throws IOException {
 		return comproba_funcional();
@@ -59,7 +64,7 @@ public class Palabra {
 	// Mira si la palabra que esta en la carpeta es funcional o no. 
 	private boolean comproba_funcional() throws IOException{
 		
-		BufferedReader in = new BufferedReader(new FileReader("empty.eng"));
+		BufferedReader in = new BufferedReader(new FileReader("empty.sp"));
 		String funcional = in.readLine();
 		
 		while (funcional != null){
