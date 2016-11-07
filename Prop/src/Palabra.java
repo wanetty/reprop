@@ -8,18 +8,19 @@ public class Palabra {
 	private String palabra;	
 	//constructoras
 	public Palabra(){
-		palabra = "";
+		palabra = null;
 	}
 	
-	public Palabra (String pal) throws IOException{
-		palabra = pal;
+	public Palabra (String pal){
+		if (comprobar(pal))palabra = pal;	
+		else palabra = null;
 	}
 	
 	
 	//modificadora 
 	
-	public void modificar (String pal) throws IOException{
-		palabra = pal;		
+	public void modificar (String pal) {
+		if (comprobar(pal))palabra = pal;	
 	} 
 	
 	
@@ -28,6 +29,7 @@ public class Palabra {
 	public int midapalabra() throws IOException {
 		return palabra.length();
 	}
+	
 	
 	public boolean son_iguales(Palabra pal){
 		
@@ -74,7 +76,16 @@ public class Palabra {
 		return false;
 		
 	}
+	private boolean comprobar(String pal){
+		for (int i = 0;i < pal.length();++i){
+			if(pal.charAt(i)== ' ')return false;
+			
+		}
 		
+		return true;
+		
+		
+	}	
 		
 		
 		

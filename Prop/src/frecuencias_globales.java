@@ -11,17 +11,7 @@ public class frecuencias_globales {
 	//String1:palabra,String2:autor,String3:tiutlo,Integer:veces que aparece la palabra en el documento
 	
 	public frecuencias_globales() {}
-	
-	private String frase_to_string(Frase f) throws IOException {///transforma una frase en string
-		String res = null;
-		for(int i=0; i<f.midafrase(); ++i) {
-			Palabra p=f.posfrase(i);
-			res.concat(p.palabra());
-			if (i != f.midafrase()-1) res.concat(" ");
-		}
-		return res;
-	}
-	
+		
 	public void actualizar_frecuencias(Documento d) throws IOException {
 		int sizeDoc = d.get_contenido().size();
 		Frase fraseActual = new Frase();
@@ -45,11 +35,9 @@ public class frecuencias_globales {
 						global.put(palKey, (double) 1);
 					}
 					Map <String,Double> titulofreq=new HashMap<String,Double>();
-					Frase aux=d.get_titulo();
-					String sauxt=frase_to_string(aux);
+					String sauxt=d.get_titulo().frase_to_string();
 					titulofreq.put(sauxt, (double) 1);
-					aux=d.get_autor();
-					String sauxa=frase_to_string(aux);
+					String sauxa=d.get_autor().frase_to_string();
 					Map <String,Map<String,Double>> auttitfreq=new HashMap<String,Map<String,Double>>();
 					auttitfreq.put(sauxa, titulofreq); //auttitfreq indica el autro, titulo a la que pertenece y que ha aparecido por primera vez la palabra
 					if (frecdoc.containsKey(palKey)) {
@@ -73,8 +61,8 @@ public class frecuencias_globales {
 	
 	public double valor_documento(String p, Documento d) throws IOException {//devuelve la frecuencia de la palabra en el documento
 		String a, t;
-		a=frase_to_string(d.get_autor());
-		t=frase_to_string(d.get_titulo());
+		a=d.get_autor().frase_to_string();
+		t=d.get_titulo().frase_to_string();
 		return frecdoc.get(p).get(a).get(t);
 	}
 	
@@ -82,28 +70,33 @@ public class frecuencias_globales {
 		return frecdoc.get(p).get(a).get(t);
 	}
 	
-	public void borrar_frecuencia(String p) {//resta la frecuencai de la palabra p
-		double pes=global.get(p);
-		if (pes > 1) {
-			pes=pes-1;
-			global.put(p,pes);
-			
-			Iterator it=frecdoc.get(p).entrySet().iterator();
-			while (it.hasNext()) {
-				String k=(String) it.next();
-				Iterator it2=frecdoc.get(p).get(k).entrySet().iterator();
-				while (it2.hasNext()) {
-					String q=(String) it2.next();
-					double pesdoc=frecdoc.get(p).get(k).get(q);
-					if (pesdoc > 1) {
-						pesdoc=pesdoc-1;
-						frecdoc.get(p).get(k).put(q, pesdoc);
+	public void borrar_frecuencia(Documento d) {//resta la frecuencia de las palabras del documento
+		ArrayList<Frase> arraux= d.get_contenido();
+		for(int i=0; i<arraux.size(); ++i) {
+			String p=arraux.get(i).toString();
+			double pes=global.get(p);
+			if (pes > 1) {
+				pes=pes-1;
+				global.put(p,pes);
+				
+				Iterator it=frecdoc.get(p).entrySet().iterator();
+				while (it.hasNext()) {
+					String k=(String) it.next();
+					Iterator it2=frecdoc.get(p).get(k).entrySet().iterator();
+					while (it2.hasNext()) {
+						String q=(String) it2.next();
+						double pesdoc=frecdoc.get(p).get(k).get(q);
+						if (pesdoc > 1) {
+							pesdoc=pesdoc-1;
+							frecdoc.get(p).get(k).put(q, pesdoc);
+						}
+						else frecdoc.remove(p);
 					}
-					else frecdoc.remove(p);
 				}
 			}
+			else global.remove(p);
 		}
-		else global.remove(p);
+		
 	}
 	
 }

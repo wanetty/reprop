@@ -1,16 +1,22 @@
 import java.util.Map;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
 public class Similitud {
 		
 	public double calculaSimilitud(Documento a, Documento b/*, Cjt_documentos cjt*/) throws IOException{
 		Map<String, Double> mapA = new HashMap<String, Double>();
 		Map<String, Double> mapB = new HashMap<String, Double>();
-		mapA = a.get_pesos();
-		mapB = b.get_pesos();
+		llenar_map(mapA, a);
+		
+	
+		
+		Map<Double,ArrayList<Documento>>mapG = new HashMap<Double, ArrayList<Documento>>();
+		llenar_map(mapB, b);
+		//mapA = a.get_pesos();
+		//mapB = b.get_pesos();
 		//double lengthA = a.length();
 		//double lengthB = b.length();
 		double nA = a.get_total_words();
@@ -20,7 +26,7 @@ public class Similitud {
 		//globalizar(mapA,cjt);
 		//globalizar(mapB,cjt);
 		System.out.println(mapA);
-		System.out.println(mapB);
+		System.out. println(mapB);
 		Set<String> inter = new HashSet<String>();
 		inter = getIntersection(mapA,mapB);
 		double producto = producto(mapA,mapB,inter);
@@ -35,6 +41,13 @@ public class Similitud {
 			similitudCos = (producto / (Math.sqrt(lengthA)*Math.sqrt(lengthB)));
 		}
 		return similitudCos;
+	}
+	
+	public void llenar_map(Map<String,Double> mapA, Documento a){
+		for(String clave : a.get_pesos().keySet()) {
+			Double frec = a.get_pesos().get(clave);
+			mapA.put(clave, frec);
+		}
 	}
 	
 	public void tf(Map<String,Double> a, double n) {

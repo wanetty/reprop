@@ -38,6 +38,7 @@ public class Driver_similitud {
 		System.out.println(d2.get_pesos());
 		System.out.println("la similitud es:");
 		System.out.println(test.calculaSimilitud(d1, d2));
+		System.out.println(d1.get_pesos());
 		//d1 y d3 son iguales
 		System.out.println(test.calculaSimilitud(d1, d3));
 		

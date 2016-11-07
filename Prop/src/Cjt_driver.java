@@ -29,7 +29,7 @@ public class Cjt_driver {
 				+ "An essay is essentially a collection of paragraphs, and as has already been said, a pargraph is essentially a mini-essay. "
 				+ "An essay contains an introduction, a body, and a conclusion.";
 		Cjt_documentos cjt= new Cjt_documentos();
-		cjt.alta_multiple(text, 1);
+		//cjt.alta_multiple(text, 1);
 
 	}
 

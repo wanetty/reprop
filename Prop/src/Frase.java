@@ -74,6 +74,15 @@ public class Frase {
 		}
 		return res;
 	}
+	public String frase_to_string() throws IOException {///transforma una frase en string
+		String res = null;
+		for(int i=0; i<frase.size(); ++i) {
+			Palabra p=frase.get(i);
+			res.concat(p.palabra());
+			if (i != frase.size()-1) res.concat(" ");
+		}
+		return res;
+	}
 	//devuelve la posicion en la que se encuentra la palabra pal en la frase
 	//devuelve -1 en caso de que no se encuentre en ella
 	public int posfrase(Palabra pal) throws IOException {
