@@ -8,6 +8,7 @@ public class Bool_expresion {
 	private Nodo estrucexp;
 	private int cant;
 	private int altura;
+	private boolean correcto = true; 
 
 	//Inicializadora de variable poniendo valores por defecto
 	public Bool_expresion() throws IOException{
@@ -16,10 +17,13 @@ public class Bool_expresion {
 
 	//inicializadora de variable contruyendo el arbol segun la expresion que nos pasan
 	public Bool_expresion(String expresion) throws IOException{
-		if (!expresion.equals(""))this.estrucexp = analiza(estrucexp,expresion);	
+		Nodo aux = null;
+		if(comprueba(expresion))aux = analiza(estrucexp,expresion);	
+		if (correcto) this.estrucexp = aux;
+		else estrucexp = null;
 	}
 	//consultoras
-	//pre : cierto
+	//pre : cierto&h
 	//post: devuelve el valor de la raiz. Si es nula retorna -1
 	public String valor_raiz(){
 		if(estrucexp != null) return estrucexp.getValor();
@@ -75,6 +79,23 @@ public class Bool_expresion {
 		if(actual.getNodoDer() != null)orden(actual.getNodoDer());
 		System.out.println(actual.getValor());
 	}
+	private boolean comprueba(String exp){
+		if(cuenta_parentesis(exp)%2 != 0) return false;
+		if (cuenta_operadores(exp) == 0 && cuenta_parentesis(exp) > 0) return false;
+		if(exp.charAt(0) == '&' || exp.charAt(0) == '|' || exp.charAt(exp.length()-1) == '&' || exp.charAt(exp.length()-1) == '|') return false;
+		for (int i = 0; i < exp.length();++i){
+			if (/*(!(exp.charAt(i) >= 'a' && exp.charAt(i) <= 'z') && !(exp.charAt(i) >= 'A' && exp.charAt(i) <= 'Z'))*/i != 0 && i != exp.length()-1 && (exp.charAt(i) != '&' && exp.charAt(i) != '|') && (exp.charAt(i-1) == ' ' && exp.charAt(i+1) == ' ')) return false;
+			if (exp.charAt(i) == '(' && exp.charAt(i+1) == ')') return false;
+			if((exp.charAt(i) == '&' || exp.charAt(i) == '|') && (exp.charAt(i+1) != ' ' || exp.charAt(i-1) != ' ' )) return false;
+			if(exp.charAt(i) == '!' && (exp.charAt(i+1) == ' ' || exp.charAt(i-1) != ' ' )) return false;
+			if(exp.charAt(i) == '{' && exp.charAt(i+1) == '}') return false;
+			
+		}
+		
+		return true;
+		
+		
+	}
 	private Nodo analiza(Nodo actual, String expresion) throws IOException{			
 		actual = new Nodo();
 		if(cuenta_operadores(expresion) < 1){
@@ -119,7 +140,7 @@ public class Bool_expresion {
 					else ++i;
 				}
 				if(i == expresion.length()){
-					estrucexp = new Nodo();
+					correcto = false;
 					return null;
 				}
 
