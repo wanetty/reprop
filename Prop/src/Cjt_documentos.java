@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class Cjt_documentos {
-	private ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();//arraylist que guarda los documentos resultados de una busqueda
+	//private ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();//arraylist que guarda los documentos resultados de una busqueda
 	private Map<String, Map<String,Documento>> por_titulo = new HashMap<String,Map<String,Documento>>();//guarda todos los documentos por titulo y los autores que lo tienen y su documento
     private Map<String,Map<String,Documento>> por_autor = new HashMap<String,Map<String,Documento>>();//guarda todos 	los documentos de un autor
     private Map<String, Map<String, Map<String,Documento>>> por_tema = new HashMap<String, Map<String, Map<String,Documento>>>();//guarda todos los documentos por autor y titulo de un tema concreto
@@ -27,7 +27,7 @@ public class Cjt_documentos {
 	       c.add(aux);
 	   }
 	}
-	private void alta(String text) throws IOException {
+	private void alta(String text,frecuencias_globales frecuencias) throws IOException {
 	   //1.Crear los parametros para crear un documento
 	   String del="\\n";
 	   String[] aux = text.split(del);//aux contiene parrafos
@@ -79,7 +79,7 @@ public class Cjt_documentos {
 	   }
 	   
 	   //actualizo frecuencias
-	   frecuencias.actualizar_frecuencias(d);
+	   frecuencias.anyadir_frecuencias(d);
 	   
 	}
 	
@@ -92,16 +92,26 @@ public class Cjt_documentos {
 			//for (int i=0; i<n; ++i) f.alta(text);
 	}
 	
-	//Modificaciones en Documento
+	//Modificaciones
+	
+	public void borrar_palabra(Documento d, int numfras, Palabra pborr) throws IOException{
+		d.borrar_palabra(numfras, pborr);
+		frecuencias.borrar_frecuencias(pborr.palabra(), d);
+	}
+	public void anyadir_palabra(Documento d, int numfras, Palabra panyad) throws IOException{
+		d.anyadir_palabra(numfras, panyad);
+		frecuencias.anyadir_frecuencias(panyad.palabra(), d);
+	}
 	
 	//Bajas
-	
+	/*
 	//Da de baja un documento en el resultado dado su posicion
 	public void baja_individual(Integer i){
 		conjDocumento_res.remove(i);
-	}
+	}*/
+	
 	//Da de baja un documento
-	public void baja_individual(Documento d) throws IOException{
+	public void baja_individual_doc(Documento d) throws IOException{
 		String aut=d.get_autor().frase_to_string();
 		String tit=d.get_titulo().frase_to_string();
 		String tem=d.get_tema().frase_to_string();
@@ -110,11 +120,32 @@ public class Cjt_documentos {
 		if (por_titulo.get(tit).isEmpty()) por_titulo.remove(tit);
 		por_autor.get(aut).remove(tit);
 		if (por_autor.get(aut).isEmpty()) por_autor.remove(aut);
-		frecuencias.borrar_frecuencia(d);
+		frecuencias.borrar_frecuencias(d);
 	}
+	
 	//Da de baja todos los documentos del autor aut
-	public void baja_multiple(String aut){
-		
+	public void baja_multiple(String aut) throws IOException{
+		/*Iterator it= por_titulo.entrySet().iterator();
+		while (it.hasNext()) {
+			String k=(String) it.next();
+			por_titulo.get(k).remove(aut);
+		}
+		por_autor.remove(aut);
+		it= por_tema.entrySet().iterator();
+		while (it.hasNext()) {
+			String k=(String) it.next();
+			por_tema.get(k).remove(aut);
+		}
+		it= por_fecha.entrySet().iterator();
+		while (it.hasNext()) {
+			String k=(String) it.next();
+			por_fecha.get(k).remove(aut);
+		}*/
+		Iterator it=por_autor.get(aut).entrySet().iterator();
+		while (it.hasNext()) {
+			String k=(String) it.next();
+			baja_individual_doc(por_autor.get(aut).get(k));
+		}
 	}
 	
 	//Busquedas
@@ -124,7 +155,7 @@ public class Cjt_documentos {
 	}
 	
 	public ArrayList<Documento> busqueda_por_titulo(String t){
-		conjDocumento_res.clear();
+	   ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
 	   Iterator it=por_titulo.get(t).entrySet().iterator();
 	   while (it.hasNext()) {
 	       Integer k= (Integer) it.next();
@@ -133,7 +164,7 @@ public class Cjt_documentos {
 	   return conjDocumento_res;
 	}
 	public ArrayList<Documento> busqueda_por_tema(String tem){
-		conjDocumento_res.clear();
+		ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
 		Iterator it=por_tema.get(tem).entrySet().iterator();
 		while (it.hasNext()) {
 			String k=(String) it.next();
@@ -147,7 +178,7 @@ public class Cjt_documentos {
 	}
 	
 	public ArrayList<Documento> busqueda_por_fecha(Date d){
-		conjDocumento_res.clear();
+	   ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
 	   int anyoaux=d.getYear();
 	   int mesaux=d.getMonth();
 	   int diaaux=d.getDate();
@@ -175,7 +206,7 @@ public class Cjt_documentos {
 	}
 	
 	public ArrayList<String> busqueda_por_prefijo(String pref) throws IOException{
-		conjDocumento_res.clear();
+	   ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
 	   Iterator<String> it=por_autor.keySet().iterator();
 	   String k;
 	   ArrayList<String> autores= new ArrayList<String>();
@@ -190,9 +221,19 @@ public class Cjt_documentos {
 	
 	
 	//Consultoras
+	//Devuelve todas las frecuencias globales de todas las palabras del conjunto
+	public frecuencias_globales frec_glob_tot() {
+		return frecuencias;
+	}
+	
 	//Devuelve la frecuencia de una palabra p en el total de conjunto de documentos
-	public double frecuenciaglob_palabra(String p) {
+	public double frecuencia_glob_palabra(String p) {
 		return frecuencias.valor_global(p);
+	}
+	
+	//Devuelve la lista de documentos que contiene la palabra s 
+	public Map<String,ArrayList<String>> list_doc_palabra(String s) {
+		return frecuencias.frecdocumentos(s);
 	}
 	
 	//devuelve la frecuencia de una palabra en el documento d
@@ -200,9 +241,5 @@ public class Cjt_documentos {
 		return frecuencias.valor_documento(p, d);
 	}
 	
-	//devuelve la lista de documentos resultados de una busqueda
-	public ArrayList<Documento> devolver_documentos() {
-		return conjDocumento_res;
-	}
 }
 
