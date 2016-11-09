@@ -12,16 +12,19 @@ public class Similitud {
 	public ArrayList<Documento> similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
 		Map<Double, ArrayList<Documento>> res = new TreeMap<Double, ArrayList<Documento>>();
 		Map<Double, ArrayList<Documento>> res_ordenado = new TreeMap(Collections.reverseOrder());
+		String ti = d.get_titulo().frase_to_string();
+		String au = d.get_autor().frase_to_string();
+		
 		double simi;
 		for (String clave1 : cjt.get_por_titulo().keySet()) {
 			for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()){
 				simi = calculaSimilitud(d, cjt.get_por_titulo().get(clave1).get(clave2), cjt, metodo);
-				if (!res.containsKey(simi)) {
+				if (!res.containsKey(simi) && ((!clave1.equals(ti)) && (!clave2.equals(au)))) {
 					ArrayList<Documento> docs = new ArrayList<Documento>();
 					docs.add(cjt.get_por_titulo().get(clave1).get(clave2));
 					res.put(simi, docs);
 				}
-				else {
+				if (res.containsKey(simi) && ((!clave1.equals(ti)) && (!clave2.equals(au)))) {
 					ArrayList<Documento> docs2 = res.get(simi);
 					docs2.add(cjt.get_por_titulo().get(clave1).get(clave2));
 					res.put(simi, docs2);
