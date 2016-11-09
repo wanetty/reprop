@@ -8,28 +8,8 @@ import java.util.Set;
 import java.util.TreeMap;
 public class Similitud {
 		
-	public void imprime_similitud(int n, Map<Double, ArrayList<Documento>> res ) {
-		System.out.println("Los documentos más parecidos son:");
-		int impresos = 0;
-		Frase ti = new Frase();
-		Frase au = new Frase();
-		if (n > 0) {
-			for (Double sim : res.keySet()){
-				for (int i = 0; i < res.get(sim).size(); ++i) {
-					ti = res.get(sim).get(i).get_titulo();
-					au = res.get(sim).get(i).get_autor();
-					System.out.println(ti);
-					System.out.print(" de ");
-					System.out.println(au);
-					++impresos;
-					if (impresos == n) break;
-				}
-				if (impresos == n) break;
-			}
-		}
-	}
 	
-	public Map<Double, ArrayList<Documento>> similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
+	public ArrayList<Documento> similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
 		Map<Double, ArrayList<Documento>> res = new TreeMap<Double, ArrayList<Documento>>();
 		Map<Double, ArrayList<Documento>> res_ordenado = new TreeMap(Collections.reverseOrder());
 		double simi;
@@ -49,10 +29,26 @@ public class Similitud {
 			}
 		}
 		res_ordenado.putAll(res);
-		return res_ordenado;
+		ArrayList<Documento> docs = new ArrayList<Documento>();
+		similitud_docs(n,res_ordenado,docs);
+		return docs;
 	}
 	
-	public double calculaSimilitud(Documento a, Documento b, Cjt_documentos cjt, int metodo) throws IOException{
+	private void similitud_docs(int n, Map<Double, ArrayList<Documento>> a, ArrayList<Documento> res ) {
+		int fin = 0;
+		if (n > 0) {
+			for (Double sim : a.keySet()){
+				for (int i = 0; i < a.get(sim).size(); ++i) {
+					res.add(a.get(sim).get(i));
+					++fin;
+					if (fin == n) break;
+				}
+				if (fin == n) break;
+			}
+		}
+	}
+	
+	private double calculaSimilitud(Documento a, Documento b, Cjt_documentos cjt, int metodo) throws IOException{
 		Map<String, Double> mapA = new HashMap<String, Double>();
 		Map<String, Double> mapB = new HashMap<String, Double>();
 		llenar_map(mapA, a);
@@ -85,14 +81,14 @@ public class Similitud {
 		return similitudCos;
 	}
 	
-	public void llenar_map(Map<String,Double> mapA, Documento a){
+	private void llenar_map(Map<String,Double> mapA, Documento a){
 		for(String clave : a.get_pesos().keySet()) {
 			Double frec = a.get_pesos().get(clave);
 			mapA.put(clave, frec);
 		}
 	}
 	
-	public void tf(Map<String,Double> a, double n) {
+	private void tf(Map<String,Double> a, double n) {
 		for (String clave : a.keySet()){
 			double frec = a.get(clave);
 			a.put(clave, frec/n);
@@ -101,7 +97,7 @@ public class Similitud {
 	
 	//calcula el length de los vectores. La suma del cuadrado de los pesos.
 	
-	public double getLength(Map<String,Double> a){
+	private double getLength(Map<String,Double> a){
 		double res = 0.0d;
 		for (Double valor : a.values()){
 			res += Math.pow(valor, 2);
@@ -111,7 +107,7 @@ public class Similitud {
 	
 	//Guarda la intersección de los dos vectores en un set
 	
-	public Set<String> getIntersection(Map<String,Double> a, Map<String,Double> b){
+	private Set<String> getIntersection(Map<String,Double> a, Map<String,Double> b){
 		Set<String> intersection = new HashSet<String>(a.keySet());
 		intersection.retainAll(b.keySet());
 		return intersection;
@@ -119,7 +115,7 @@ public class Similitud {
 	
 	//Calcula el dot product de los dos vectores
 	
-	public double producto(Map<String,Double> a, Map<String,Double> b, Set<String> intersection){
+	private double producto(Map<String,Double> a, Map<String,Double> b, Set<String> intersection){
 		double prod = 0;
 		for (String clave : intersection) {
 			prod += a.get(clave)*b.get(clave);
@@ -127,13 +123,13 @@ public class Similitud {
 		return prod;
 	}
 	
-	public double idf(String termino, Cjt_documentos cjt, int metodo){
+	private double idf(String termino, Cjt_documentos cjt, int metodo){
 		int n = cjt.apariencias_cjtdoc_palabra(termino); //frecuencia global del termino
 		if (metodo == 1) return Math.log(cjt.get_cjt_size() / (1+n)); //n puede ser 0 asi que sumamos 1
 		else return Math.log((cjt.get_cjt_size() - n) / n);
 	}
 	
-	public void globalizar (Map<String,Double> a, Cjt_documentos cjt, int metodo) {
+	private void globalizar (Map<String,Double> a, Cjt_documentos cjt, int metodo) {
 		for (String clave : a.keySet()){
 			double frec = a.get(clave);
 			double frec_idf = idf(clave, cjt, metodo);
