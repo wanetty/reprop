@@ -12,7 +12,7 @@ public class Palabra {
 	}
 	
 	public Palabra (String pal){
-		if (comprobar(pal))palabra = pal;	
+		if (comprobar(pal))palabra = pal.toLowerCase();	
 		else palabra = null;
 	}
 	
@@ -20,7 +20,7 @@ public class Palabra {
 	//modificadora 
 	
 	public void modificar (String pal) {
-		if (comprobar(pal))palabra = pal;	
+		if (comprobar(pal))palabra = pal.toLowerCase();	
 	} 
 	
 	
