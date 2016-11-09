@@ -8,8 +8,12 @@ import java.util.Set;
 import java.util.TreeMap;
 public class Similitud {
 		
+	private ArrayList<Documento> resultado;
 	
-	public ArrayList<Documento> similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
+	public Similitud(){};
+	
+	public void similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
+		for (int i = 0; i < resultado.size();++i) resultado.remove(i); //vacia el resultado
 		Map<Double, ArrayList<Documento>> res = new TreeMap<Double, ArrayList<Documento>>();
 		Map<Double, ArrayList<Documento>> res_ordenado = new TreeMap(Collections.reverseOrder());
 		String ti = d.get_titulo().frase_to_string();
@@ -32,12 +36,11 @@ public class Similitud {
 			}
 		}
 		res_ordenado.putAll(res);
-		ArrayList<Documento> docs = new ArrayList<Documento>();
-		similitud_docs(n,res_ordenado,docs);
-		return docs;
+		resultado = similitud_docs(n,res_ordenado);
 	}
 	
-	private void similitud_docs(int n, Map<Double, ArrayList<Documento>> a, ArrayList<Documento> res ) {
+	public ArrayList<Documento> similitud_docs(int n, Map<Double, ArrayList<Documento>> a) {
+		ArrayList<Documento> res = new ArrayList<Documento>();
 		int fin = 0;
 		if (n > 0) {
 			for (Double sim : a.keySet()){
@@ -49,6 +52,7 @@ public class Similitud {
 				if (fin == n) break;
 			}
 		}
+		return res;
 	}
 	
 	private double calculaSimilitud(Documento a, Documento b, Cjt_documentos cjt, int metodo) throws IOException{
@@ -56,10 +60,6 @@ public class Similitud {
 		Map<String, Double> mapB = new HashMap<String, Double>();
 		llenar_map(mapA, a);
 		llenar_map(mapB, b);
-		//mapA = a.get_pesos();
-		//mapB = b.get_pesos();
-		//double lengthA = a.length();
-		//double lengthB = b.length();
 		double nA = a.get_total_words();
 		double nB =a.get_total_words();
 		tf(mapA,nA);
@@ -138,5 +138,9 @@ public class Similitud {
 			double frec_idf = idf(clave, cjt, metodo);
 			a.put(clave, frec*frec_idf);
 		}
+	}
+	
+	public ArrayList<Documento> get_resultado() {
+		return resultado;
 	}
 }
