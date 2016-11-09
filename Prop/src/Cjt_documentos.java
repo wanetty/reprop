@@ -90,7 +90,7 @@ public class Cjt_documentos {
 	
 	//Cuando sea una alta convencional n=0, cuando sea multiple n>0;
 	public void alta_multiple(String text, int n, frecuencias_globales f) throws IOException {
-			//for (int i=0; i<n; ++i) f.alta(text);
+			for (int i=0; i<n; ++i) alta(text, f);
 	}
 	
 	//Modificaciones
