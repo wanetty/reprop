@@ -13,7 +13,6 @@ public class Driver_similitud {
 		 
 		Similitud sim = new Similitud();
 		int accion;
-		String aux;
 		Cjt_documentos cjt = new Cjt_documentos();
 		codigo = new Scanner(System.in);
 		scanner = new Scanner(System.in);
