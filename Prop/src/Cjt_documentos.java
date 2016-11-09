@@ -27,7 +27,7 @@ public class Cjt_documentos {
 	       c.add(aux);
 	   }
 	}
-	public void alta(String text,frecuencias_globales frecuencias) throws IOException {
+	private void alta(String text,frecuencias_globales frecuencias) throws IOException {
 	   //1.Crear los parametros para crear un documento
 	   String del="\\n";
 	   String[] aux = text.split(del);//aux contiene parrafos
