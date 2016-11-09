@@ -14,7 +14,7 @@ public class Cjt_documentos {
     private Map<String, Map<String, Map<String,Documento>>> por_tema = new HashMap<String, Map<String, Map<String,Documento>>>();//guarda todos los documentos por autor y titulo de un tema concreto
 	private Map<Calendar, Map<String, Map<String,Documento>>> por_fecha = new HashMap<Calendar,Map<String, Map<String,Documento>>>();//guarda todos los documentos por autor y titulo de un dia concreto
 	private frecuencias_globales frecuencias= new frecuencias_globales();
-
+	private int cjt_size = 0;
 	//Constructora
 	public Cjt_documentos() {}
 	
@@ -27,7 +27,7 @@ public class Cjt_documentos {
 	       c.add(aux);
 	   }
 	}
-	private void alta(String text,frecuencias_globales frecuencias) throws IOException {
+	public void alta(String text,frecuencias_globales frecuencias) throws IOException {
 	   //1.Crear los parametros para crear un documento
 	   String del="\\n";
 	   String[] aux = text.split(del);//aux contiene parrafos
@@ -49,6 +49,7 @@ public class Cjt_documentos {
 	   else {//si titulo ya existe anyadir el autor (un mismo titulo no puede tener el mismo autor por eso el documento no sustituira a uno antiguo )
 	       por_titulo.get(aux[0]).put(aux[1], d);
 	   }
+	   ++cjt_size;
 	   
 	   Map<String,Documento> titulodoc = new HashMap<String,Documento>();
        titulodoc.put(aux[0],d);
@@ -112,6 +113,7 @@ public class Cjt_documentos {
 	
 	//Da de baja un documento
 	public void baja_individual_doc(Documento d) throws IOException{
+		--cjt_size;
 		String aut=d.get_autor().frase_to_string();
 		String tit=d.get_titulo().frase_to_string();
 		String tem=d.get_tema().frase_to_string();
@@ -231,6 +233,11 @@ public class Cjt_documentos {
 		return frecuencias.valor_global(p);
 	}
 	
+	//Devuelve el numeor de documentos en la que aparece la palabra p
+	public int apariencias_cjtdoc_palabra(String p) {
+		return frecuencias_globales.apariencias_doc_palabra(p);
+	}
+	
 	//Devuelve la lista de documentos que contiene la palabra s 
 	public Map<String,ArrayList<String>> list_doc_palabra(String s) {
 		return frecuencias.frecdocumentos(s);
@@ -239,6 +246,14 @@ public class Cjt_documentos {
 	//devuelve la frecuencia de una palabra en el documento d
 	public double frecuenciadoc_palabra(Documento d, String p) throws IOException {
 		return frecuencias.valor_documento(p, d);
+	}
+	
+	public int get_cjt_size(){
+		return cjt_size;
+	}
+	
+	public Map<String, Map<String,Documento>> get_por_titulo(){
+		return por_titulo;
 	}
 	
 }

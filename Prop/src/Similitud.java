@@ -1,19 +1,61 @@
 import java.util.Map;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeMap;
 public class Similitud {
 		
-	public double calculaSimilitud(Documento a, Documento b/*, Cjt_documentos cjt*/) throws IOException{
+	public void imprime_similitud(int n, Map<Double, ArrayList<Documento>> res ) {
+		System.out.println("Los documentos más parecidos son:");
+		int impresos = 0;
+		Frase ti = new Frase();
+		Frase au = new Frase();
+		if (n > 0) {
+			for (Double sim : res.keySet()){
+				for (int i = 0; i < res.get(sim).size(); ++i) {
+					ti = res.get(sim).get(i).get_titulo();
+					au = res.get(sim).get(i).get_autor();
+					System.out.println(ti);
+					System.out.print(" de ");
+					System.out.println(au);
+					++impresos;
+					if (impresos == n) break;
+				}
+				if (impresos == n) break;
+			}
+		}
+	}
+	
+	public Map<Double, ArrayList<Documento>> similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
+		Map<Double, ArrayList<Documento>> res = new TreeMap<Double, ArrayList<Documento>>();
+		Map<Double, ArrayList<Documento>> res_ordenado = new TreeMap(Collections.reverseOrder());
+		double simi;
+		for (String clave1 : cjt.get_por_titulo().keySet()) {
+			for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()){
+				simi = calculaSimilitud(d, cjt.get_por_titulo().get(clave1).get(clave2), cjt, metodo);
+				if (!res.containsKey(simi)) {
+					ArrayList<Documento> docs = new ArrayList<Documento>();
+					docs.add(cjt.get_por_titulo().get(clave1).get(clave2));
+					res.put(simi, docs);
+				}
+				else {
+					ArrayList<Documento> docs2 = res.get(simi);
+					docs2.add(cjt.get_por_titulo().get(clave1).get(clave2));
+					res.put(simi, docs2);
+				}
+			}
+		}
+		res_ordenado.putAll(res);
+		return res_ordenado;
+	}
+	
+	public double calculaSimilitud(Documento a, Documento b, Cjt_documentos cjt, int metodo) throws IOException{
 		Map<String, Double> mapA = new HashMap<String, Double>();
 		Map<String, Double> mapB = new HashMap<String, Double>();
 		llenar_map(mapA, a);
-		
-	
-		
-		Map<Double,ArrayList<Documento>>mapG = new HashMap<Double, ArrayList<Documento>>();
 		llenar_map(mapB, b);
 		//mapA = a.get_pesos();
 		//mapB = b.get_pesos();
@@ -23,8 +65,8 @@ public class Similitud {
 		double nB =a.get_total_words();
 		tf(mapA,nA);
 		tf(mapB,nB);
-		//globalizar(mapA,cjt);
-		//globalizar(mapB,cjt);
+		globalizar(mapA,cjt,metodo);
+		globalizar(mapB,cjt,metodo);
 		System.out.println(mapA);
 		System.out. println(mapB);
 		Set<String> inter = new HashSet<String>();
@@ -85,22 +127,17 @@ public class Similitud {
 		return prod;
 	}
 	
-	/*
-	//FUNCIONES QUE AUN NO EXISTEN DENTRO
-	public double idf(Map<String, Double> global, String termino, Cjt_documentos cjt){
-		double n = global.get(termino); //frecuencia global del termino
-		return Math.log(cjt.get_cjt_size() / 1+n); //n puede ser 0 asi que sumamos 1
+	public double idf(String termino, Cjt_documentos cjt, int metodo){
+		int n = cjt.apariencias_cjtdoc_palabra(termino); //frecuencia global del termino
+		if (metodo == 1) return Math.log(cjt.get_cjt_size() / (1+n)); //n puede ser 0 asi que sumamos 1
+		else return Math.log((cjt.get_cjt_size() - n) / n);
 	}
 	
-	public void globalizar (Map<String,Double> a, Cjt_documentos cjt) {
-		Map<String, Double> global = new HashMap<String,Double>();
-		global = cjt.get_global_map();
+	public void globalizar (Map<String,Double> a, Cjt_documentos cjt, int metodo) {
 		for (String clave : a.keySet()){
 			double frec = a.get(clave);
-			double frec_idf = global.get(clave);
+			double frec_idf = idf(clave, cjt, metodo);
 			a.put(clave, frec*frec_idf);
 		}
 	}
-	*/
-	
 }
