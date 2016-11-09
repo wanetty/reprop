@@ -1,9 +1,9 @@
-
+//driver creado por Eduard Gonzalez Moreno
+//En este driver se prueba la clase Bool_expresion.
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// falta hacer driver, encontrar errores.
 public class driver_boleano
 {	
 	private static Scanner opcion;
@@ -11,22 +11,22 @@ public class driver_boleano
 
 	public static void main (String[] args) throws IOException{
 
-
+		System.out.println("Bienvenido al Driver de Expresion Booleana.");
 		Bool_expresion test = new Bool_expresion();
 		String expresion;
 		int var;
 		texto = new Scanner(System.in);
 		opcion = new Scanner(System.in);
 		boolean primero = true;
-		System.out.println("Bienvenido al Driver de Expresion Booleana, elige una opción: ");
 		while(test.isnull() || primero){
 			if(primero)primero = false;
-			System.out.println("Primero para el debido funcionamiento del driver debes introducir una expresion booleana valida");
+			System.out.println("Primero para el debido funcionamiento del driver debes introducir una expresion booleana valida: ");
 			expresion = texto.nextLine();
 			test = new Bool_expresion(expresion);
 			if(test.isnull())System.out.println("Mal escrito introducir de nuevo.");
 		}
 		do{
+			System.out.println("Escoge una opción: ");
 			System.out.println("1. Introducir expresion booleana.");
 			System.out.println("2. Imprimir estructura en Post_Orden");
 			System.out.println("3. Consultar Valor raiz");
