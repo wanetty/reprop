@@ -1,4 +1,6 @@
 import java.util.Date;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -91,6 +93,18 @@ public class Cjt_documentos {
 	//Cuando sea una alta convencional n=0, cuando sea multiple n>0;
 	public void alta_multiple(String text, int n, frecuencias_globales f) throws IOException {
 			for (int i=0; i<n; ++i) alta(text, f);
+	}
+	
+	public void alta_doc(String raiz) throws IOException{
+		BufferedReader in = new BufferedReader(new FileReader(raiz));
+		String funcional = in.readLine();
+		String todo = "";
+		while (funcional != null){
+			todo.concat(funcional);
+			funcional = in.readLine();
+			} 
+		in.close();
+		alta(todo,frecuencias);
 	}
 	
 	//Modificaciones

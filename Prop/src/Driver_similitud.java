@@ -14,6 +14,7 @@ public class Driver_similitud {
 		Similitud sim = new Similitud();
 		int accion;
 		String aux;
+		Cjt_documentos cjt = new Cjt_documentos();
 		codigo = new Scanner(System.in);
 		scanner = new Scanner(System.in);
 	
@@ -30,6 +31,9 @@ public class Driver_similitud {
 			
 			case 1: 
 				System.out.println("HOLA");
+				cjt.alta_doc("C:\\Users\\win8\\Documents\\GitHub\\reprop\\Prop\\DocumentoAlta1.txt");
+				
+				
 				break;
 			case 2: 
 				System.out.println("HOLA");
@@ -42,7 +46,6 @@ public class Driver_similitud {
 				break;
 			case 5:
 				Documento T = new Documento();
-				Cjt_documentos cjt = new Cjt_documentos();
 				System.out.println("Dado un documento T y un natural k, obtener los k documentos más parecidos a T.");
 				System.out.println("Introduce un documento T");
 				System.out.println("Introduce un natural k");
@@ -51,7 +54,7 @@ public class Driver_similitud {
 				System.out.println("2. Utilizar probabilistic inverse document frequency");
 				int metodo = scanner.nextInt();
 				ArrayList<Documento> docs = new ArrayList();
-				docs = sim.similitud_n(T,k,cjt,metodo);
+				sim.similitud_n(T,k,cjt,metodo);
 				print_resultado(T, k, docs);	
 				break;
 			}
