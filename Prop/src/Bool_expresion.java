@@ -1,4 +1,9 @@
+//Clase realizada por Eduard Gonzalez Moreno
+//Clase que transforma una expresion booleana en una estructura de tipo Nodo.
+
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 
@@ -8,7 +13,8 @@ public class Bool_expresion {
 	private Nodo estrucexp;
 	private int cant;
 	private int altura;
-	private boolean correcto = true; 
+	private boolean correcto = true;
+	private ArrayList <String> postorden = new ArrayList<String>();
 
 	//Inicializadora de variable poniendo valores por defecto
 	public Bool_expresion() throws IOException{
@@ -36,8 +42,9 @@ public class Bool_expresion {
 	}
 	//pre: arbol no vacio
 	//devuelve por pantalla el arbol en postorden.
-	public void PostOrden(){
+	public ArrayList<String> PostOrden(){
 		if(estrucexp != null) orden(estrucexp);
+		return postorden;
 	}
 	//pre: cierto
 	//post: devuelve la cantidad de nodos de un arbol.
@@ -72,29 +79,33 @@ public class Bool_expresion {
 			retornarAltura(reco.getNodoDer(), nivel + 1);
 		}
 	}
-
 	private void orden(Nodo actual){
 		if(actual != null & actual.getValor() == null)return;
 		if(actual.getNodoIz()!= null) orden(actual.getNodoIz());
 		if(actual.getNodoDer() != null)orden(actual.getNodoDer());
-		System.out.println(actual.getValor());
-	}
+		postorden.add(actual.getValor());}
 	private boolean comprueba(String exp){
+		boolean comillas = false;
 		if(cuenta_parentesis(exp)%2 != 0) return false;
 		if (cuenta_operadores(exp) == 0 && cuenta_parentesis(exp) > 0) return false;
 		if(exp.charAt(0) == '&' || exp.charAt(0) == '|' || exp.charAt(exp.length()-1) == '&' || exp.charAt(exp.length()-1) == '|') return false;
 		for (int i = 0; i < exp.length();++i){
-			if (/*(!(exp.charAt(i) >= 'a' && exp.charAt(i) <= 'z') && !(exp.charAt(i) >= 'A' && exp.charAt(i) <= 'Z'))*/i != 0 && i != exp.length()-1 && (exp.charAt(i) != '&' && exp.charAt(i) != '|') && (exp.charAt(i-1) == ' ' && exp.charAt(i+1) == ' ')) return false;
-			if (exp.charAt(i) == '(' && exp.charAt(i+1) == ')') return false;
-			if((exp.charAt(i) == '&' || exp.charAt(i) == '|') && (exp.charAt(i+1) != ' ' || exp.charAt(i-1) != ' ' )) return false;
-			if(exp.charAt(i) == '!' && (exp.charAt(i+1) == ' ' || exp.charAt(i-1) != ' ' )) return false;
-			if(exp.charAt(i) == '{' && exp.charAt(i+1) == '}') return false;
-			
+			if(exp.charAt(i) == '"'){
+				if (!comillas)comillas = true;
+				else comillas = false;
+			}
+			if (i != 0 && i != exp.length()-1 && (exp.charAt(i) != '&' && exp.charAt(i) != '|') && (exp.charAt(i-1) == ' ' && exp.charAt(i+1) == ' ') && !comillas) return false;
+			if (exp.charAt(i) == '(' && exp.charAt(i+1) == ')' && !comillas) return false;
+			if((exp.charAt(i) == '&' || exp.charAt(i) == '|') && (exp.charAt(i+1) != ' ' || exp.charAt(i-1) != ' ' )&& !comillas) return false;
+			if(exp.charAt(i) == '!' && (exp.charAt(i+1) == ' ' || exp.charAt(i-1) != ' ' )&& !comillas) return false;
+			if(exp.charAt(i) == '{' && exp.charAt(i+1) == '}' && !comillas) return false;
+			if(i != exp.length()-1 &&  exp.charAt(i) == '"' && exp.charAt(i+1) == '"') return false;
+
 		}
-		
+
 		return true;
-		
-		
+
+
 	}
 	private Nodo analiza(Nodo actual, String expresion) throws IOException{			
 		actual = new Nodo();
@@ -145,13 +156,8 @@ public class Bool_expresion {
 				}
 
 				actual.setValor(expresion.substring(i,i+1));
-				/*System.out.println(actual.getValor());
-				System.out.println(actual.getNodoIz());
-				System.out.println(actual.getNodoDer());*/
 				actual.setNodoIzq(analiza(actual.getNodoIz(),expresion.substring(0, i-1)));
 				actual.setNodoDer(analiza(actual.getNodoDer(),expresion.substring(i+2, (expresion.length()))));
-				/*System.out.println(actual.getNodoIz().getValor());
-				System.out.println(actual.getNodoDer().getValor());*/
 				return actual;
 			}
 		}
@@ -165,85 +171,6 @@ public class Bool_expresion {
 			cantidad(reco.getNodoDer());
 		}
 	}
-
-	/*
-	private boolean comprobar_conjunto(Frase frase, String expresion) throws IOException{
-
-		//revisar
-		expresion = expresion.substring(1,expresion.length()-1);
-		Frase  aux = new Frase(expresion);
-		int k = aux.midafrase();
-		boolean[] compro= new boolean[k];
-		//System.out.println(k);
-		//aux.escribirfrase();
-		//System.out.println(frase.midafrase());
-		for(int i = 0;i < aux.midafrase();++i){
-			for(int j = 0; j < frase.midafrase();++j){
-				//System.out.print("auxiliar "+aux.getfrase(i).palabra());
-				//System.out.println(" frase " +frase.getfrase(j).palabra()+" numero "+k );
-
-				if(!compro[i] && aux.getfrase(i).son_iguales(frase.getfrase(j))){--k; compro[i] = true;};
-
-				if (k == 0) return true;
-
-			}
-			//System.out.println(k);
-
-
-		}
-		return false;
-
-
-	}
-	private boolean comprobar_sequencia(Frase frase, String expresion) throws IOException{
-		expresion = expresion.substring(1,expresion.length()-1);
-		Frase aux = new Frase(expresion);
-		boolean seguido = false;;
-		int j = 0;
-		int i = 0;
-		//frase.escribirfrase();
-		//ystem.out.println(k);
-		//System.out.println(frase.midafrase());
-		while(i < aux.midafrase() && j < frase.midafrase())
-		{
-			if (aux.getfrase(i).son_iguales(frase.getfrase(j))){
-				++i;
-				seguido = true;
-			}
-			else {
-				seguido = false;
-				i = 0;
-			}
-			++j;
-		}
-		return seguido;
-
-
-	}
-	private boolean comprobar_palabra(Frase frase, String expresion) throws IOException{
-		Palabra pal = new Palabra(expresion);
-
-		for(int i = 0;i < frase.midafrase();++i){
-			if (frase.getfrase(i).son_iguales(pal))return true;
-		}
-		return false;
-	}
-	private boolean comprobar_negacion(Frase frase, String expresion) throws IOException{
-		//System.out.println(expresion);
-		expresion = expresion.substring(1,expresion.length());
-		if(cuenta_operadores(expresion) < 1){
-			if(expresion.charAt(0) == '{') return !comprobar_conjunto(frase, expresion);
-			else if (expresion.charAt(0) == '"') return !comprobar_sequencia(frase, expresion);
-			else  return !comprobar_palabra(frase,expresion);
-
-		}else {
-
-			return !analiza(actual,expresion);
-
-		}
-
-
-	}	*/
 	private int cuenta_operadores(String expresion){
 		int contador = 0;
 		for(int i = 0; i < expresion.length();++i){
@@ -290,13 +217,6 @@ public class Bool_expresion {
 				else --contadorint;
 			}
 		}
-
 		return contadorext;
-
-
 	}
-
-
-
-
 }

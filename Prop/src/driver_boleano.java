@@ -1,5 +1,6 @@
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // falta hacer driver, encontrar errores.
@@ -50,7 +51,13 @@ public class driver_boleano
 
 				break;
 			case 2:
-				test.PostOrden();
+				ArrayList<String> postorden = test.PostOrden();
+				if(!postorden.isEmpty()){
+				for(int i = 0;i < postorden.size();++i){
+					System.out.println(postorden.get(i));
+				}
+				}
+				else System.out.println("Arbol vacio.");
 				break;
 			case 3:
 				System.out.println("El valor de la raíz es: "+ test.valor_raiz());
