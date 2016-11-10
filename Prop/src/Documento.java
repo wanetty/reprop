@@ -82,19 +82,6 @@ public class Documento {
 			else pesos.put(termino, (double) 1);
 		}
 	}
-		
-	
-	public void set_titulo(Frase t){
-		titulo = t;
-	}
-	
-	public void set_autor(Frase a){
-		autor = a;
-	}
-	
-	public void set_tema(Frase t){
-		tema = t;
-	}
 	
 	//consultoras
 	

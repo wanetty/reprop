@@ -8,6 +8,8 @@ public class Driver_similitud {
 	
 	private static Scanner codigo;
 	private static Scanner scanner;
+	private static Scanner aux;
+	private static Scanner aux2;
 	
 	public static void main (String[] args) throws IOException{
 		 
@@ -18,6 +20,8 @@ public class Driver_similitud {
 		String s2;
 		codigo = new Scanner(System.in);
 		scanner = new Scanner(System.in);
+		aux = new Scanner(System.in);
+		aux2 = new Scanner(System.in);
 		
 		cjt.alta_doc("DocumentoAlta1.txt");
 		cjt.alta_doc("DocumentoAlta2.txt");
@@ -26,7 +30,6 @@ public class Driver_similitud {
 		cjt.alta_doc("DocumentoAlta4.txt");
 		cjt.alta_doc("DocumentoAlta6.txt");
 		cjt.alta_doc("DocumentoAlta7.txt");
-		cjt.alta_doc("DocumentoAlta8.txt");
 		
 	
 		do {
@@ -41,47 +44,61 @@ public class Driver_similitud {
 			switch (accion){
 			case 1: 
 				System.out.println("Escribe la ruta del documento.");
+				int n1 = cjt.get_cjt_size();
 				s = scanner.nextLine();
 				cjt.alta_doc(s);
+				if (cjt.get_cjt_size() > n1) System.out.println("Alta correcta.");
 				break;
 			case 2: 
 				System.out.println("HOLA");
 				break;
 			case 3: 
-				System.out.println("HOLA");
+				for (String clave1 : cjt.get_por_titulo().keySet()){
+					for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()) {
+						cjt.get_por_titulo().get(clave1).get(clave2).pintar_documento();
+					}
+				}
 				break;
 			case 4:
 				Documento T = new Documento();
 				System.out.println("Dado un documento T y un natural k, obtener los k documentos más parecidos a T.");
 				System.out.println("Introduce título del documento T");
-				s = scanner.nextLine();
+				s = aux.nextLine();
 				System.out.println("Introduce el autor del documento T");
-				s2 = scanner.nextLine();
+				s2 = aux2.nextLine();
 				T = cjt.busqueda_por_auttit(s2, s);
-				System.out.println("Introduce un natural k");
-				int k = scanner.nextInt();
-				System.out.println("1. Utilizar inverse document frequency smooth");
-				System.out.println("2. Utilizar probabilistic inverse document frequency");
-				int metodo = scanner.nextInt();
-				ArrayList<Documento> docs = new ArrayList();
-				sim.similitud_n(T,k,cjt,metodo);
-				docs = sim.get_resultado();
-				print_resultado(T, k, docs,sim);	
+				if (T.get_titulo().toString() != null && T.get_autor().toString() != null) {
+					System.out.println("Introduce un natural k");
+					int k = scanner.nextInt();
+					System.out.println("1. Utilizar inverse document frequency smooth");
+					System.out.println("2. Utilizar probabilistic inverse document frequency");
+					int metodo = scanner.nextInt();
+					ArrayList<Documento> docs = new ArrayList();
+					sim.similitud_n(T,k,cjt,metodo);
+					docs = sim.get_resultado();
+					print_resultado(T, k, docs,sim);	
+				}
 				break;
 			}
 		} while(accion != 0);
 	}
 	
 	static void print_resultado(Documento T, int k, ArrayList<Documento> res, Similitud sim) throws IOException {
+		
 		if (k > 1){
 			System.out.print("Los " + k +" documentos más parecidos a ");
 		}
 		else {
 			System.out.print("El documento más parecido a ");
 		}
-		System.out.print(T.get_titulo().toString());
+		System.out.print("\"" + T.get_titulo().toString()+ "\"");
 		System.out.print(" de ");
-		System.out.println(T.get_autor().toString());
+		System.out.print("\""+T.get_autor().toString()+"\"");
+		if (k > 1) {
+			System.out.println(" son:");
+		}
+		else System.out.println(" es:");
+		
 		/*for (int i = res.size()-1; i >= 0; --i){
 			System.out.print(res.get(i).get_titulo());
 			System.out.print(" de ");
@@ -89,8 +106,7 @@ public class Driver_similitud {
 		}
 		*/
 		for (int i = 0; i < sim.get_resultado().size(); ++i) {
-			System.out.println(sim.get_resultado().get(i).get_titulo());
-			
+			System.out.println("\"" +sim.get_resultado().get(i).get_titulo()+"\"" + " de " + "\"" +sim.get_resultado().get(i).get_autor()+"\"");
 		}
 	}
 }

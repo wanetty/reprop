@@ -142,7 +142,7 @@ public class Similitud {
 		//System.out.println("Esto es la n "+ n);
 		//System.out.println("la palabra "+termino +" esta en "+ n+ " documentos");
 		if (metodo == 1) return Math.log(1+ (cjt.get_cjt_size() / n)); //n puede ser 0 asi que sumamos 1
-		else return Math.log((cjt.get_cjt_size() - n) / n);
+		else return Math.log((1+ (cjt.get_cjt_size() - n) / n));
 	}
 	
 	private void globalizar (Map<String,Double> a, Cjt_documentos cjt, int metodo) {

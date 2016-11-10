@@ -9,10 +9,12 @@ public class Driver_documento {
 	
 	private static Scanner codigo;
 	private static Scanner scanner;
+	private static Scanner aux;
 	
 	public static void main(String[] args) throws IOException {
 		
 		Documento d = new Documento();
+		Cjt_documentos cjt = new Cjt_documentos();
 		Frase f = new Frase();
 		
 		Palabra pal = new Palabra();
@@ -21,9 +23,10 @@ public class Driver_documento {
 		String s;
 		codigo = new Scanner(System.in);
 		scanner = new Scanner(System.in);
+		aux = new Scanner(System.in);
 		
 		do {
-			System.out.println("1. Crear documento.");
+			System.out.println("1. Alta documento.");
 			System.out.println("2. Consulta título.");
 			System.out.println("3. Consulta autor.");
 			System.out.println("4. Consulta tema.");
@@ -33,40 +36,47 @@ public class Driver_documento {
 			System.out.println("8. Consulta la frase en la posición i.");
 			System.out.println("9. Consulta el vector de frecuencias del documento.");
 			System.out.println("10. Consulta el número total de palabras no funcionales del contenido del documento.");
-			System.out.println("11. Modificar titulo.");
-			System.out.println("12. Modificar autor.");
-			System.out.println("13. Modificar tema.");
-			System.out.println("14. Borrar la primera aparición de la palabra p en la frase i del contenido.");
-			System.out.println("15. Añadir una palabra al final de la frase i del contenido.");
-			System.out.println("16. Imprime el documento por pantalla.");
+			System.out.println("11. Borrar la primera aparición de la palabra p en la frase i del contenido.");
+			System.out.println("12. Añadir una palabra al final de la frase i del contenido.");
+			System.out.println("13. Imprime el documento por pantalla.");
 			System.out.println("0. Salir del driver.");
 			
 			accion = codigo.nextInt();
 			switch (accion){
 			
 			case 1:
-				
+				System.out.println("Escribe la ruta del documento.");
+				s = scanner.nextLine();
+				if (cjt.get_cjt_size() > 0) cjt.baja_individual_doc(d);
+				cjt.alta_doc(s);
+				if (cjt.get_cjt_size() == 1) System.out.println("Alta correcta.");
+				for(String clave1 : cjt.get_por_titulo().keySet()) {
+					for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()) {
+						d = cjt.get_por_titulo().get(clave1).get(clave2);
+					}
+				}
 				break;
 				
 			case 2:
 				f = d.get_titulo();
 				System.out.println("El título es: ");
-				f.escribirfrase();
+				System.out.println(f);
+				System.out.println("");
 				break;
 			case 3:
 				f = d.get_autor();
 				System.out.println("El autor es: ");
-				f.escribirfrase();
+				System.out.println(f);
+				//f.escribirfrase();
 				break;
 			case 4:
 				f = d.get_tema();
 				System.out.println("El tema es: ");
-				f.escribirfrase();
+				System.out.println(f);
 				break;
 			case 5:
-				Date da = d.get_fecha();
 				System.out.println("La fecha es: ");
-				System.out.println(da);
+				System.out.println(d.get_fecha());
 				break;
 			case 6:
 				System.out.println("El número de frases es: ");
@@ -76,7 +86,7 @@ public class Driver_documento {
 				ArrayList<Frase> c = new ArrayList<Frase>();
 				c = d.get_contenido();
 				for (int i = 0; i < c.size(); ++i) {
-					c.get(i).escribirfrase();
+					System.out.println(c.get(i));
 				}
 				break;
 			case 8:
@@ -84,49 +94,37 @@ public class Driver_documento {
 				k = scanner.nextInt();
 				f = d.get_frase(k);
 				System.out.println("La frase en la posición i es: ");
-				f.escribirfrase();
+				System.out.println(f);
 				break;
 			case 9:
 				Map<String, Double> a = new HashMap<String,Double>();
 				a = d.get_pesos();
-				System.out.println("El vector de pesos es: "+ a);
+				System.out.println("El vector de frecuencias es: "+ a);
 				break;
 			case 10:
 				System.out.println("El número total de palabras no funcionales es: ");
 				System.out.println(d.get_total_words());
 				break;
+			
 			case 11:
-				s = scanner.nextLine();
-				Frase ti = new Frase(s);
-				d.set_titulo(ti);
-				break;
-			case 12:
-				s = scanner.nextLine();
-				Frase au = new Frase(s);
-				d.set_autor(au);
-				break;
-			case 13:
-				s = scanner.nextLine();
-				Frase te = new Frase(s);
-				d.set_tema(te);
-				break;
-			case 14:
 				System.out.println("Escriba la palabra.");
-				s = scanner.nextLine();
+				s = aux.nextLine();
 				pal = new Palabra(s);
 				System.out.println("Escriba el número de frase.");
 				k = scanner.nextInt();
 				d.borrar_palabra(k, pal);
+				System.out.println("Primera aparición de la palabra "+ pal.palabra() + " de la frase número " +k+" borrada.");
 				break;
-			case 15:
+			case 12:
 				System.out.println("Escriba la palabra.");
-				s = scanner.nextLine();
+				s = aux.nextLine();
 				pal = new Palabra(s);
 				System.out.println("Escriba el número de frase.");
 				k = scanner.nextInt();
 				d.anyadir_palabra(k, pal);
+				System.out.println("Palabra "+ pal.palabra()+" añadida al dinal de la frase número "+k+".");
 				break;
-			case 16:
+			case 13:
 				d.pintar_documento();
 				break;
 				
@@ -136,3 +134,4 @@ public class Driver_documento {
 	}
 
 }
+
