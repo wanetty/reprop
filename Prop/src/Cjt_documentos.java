@@ -253,7 +253,7 @@ public class Cjt_documentos {
 	public void baja_individual_doc(Documento d) throws IOException{
 		String aut=d.get_autor().toString();
 		String tit=d.get_titulo().toString();
-		String tem=d.get_tema().toString();
+		String tem = d.get_tema().toString();
 		String fec=d.get_fecha(); 
 		if (por_titulo.containsKey(tit)) {
 			if (por_titulo.get(tit).containsKey(aut)) {

@@ -96,8 +96,16 @@ public class Documento {
 	public Frase get_tema() {
 		return tema;
 	}
-	public Date get_fecha(){
-		return fecha;
+	public String get_fecha(){
+		int anyoaux=fecha.getYear();
+		int mesaux=fecha.getMonth();
+		int diaaux=fecha.getDate();
+		String anyo = null, mes=null, dia=null;
+		anyo=anyo.valueOf(anyoaux);
+		mes=mes.valueOf(mesaux);
+		dia=dia.valueOf(diaaux);
+		String nuevo=anyo+mes+dia;
+		return nuevo;
 	}
 	public int get_num_frases(){
 		return contenido.size();
