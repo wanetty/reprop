@@ -29,11 +29,6 @@ public class Frase {
 		frase.add(pos,pal);
 	} 
 	
-	//borra una palabra de la frase, pal es la palabra a la que se quiere borrar
-	public void borrarpalabra (Palabra pal) throws IOException{
-		frase.remove(pal);
-	} 
-	
 	//borra una palabra de la frase, pos es la posicion de la palabra que se quiere borrar
 	//0<=pos<=numerodepalabrasdelafrase
 	public void borrarpalabra (int pos) throws IOException{
@@ -87,7 +82,10 @@ public class Frase {
 	//devuelve la posicion en la que se encuentra la palabra pal en la frase
 	//devuelve -1 en caso de que no se encuentre en ella
 	public int posfrase(Palabra pal) throws IOException {
-		return frase.indexOf(pal);
+		for(int i = 0; i < frase.size();++i){
+			if(frase.get(i).palabra().equals(pal.palabra()))return i;
+		}
+		return -1;
 	}
 	
 	//devuelve el elemento que hay en la posicion pos
@@ -104,8 +102,13 @@ public class Frase {
 	//escribe la frase por pantalla
 	/*!!PROBLEMA, SIGNOS DE PUNTUACION SE PIERDEN*/
 	public void escribirfrase() {
-		for (int i=0; i<frase.size(); ++i) {
-			frase.get(i).escribir();
+		String res = null;
+		for(int i=0; i<frase.size(); ++i) {
+			Palabra p=frase.get(i);
+			if (res == null) res=p.palabra();
+			else res+=p.palabra();
+			if (i != frase.size()-1) res+=(" ");
 		}
+		System.out.println(res);
 	}
 }
