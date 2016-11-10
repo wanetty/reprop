@@ -34,6 +34,7 @@ public class Frase {
 	//0<=pos<=numerodepalabrasdelafrase
 	public void borrarpalabra (int pos) throws IOException{
 		frase.remove(pos);
+		if(frase.size() == 0) frase = null;
 	} 
 	
 	//consultora
