@@ -47,7 +47,7 @@ public class Driver_documento {
 			case 1:
 				System.out.println("Escribe la ruta del documento.");
 				s = scanner.nextLine();
-				if (cjt.get_cjt_size() > 0) cjt.baja_individual_doc(d);
+				if (cjt.get_cjt_size() == 1) cjt.baja_individual_doc(d);
 				cjt.alta_doc(s);
 				if (cjt.get_cjt_size() == 1) System.out.println("Alta correcta.");
 				for(String clave1 : cjt.get_por_titulo().keySet()) {
@@ -60,19 +60,18 @@ public class Driver_documento {
 			case 2:
 				f = d.get_titulo();
 				System.out.println("El título es: ");
-				System.out.println(f);
+				f.escribirfrase();
 				System.out.println("");
 				break;
 			case 3:
 				f = d.get_autor();
 				System.out.println("El autor es: ");
-				System.out.println(f);
-				//f.escribirfrase();
+				f.escribirfrase();
 				break;
 			case 4:
 				f = d.get_tema();
 				System.out.println("El tema es: ");
-				System.out.println(f);
+				f.escribirfrase();
 				break;
 			case 5:
 				System.out.println("La fecha es: ");
@@ -86,7 +85,7 @@ public class Driver_documento {
 				ArrayList<Frase> c = new ArrayList<Frase>();
 				c = d.get_contenido();
 				for (int i = 0; i < c.size(); ++i) {
-					System.out.println(c.get(i));
+					c.get(i).escribirfrase();
 				}
 				break;
 			case 8:
@@ -94,7 +93,7 @@ public class Driver_documento {
 				k = scanner.nextInt();
 				f = d.get_frase(k);
 				System.out.println("La frase en la posición i es: ");
-				System.out.println(f);
+				f.escribirfrase();
 				break;
 			case 9:
 				Map<String, Double> a = new HashMap<String,Double>();
