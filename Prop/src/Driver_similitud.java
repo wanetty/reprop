@@ -76,6 +76,7 @@ public class Driver_similitud {
 					ArrayList<Documento> docs = new ArrayList();
 					sim.similitud_n(T,k,cjt,metodo);
 					docs = sim.get_resultado();
+					if (k > cjt.get_cjt_size()) k = cjt.get_cjt_size()-1;
 					print_resultado(T, k, docs,sim);	
 				}
 				break;
