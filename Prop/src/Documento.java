@@ -22,7 +22,7 @@ public class Documento {
 		construirPesos();
 	}
 	//Construye un mapa <string, double> que contiene palabras con su peso
-	public void construirPesos() throws IOException{
+	private void construirPesos() throws IOException{
 		int sizeDoc = contenido.size();
 		Frase fraseActual = new Frase();
 		
@@ -57,10 +57,32 @@ public class Documento {
 	//0<=numfras<=numero de frases en total del documento
 	public void borrar_palabra(int numfras, Palabra pborr) throws IOException{
 		contenido.get(numfras).borrarpalabra(pborr);
+		if (!pborr.esfuncional()) {
+			String termino = pborr.palabra().toLowerCase();
+			Double frec = pesos.get(termino);
+			--frec;
+			if (frec == 0) pesos.remove(termino);
+			else {
+				pesos.put(termino, frec);
+			}
+		}
+		
+		
 	}
 	public void anyadir_palabra(int numfras, Palabra panyad) throws IOException{
 		contenido.get(numfras).anyadirpalabra(panyad, contenido.get(numfras).midafrase());
+		if (!panyad.esfuncional()){
+			String termino = panyad.palabra().toLowerCase();
+			Double frec;
+			if (pesos.containsKey(termino)) {
+				frec = pesos.get(termino);
+				++frec;
+				pesos.put(termino, frec);
+			}
+			else pesos.put(termino, (double) 1);
+		}
 	}
+		
 	
 	public void set_titulo(Frase t){
 		titulo = t;
@@ -87,16 +109,8 @@ public class Documento {
 	public Frase get_tema() {
 		return tema;
 	}
-	public String get_fecha(){
-		int anyoaux=fecha.getYear();
-		int mesaux=fecha.getMonth();
-		int diaaux=fecha.getDate();
-		String anyo = null, mes=null, dia=null;
-		anyo=anyo.valueOf(anyoaux);
-		mes=mes.valueOf(mesaux);
-		dia=dia.valueOf(diaaux);
-		String nuevo=anyo+mes+dia;
-		return nuevo;
+	public Date get_fecha(){
+		return fecha;
 	}
 	public int get_num_frases(){
 		return contenido.size();
@@ -126,13 +140,31 @@ public class Documento {
 	
 	//modificadoras
 	
-	public void borrar_frase(int i){
-		if (i < contenido.size()) contenido.remove(i);
+	public void borrar_frase(int i) throws IOException{
+		
+		if (i < contenido.size()) {/*contenido.remove(i);*/
+			Frase f = new Frase();
+			int n = f.midafrase();
+			for (int j = 0; j < n; ++j) {
+				Palabra actual = f.posfrase(j);
+				borrar_palabra(i, actual);	
+			}
+		}
 	}
 	
-	public void set_frase(int i, Frase f){
-		if (i < contenido.size()) contenido.add(i, f);
-		else if (i == contenido.size()) contenido.add(f);
+	public void set_frase(int i, Frase f) throws IOException{
+		contenido.add(i, f);
+		Palabra actual = new Palabra();
+		for (int j = 0; j < f.midafrase(); ++j){
+			actual = f.posfrase(j);
+			String palKey = actual.palabra().toLowerCase();
+			if (pesos.containsKey(palKey)) {
+				Double frec = pesos.get(palKey);
+				++frec;
+				pesos.put(palKey, frec);
+			}
+			else pesos.put(palKey, (double) 1);	
+		}
 	}
 	
 	public void pintar_documento() {
