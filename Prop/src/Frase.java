@@ -7,6 +7,7 @@ public class Frase {
 	
 	//constructoras
 	public Frase(){
+		frase = null;
 			
 	}
 	//crea una frase a partir de un string de frase acabado en punto o algun signo
@@ -49,7 +50,7 @@ public class Frase {
 	        ++i;
 	    }
 	    if (summida > midas) {
-	        String comp=saux.substring(0, s.length());//comp guarda un prefijo de mi frase de la misma mida que el string que entra
+	        String comp= saux.substring(0, s.length());//comp guarda un prefijo de mi frase de la misma mida que el string que entra
 	        if(s.equals(comp)) {
 	            return true;
 	        }

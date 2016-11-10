@@ -28,44 +28,62 @@ public class frase_driver {
 			switch(var){
 
 			case 1:
-				System.out.println("Introduce una frase a continuacion");
+				System.out.println("Introduce una frase no vacía a continuacion");
 				s = texto.nextLine();
-				f = new Frase(s);
+				if(s.isEmpty())System.out.println("frase no añadida");
+				else f = new Frase(s);
 				break;
 			case 2:
+				if(f.frase() == null)System.out.println("Sin frase");
+				else {
 				System.out.println("Escribe la palabra que quieres añadir");
-				s = texto.nextLine();
+				p = null;
+				p = texto.nextLine();
 				pal = new Palabra(s);
 				System.out.println("Escribe en la posicion que la quieres añadir");
-				aux = texto.nextInt();
-				f.anyadirpalabra(pal,aux);
+				aux = opcion.nextInt();
+				if(f.frase() != null && aux > f.midafrase()-1) System.out.println("palabra no añadida, posicion incorrecta");
+				else f.anyadirpalabra(pal,aux);
+				}
 				break;
 			case 3:
+				if(f.frase() == null)System.out.println("Sin frase");
+				else {
 				System.out.println("Escribe la posicion de la palabra que quieres borrar");
-				aux = texto.nextInt();
-				f.borrarpalabra(aux);
+				aux = opcion.nextInt();
+				if(aux > f.midafrase()-1) System.out.println("palabra no borrada, posicion incorrecta");
+				else f.borrarpalabra(aux);
+				}
 				break;
 			case 4:
-				System.out.println("La medida de la frase es: "+ f.midafrase());
+				if(f.frase() != null) System.out.println("La medida de la frase es: "+ f.midafrase());
+				else System.out.println("Sin frase");
 				break;
 			case 5:	
-				System.out.println("La medida de la frase sin palabras funcionales es: "+ f.midafrase_significativa())                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ;
+				if(f.frase() == null)System.out.println("Sin frase");
+				else System.out.println("La medida de la frase sin palabras funcionales es: "+ f.midafrase_significativa());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
 				break;
 			case 6:	
+				if(f.frase() == null)System.out.println("Sin frase");
+				else {
 				System.out.println("Escribe la palabra que quieres consultar su posicion.");
 				p = texto.nextLine();
 				pal = new Palabra(p);
 				int i = f.posfrase(pal);
 				if(i != -1)System.out.println("La posicion de la palabra : \"" + pal.palabra() +"\" es " + i);
-				else System.out.println("no se encuentra la palabra");
+				else System.out.println("no se encuentra la palabra");}
 				break;
 			case 7:	
+				if(f.frase() == null)System.out.println("Sin frase");
+				else{
 				System.out.println("Escribe la posicion de la palabra que quieres consultar.");
-				aux = texto.nextInt();
-				System.out.println("En la posicion  : " + aux + "esta la palabra  \"" + f.posfrase(aux).palabra()+"\"");
+				aux = opcion.nextInt();
+				if(aux > f.midafrase()-1) System.out.println("palabra no consultada, posicion incorrecta");
+				else System.out.println("En la posicion  : " + aux + "esta la palabra  \"" + f.posfrase(aux).palabra()+"\"");}
 				break;
 			case 8:	
-				f.escribirfrase();
+				if(f.frase() != null) f.escribirfrase();
+				else System.out.println("Sin frase");
 				break;
 			}
 
