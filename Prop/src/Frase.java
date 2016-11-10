@@ -74,12 +74,13 @@ public class Frase {
 		}
 		return res;
 	}
-	public String frase_to_string() throws IOException {///transforma una frase en string
+	public String toString() {///transforma una frase en string
 		String res = null;
 		for(int i=0; i<frase.size(); ++i) {
 			Palabra p=frase.get(i);
-			res.concat(p.palabra());
-			if (i != frase.size()-1) res.concat(" ");
+			if (res == null) res=p.palabra();
+			else res+=p.palabra();
+			if (i != frase.size()-1) res+=(" ");
 		}
 		return res;
 	}
@@ -106,16 +107,5 @@ public class Frase {
 		for (int i=0; i<frase.size(); ++i) {
 			frase.get(i).escribir();
 		}
-	}
-	
-	public String toString() {///transforma una frase en string
-		String res = null;
-		for(int i=0; i<frase.size(); ++i) {
-			Palabra p=frase.get(i);
-			if (res == null) res=p.palabra();
-			else res+=p.palabra();
-			if (i != frase.size()-1) res+=(" ");
-		}
-		return res;
 	}
 }

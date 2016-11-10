@@ -14,25 +14,35 @@ public class Driver_similitud {
 		Similitud sim = new Similitud();
 		int accion;
 		Cjt_documentos cjt = new Cjt_documentos();
+		String s;
+		String s2;
 		codigo = new Scanner(System.in);
 		scanner = new Scanner(System.in);
+		
+		cjt.alta_doc("DocumentoAlta1.txt");
+		cjt.alta_doc("DocumentoAlta2.txt");
+		cjt.alta_doc("DocumentoAlta3.txt");
+		cjt.alta_doc("DocumentoAlta5.txt");
+		cjt.alta_doc("DocumentoAlta4.txt");
+		cjt.alta_doc("DocumentoAlta6.txt");
+		cjt.alta_doc("DocumentoAlta7.txt");
+		cjt.alta_doc("DocumentoAlta8.txt");
+		
 	
 		do {
 			
-			System.out.println("1. Subir documento.");
-			System.out.println("2. Subir múltiples documentos.");
-			System.out.println("3. Dar de baja documento.");
-			System.out.println("4. Dar de baja múltiples documentos.");
-			System.out.println("5. Iniciar operación de parecido.");
+			System.out.println("1. Alta documento.");
+			System.out.println("2. Dar de baja documento.");
+			System.out.println("3. Imprimir documentos del conjunto.");
+			System.out.println("4. Iniciar operación de parecido.");
+			
 			System.out.println("0. Salir del driver");
 			accion = codigo.nextInt();
 			switch (accion){
-			
 			case 1: 
-				System.out.println("HOLA");
-				cjt.alta_doc("C:\\Users\\win8\\Documents\\GitHub\\reprop\\Prop\\DocumentoAlta1.txt");
-				
-				
+				System.out.println("Escribe la ruta del documento.");
+				s = scanner.nextLine();
+				cjt.alta_doc(s);
 				break;
 			case 2: 
 				System.out.println("HOLA");
@@ -40,13 +50,14 @@ public class Driver_similitud {
 			case 3: 
 				System.out.println("HOLA");
 				break;
-			case 4: 
-				System.out.println("HOLA");
-				break;
-			case 5:
+			case 4:
 				Documento T = new Documento();
 				System.out.println("Dado un documento T y un natural k, obtener los k documentos más parecidos a T.");
-				System.out.println("Introduce un documento T");
+				System.out.println("Introduce título del documento T");
+				s = scanner.nextLine();
+				System.out.println("Introduce el autor del documento T");
+				s2 = scanner.nextLine();
+				T = cjt.busqueda_por_auttit(s2, s);
 				System.out.println("Introduce un natural k");
 				int k = scanner.nextInt();
 				System.out.println("1. Utilizar inverse document frequency smooth");
@@ -54,31 +65,32 @@ public class Driver_similitud {
 				int metodo = scanner.nextInt();
 				ArrayList<Documento> docs = new ArrayList();
 				sim.similitud_n(T,k,cjt,metodo);
-				print_resultado(T, k, docs);	
+				docs = sim.get_resultado();
+				print_resultado(T, k, docs,sim);	
 				break;
 			}
 		} while(accion != 0);
 	}
 	
-	static void print_resultado(Documento T, int k, ArrayList<Documento> res) throws IOException {
+	static void print_resultado(Documento T, int k, ArrayList<Documento> res, Similitud sim) throws IOException {
 		if (k > 1){
-			System.out.print("Los ");
-			System.out.print(k);
-			System.out.print(" documentos más parecidos a ");
+			System.out.print("Los " + k +" documentos más parecidos a ");
 		}
 		else {
 			System.out.print("El documento más parecido a ");
 		}
-		System.out.print(k);
-		System.out.print(" documentos más parecidos a ");
-		System.out.print(T.get_titulo().frase_to_string());
+		System.out.print(T.get_titulo().toString());
 		System.out.print(" de ");
-		System.out.print(T.get_autor().frase_to_string());
-		System.out.println(" son:");
-		for (int i = res.size()-1; i > 0; ++i){
+		System.out.println(T.get_autor().toString());
+		/*for (int i = res.size()-1; i >= 0; --i){
 			System.out.print(res.get(i).get_titulo());
 			System.out.print(" de ");
 			System.out.println(res.get(i).get_autor());
+		}
+		*/
+		for (int i = 0; i < sim.get_resultado().size(); ++i) {
+			System.out.println(sim.get_resultado().get(i).get_titulo());
+			
 		}
 	}
 }

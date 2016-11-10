@@ -38,16 +38,14 @@ public class Driver_documento {
 			System.out.println("13. Modificar tema.");
 			System.out.println("14. Borrar la primera aparición de la palabra p en la frase i del contenido.");
 			System.out.println("15. Añadir una palabra al final de la frase i del contenido.");
-			System.out.println("16. Borrar la frase en la posición i.");
-			System.out.println("17. Modificar la frase en la posición i por la frase f");
-			System.out.println("18. Imprime el documento por pantalla.");
+			System.out.println("16. Imprime el documento por pantalla.");
 			System.out.println("0. Salir del driver.");
 			
 			accion = codigo.nextInt();
 			switch (accion){
 			
 			case 1:
-				//alta doc etc
+				
 				break;
 				
 			case 2:
@@ -129,10 +127,7 @@ public class Driver_documento {
 				d.anyadir_palabra(k, pal);
 				break;
 			case 16:
-				break;
-			case 17:
-				break;
-			case 18:
+				d.pintar_documento();
 				break;
 				
 			}

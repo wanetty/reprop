@@ -25,8 +25,10 @@ public class frecuencias_globales {
 			for (int j = 0; j < sizeFrase; ++j){
 				Palabra palActual = fraseActual.posfrase(j);
 				String palKey = palActual.palabra();
-				palKey = palKey.toLowerCase();
-				if (!palActual.esfuncional()) anyadir_frecuencias(palKey,d);
+				//palKey = palKey.toLowerCase();
+				if (!palActual.esfuncional()) {
+					anyadir_frecuencias(palKey,d);
+				}
 			}
 		}
 	}
@@ -35,7 +37,7 @@ public class frecuencias_globales {
 	public void anyadir_frecuencias(String s, Documento d) throws IOException {
 		if (global.containsKey(s)) {
 			double pes = global.get(s);
-			//global.remove(palKey);
+			global.remove(s);
 			pes = pes + 1;
 			global.put(s, pes);
 		}
@@ -44,29 +46,42 @@ public class frecuencias_globales {
 		}
 		Map <String,Double> titulofreq=new HashMap<String,Double>();
 		Frase aux=d.get_titulo();
-		String sauxt=aux.frase_to_string();
+		String sauxt=aux.toString();
 		titulofreq.put(sauxt, (double) 1);
 		aux=d.get_autor();
-		String sauxa=aux.frase_to_string();
+		String sauxa=aux.toString();
 		Map <String,Map<String,Double>> auttitfreq=new HashMap<String,Map<String,Double>>();
 		auttitfreq.put(sauxa, titulofreq); //auttitfreq indica el autor, titulo a la que pertenece y que ha aparecido por primera vez la palabra
 		if (frecdoc.containsKey(s)) {
 			if (frecdoc.get(s).containsKey(sauxa) && frecdoc.get(s).get(sauxa).containsKey(sauxt)) { //comprueba si la palabra pertenece a un documento existente
 				double pes = frecdoc.get(s).get(sauxa).get(sauxt);
 				++pes;
-				frecdoc.get(s).get(sauxa).put(s,pes);
+				frecdoc.get(s).get(sauxa).remove(sauxt);
+				frecdoc.get(s).get(sauxa).put(sauxt,pes);
+			}
+			else if (frecdoc.get(s).containsKey(sauxa)) {
+				int n=numdoc.get(s);
+				++n;
+				numdoc.remove(s);
+				numdoc.put(s,n);
+				frecdoc.get(s).get(sauxa).put(sauxt,(double)1);
 			}
 			else {
-				frecdoc.put(s, auttitfreq);
-				if (numdoc.containsKey(s)) {
+				frecdoc.get(s).put(sauxa, titulofreq);
+				//if (numdoc.containsKey(s)) {
 					int n=numdoc.get(s);
 					++n;
+					numdoc.remove(s);
 					numdoc.put(s,n);
-				}
-				else numdoc.put(s,1);
+				//}
+				//else numdoc.put(s,1);
 			}
 		}
-		else frecdoc.put(s, auttitfreq);
+		else {
+			frecdoc.put(s, auttitfreq);
+			numdoc.put(s,1);
+		}
+		//System.out.println(frecdoc);
 	}
 	
 	public void borrar_frecuencias(Documento d) throws IOException {//resta la frecuencia de las palabras del documento d
@@ -79,39 +94,60 @@ public class frecuencias_globales {
 				Palabra palActual = fraseActual.posfrase(j);
 				String palKey = palActual.palabra();
 				palKey = palKey.toLowerCase();
-				if (!palActual.esfuncional()) borrar_frecuencias(palKey,d);
+				if (!palActual.esfuncional()) {
+					borrar_frecuencias(palKey,d);
+				}
 			}
 		}
 	}
 	
 	public void borrar_frecuencias(String s, Documento d) throws IOException {//resta la frecuencia de la palabra p en el documento d
-		String aut=d.get_autor().frase_to_string();
-		String tit=d.get_titulo().frase_to_string();
-		double pes=global.get(s);
-		if (pes > 1) {
-			--pes;
-			global.put(s,pes);
-			if (frecdoc.get(s).containsKey(aut) && frecdoc.get(s).get(aut).containsKey(tit)) {
-				pes=frecdoc.get(s).get(aut).get(tit);
-				--pes;
-				frecdoc.get(s).get(aut).put(tit,pes);
+		String aut=d.get_autor().toString();
+		String tit=d.get_titulo().toString();
+		if (global.containsKey(s)) {
+			double pes=global.get(s);
+			if (pes > 1) {
+				pes=pes-1;
+				global.remove(s);
+				global.put(s,pes);
+				if (frecdoc.get(s).containsKey(aut) && frecdoc.get(s).get(aut).containsKey(tit)) {
+					//System.out.print("llega aqui_?");
+					if (frecdoc.get(s).get(aut).get(tit)>1) {
+						pes=frecdoc.get(s).get(aut).get(tit);
+						--pes;
+						frecdoc.get(s).get(aut).remove(tit);
+						frecdoc.get(s).get(aut).put(tit,pes);
+					}
+					else frecdoc.get(s).get(aut).remove(tit);
+					if (frecdoc.get(s).get(aut).isEmpty()) frecdoc.get(s).remove(aut);
+					if (frecdoc.get(s).isEmpty()) frecdoc.remove(s);
+				}
+				else {
+					System.out.print("error borrar la palabra no aparece enel documento");
+				}
 			}
-			//si la palabra no existe de momento no devuelve nada
+			else {
+				global.remove(s);
+				if (frecdoc.get(s).containsKey(aut) && frecdoc.get(s).get(aut).containsKey(tit)) frecdoc.remove(s);
+				else System.out.print("error borrar la palabra no aparece enel documento");
+				if (numdoc.containsKey(s)) {
+					int n=numdoc.get(s);
+					--n;
+					numdoc.put(s,n);
+				}
+				else numdoc.remove(s);
+			}
 		}
 		else {
-			global.remove(s);
-			frecdoc.remove(s);
-			if (numdoc.containsKey(s)) {
-				int n=numdoc.get(s);
-				--n;
-				numdoc.put(s,n);
-			}
-			else numdoc.remove(s);
+			System.out.println("la palabra no existe en el documento");
 		}
 	}
 	
+	//Consultoras
+	
 	public double valor_global(String p) {//devuelve la frecuencia global de la palabra p
-		return global.get(p);
+		if (global.containsKey(p)) return global.get(p);
+		else return 0;
 	}
 	
 	//devuelve el mapa de frecuencia globales
@@ -122,7 +158,17 @@ public class frecuencias_globales {
 	//devuelve una lista de los documentos identificados por el autor y el titulo a la que pertenece la palabra s
 	public Map<String,ArrayList<String>> frecdocumentos(String s) {
 		Map<String,ArrayList<String>> res=new HashMap<String,ArrayList<String>>();
-		Iterator it= frecdoc.get(s).entrySet().iterator();
+		for (String clave1 : frecdoc.get(s).keySet()) {
+			//System.out.println(frecdoc.get(s).size());
+			ArrayList<String> arraux=new ArrayList<String>();
+			for(String clave2 : frecdoc.get(s).get(clave1).keySet()) {
+				//System.out.println(frecdoc.get(s).get(clave1).size());
+				arraux.add(clave2);
+				res.put(clave1,arraux);
+			}
+		}
+		
+		/*Iterator it= frecdoc.get(s).entrySet().iterator();
 		while (it.hasNext()) {
 			String k=(String) it.next();
 			Iterator it2=frecdoc.get(s).get(k).entrySet().iterator();
@@ -132,19 +178,29 @@ public class frecuencias_globales {
 				titaux.add(q);
 			}
 			res.put(k,titaux);
-		}
+		}*/
 		return res;
 	}
 	
 	public double valor_documento(String p, Documento d) throws IOException {//devuelve la frecuencia de la palabra en el documento
 		String a, t;
-		a=d.get_autor().frase_to_string();
-		t=d.get_titulo().frase_to_string();
-		return frecdoc.get(p).get(a).get(t);
+		a=d.get_autor().toString();
+		t=d.get_titulo().toString();
+		if (frecdoc.containsKey(p)) {
+			if (frecdoc.get(p).containsKey(a)) {
+				if(frecdoc.get(p).get(a).containsKey(t)) return frecdoc.get(p).get(a).get(t); 
+			}
+		}
+		return 0;
 	}
 	
 	public double valor_documento(String p, String a, String t) {//devuelve la frecuencia de la palabra en el documento que tiene como autor a y titulo t
-		return frecdoc.get(p).get(a).get(t);
+		if (frecdoc.containsKey(p)) {
+			if (frecdoc.get(p).containsKey(a)) {
+				if(frecdoc.get(p).get(a).containsKey(t)) return frecdoc.get(p).get(a).get(t); 
+			}
+		}
+		return 0;
 	}
 	
 	public static int apariencias_doc_palabra(String p) {

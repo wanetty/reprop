@@ -86,6 +86,8 @@ public class Bool_expresion {
 		postorden.add(actual.getValor());}
 	private boolean comprueba(String exp){
 		boolean comillas = false;
+		if (exp.isEmpty())return false;
+		if(exp.length() == 1 && (exp.charAt(0) == '&' || exp.charAt(0) == '|' || exp.charAt(0) == '&' || exp.charAt(0) == '!' ))return false;
 		if(cuenta_parentesis(exp)%2 != 0) return false;
 		if (cuenta_operadores(exp) == 0 && cuenta_parentesis(exp) > 0) return false;
 		if(exp.charAt(0) == '&' || exp.charAt(0) == '|' || exp.charAt(exp.length()-1) == '&' || exp.charAt(exp.length()-1) == '|') return false;
@@ -97,7 +99,7 @@ public class Bool_expresion {
 			if (i != 0 && i != exp.length()-1 && (exp.charAt(i) != '&' && exp.charAt(i) != '|') && (exp.charAt(i-1) == ' ' && exp.charAt(i+1) == ' ') && !comillas) return false;
 			if (exp.charAt(i) == '(' && exp.charAt(i+1) == ')' && !comillas) return false;
 			if((exp.charAt(i) == '&' || exp.charAt(i) == '|') && (exp.charAt(i+1) != ' ' || exp.charAt(i-1) != ' ' )&& !comillas) return false;
-			if(exp.charAt(i) == '!' && (exp.charAt(i+1) == ' ' || exp.charAt(i-1) != ' ' )&& !comillas) return false;
+			if(i != 0 &&exp.charAt(i) == '!' && (exp.charAt(i+1) == ' ' || exp.charAt(i-1) != ' ' )&& !comillas) return false;
 			if(exp.charAt(i) == '{' && exp.charAt(i+1) == '}' && !comillas) return false;
 			if(i != exp.length()-1 &&  exp.charAt(i) == '"' && exp.charAt(i+1) == '"') return false;
 

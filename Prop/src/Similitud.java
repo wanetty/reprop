@@ -10,32 +10,37 @@ public class Similitud {
 		
 	private ArrayList<Documento> resultado;
 	
-	public Similitud(){};
+	public Similitud(){
+		resultado = null;
+	};
 	
 	public void similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
-		for (int i = 0; i < resultado.size();++i) resultado.remove(i); //vacia el resultado
+		//if(!resultado.isEmpty()) for (int i = 0; i < resultado.size();++i) resultado.remove(i); //vacia el resultado
 		Map<Double, ArrayList<Documento>> res = new TreeMap<Double, ArrayList<Documento>>();
 		Map<Double, ArrayList<Documento>> res_ordenado = new TreeMap(Collections.reverseOrder());
-		String ti = d.get_titulo().frase_to_string();
-		String au = d.get_autor().frase_to_string();
+		String ti = d.get_titulo().toString();
+		String au = d.get_autor().toString();
 		
 		double simi;
 		for (String clave1 : cjt.get_por_titulo().keySet()) {
 			for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()){
-				simi = calculaSimilitud(d, cjt.get_por_titulo().get(clave1).get(clave2), cjt, metodo);
-				if (!res.containsKey(simi) && ((!clave1.equals(ti)) && (!clave2.equals(au)))) {
-					ArrayList<Documento> docs = new ArrayList<Documento>();
-					docs.add(cjt.get_por_titulo().get(clave1).get(clave2));
-					res.put(simi, docs);
-				}
-				if (res.containsKey(simi) && ((!clave1.equals(ti)) && (!clave2.equals(au)))) {
-					ArrayList<Documento> docs2 = res.get(simi);
-					docs2.add(cjt.get_por_titulo().get(clave1).get(clave2));
-					res.put(simi, docs2);
+				if (!(clave1 == d.get_titulo().toString() && clave2 == d.get_autor().toString())){
+					simi = calculaSimilitud(d, cjt.get_por_titulo().get(clave1).get(clave2), cjt, metodo);
+					if (!res.containsKey(simi) /*&& ((!clave1.equals(ti)) && (!clave2.equals(au)))*/) {
+						ArrayList<Documento> docs = new ArrayList<Documento>();
+						docs.add(cjt.get_por_titulo().get(clave1).get(clave2));
+						res.put(simi, docs);
+					}
+					else if (res.containsKey(simi) /*&& ((!clave1.equals(ti)) && (!clave2.equals(au)))*/) {
+						ArrayList<Documento> docs2 = res.get(simi);
+						docs2.add(cjt.get_por_titulo().get(clave1).get(clave2));
+						res.put(simi, docs2);
+					}
 				}
 			}
 		}
 		res_ordenado.putAll(res);
+		//System.out.println(res_ordenado);
 		resultado = similitud_docs(n,res_ordenado);
 	}
 	
@@ -44,6 +49,7 @@ public class Similitud {
 		int fin = 0;
 		if (n > 0) {
 			for (Double sim : a.keySet()){
+				//System.out.println("frecuencia"+sim);
 				for (int i = 0; i < a.get(sim).size(); ++i) {
 					res.add(a.get(sim).get(i));
 					++fin;
@@ -64,10 +70,13 @@ public class Similitud {
 		double nB =a.get_total_words();
 		tf(mapA,nA);
 		tf(mapB,nB);
+		//System.out.println(mapA);
+		//System.out. println(mapB);
+		//System.out.println(mapA);
 		globalizar(mapA,cjt,metodo);
 		globalizar(mapB,cjt,metodo);
-		System.out.println(mapA);
-		System.out. println(mapB);
+		//System.out.println(mapA);
+		
 		Set<String> inter = new HashSet<String>();
 		inter = getIntersection(mapA,mapB);
 		double producto = producto(mapA,mapB,inter);
@@ -81,6 +90,8 @@ public class Similitud {
 		else {
 			similitudCos = (producto / (Math.sqrt(lengthA)*Math.sqrt(lengthB)));
 		}
+		System.out.println(a.get_titulo() + "  " + b.get_titulo());
+		System.out.println(similitudCos);
 		return similitudCos;
 	}
 	
@@ -128,14 +139,18 @@ public class Similitud {
 	
 	private double idf(String termino, Cjt_documentos cjt, int metodo){
 		int n = cjt.apariencias_cjtdoc_palabra(termino); //frecuencia global del termino
-		if (metodo == 1) return Math.log(cjt.get_cjt_size() / (1+n)); //n puede ser 0 asi que sumamos 1
+		//System.out.println("Esto es la n "+ n);
+		//System.out.println("la palabra "+termino +" esta en "+ n+ " documentos");
+		if (metodo == 1) return Math.log(1+ (cjt.get_cjt_size() / n)); //n puede ser 0 asi que sumamos 1
 		else return Math.log((cjt.get_cjt_size() - n) / n);
 	}
 	
 	private void globalizar (Map<String,Double> a, Cjt_documentos cjt, int metodo) {
 		for (String clave : a.keySet()){
 			double frec = a.get(clave);
+			
 			double frec_idf = idf(clave, cjt, metodo);
+			//System.out.println("idf es "+ frec_idf);
 			a.put(clave, frec*frec_idf);
 		}
 	}
