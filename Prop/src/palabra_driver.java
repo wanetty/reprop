@@ -1,4 +1,6 @@
 
+//Creador: Eduard Gonzalez Moreno
+
 
 import java.io.IOException;
 import java.util.Scanner;
