@@ -56,7 +56,7 @@ public class Documento {
 	//nota: hay que anyadir en el caso de usos que el usuario tendria que indicar el numero de la frase a la que pertenece la palabra que se quiere borrar y la palabra borrada.
 	//0<=numfras<=numero de frases en total del documento
 	public void borrar_palabra(int numfras, Palabra pborr) throws IOException{
-		contenido.get(numfras).borrarpalabra(pborr);
+		contenido.get(numfras).borrarpalabra(contenido.get(numfras).posfrase(pborr));
 		if (!pborr.esfuncional()) {
 			String termino = pborr.palabra().toLowerCase();
 			Double frec = pesos.get(termino);

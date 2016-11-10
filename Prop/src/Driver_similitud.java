@@ -50,7 +50,18 @@ public class Driver_similitud {
 				if (cjt.get_cjt_size() > n1) System.out.println("Alta correcta.");
 				break;
 			case 2: 
-				System.out.println("HOLA");
+				System.out.println("Escribe el título del documento a dar de baja.");
+				s = aux.nextLine();
+				System.out.println("Escribe el autor del documento a dar de baja.");
+				s2 = aux2.nextLine();
+				Documento T1 = new Documento();
+				T1 = cjt.busqueda_por_auttit(s2, s);
+				if (T1.get_titulo().toString() != null && T1.get_autor().toString() != null){
+					cjt.baja_individual_doc(T1);
+					System.out.println("Documento dado de baja con éxito.");
+				}
+				else System.out.println("El documento no existe.");
+				
 				break;
 			case 3: 
 				for (String clave1 : cjt.get_por_titulo().keySet()){
@@ -79,6 +90,7 @@ public class Driver_similitud {
 					if (k > cjt.get_cjt_size()) k = cjt.get_cjt_size()-1;
 					print_resultado(T, k, docs,sim);	
 				}
+				else System.out.println("El documento no existe.");
 				break;
 			}
 		} while(accion != 0);
