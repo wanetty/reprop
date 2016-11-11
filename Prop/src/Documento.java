@@ -1,3 +1,5 @@
+//Creador: Gerard Heredia
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class Documento {
 		contenido = c;
 		construirPesos();
 	}
-	//Construye un mapa <string, double> que contiene palabras con su peso
+
 	private void construirPesos() throws IOException{
 		int sizeDoc = contenido.size();
 		Frase fraseActual = new Frase();
@@ -35,7 +37,6 @@ public class Documento {
 				Palabra palActual = fraseActual.posfrase(j);
 				String palKey = palActual.palabra();
 				palKey = palKey.toLowerCase();
-				//palabra repetida
 				if (!palActual.esfuncional()){
 					if (pesos.containsKey(palKey)) {
 						double pes = pesos.get(palKey);
@@ -51,12 +52,6 @@ public class Documento {
 		}
 	}
 
-	//modificadora
-
-	//Modificaciones
-	//de momento suponemos que desde el progama principal le pasara la posicion de la palabra en la frase
-	//nota: hay que anyadir en el caso de usos que el usuario tendria que indicar el numero de la frase a la que pertenece la palabra que se quiere borrar y la palabra borrada.
-	//0<=numfras<=numero de frases en total del documento
 	public void borrar_palabra(int numfras, Palabra pborr) throws IOException{
 		contenido.get(numfras).borrarpalabra(contenido.get(numfras).posfrase(pborr));
 		if (!pborr.esfuncional()) {
@@ -71,6 +66,7 @@ public class Documento {
 
 
 	}
+	
 	public void anyadir_palabra(int numfras, Palabra panyad) throws IOException{
 		contenido.get(numfras).anyadirpalabra(panyad, contenido.get(numfras).midafrase());
 		if (!panyad.esfuncional()){
@@ -84,8 +80,6 @@ public class Documento {
 			else pesos.put(termino, (double) 1);
 		}
 	}
-
-	//consultoras
 
 	public Frase get_titulo() {
 		return titulo;
@@ -109,11 +103,11 @@ public class Documento {
 		String nuevo=anyo+mes+dia;
 		return nuevo;
 	}
-	
+
 	public Date get_fecha_date() {
 		return fecha;
 	}
-	
+
 	public int get_num_frases(){
 		return contenido.size();
 	}
@@ -139,12 +133,9 @@ public class Documento {
 		return res;
 	}
 
-
-	//modificadoras
-
 	public void borrar_frase(int i) throws IOException{
 
-		if (i < contenido.size()) {/*contenido.remove(i);*/
+		if (i < contenido.size()) {
 			Frase f = new Frase();
 			int n = f.midafrase();
 			for (int j = 0; j < n; ++j) {
@@ -204,7 +195,7 @@ public class Documento {
 			}
 		}
 	}
-	
+
 	private void string_to_arraylist(ArrayList<Frase> c, String s) throws IOException {
 		String delimitadores= "[.;?!]";//faltan los puntos suspensivos
 		String[] frasesseparadas = s.split(delimitadores);
@@ -213,15 +204,15 @@ public class Documento {
 			c.add(aux);
 		}
 	}
-	
+
 	public void guardar_documento(String text) throws IOException {
 		String del="\\n";
-		String[] aux = text.split(del);//aux contiene parrafos
+		String[] aux = text.split(del);
 		Frase ti = new Frase(aux[1]);
 		Frase a = new Frase(aux[0]);
 		Frase te= new Frase(aux[2]);
 		ArrayList<Frase> c= new ArrayList<Frase>();
-		for (int i=3; i<aux.length; ++i) {//el for es porque en aux a partir de la posicion 3 tenemos el contenido separado por parrafos
+		for (int i=3; i<aux.length; ++i) {
 			string_to_arraylist(c,aux[i]);
 		}
 		titulo = ti;

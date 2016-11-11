@@ -2,7 +2,6 @@
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 
@@ -28,10 +27,8 @@ public class Driver_similitud {
 		cjt.alta_doc("DocumentoAlta1.txt");
 		cjt.alta_doc("DocumentoAlta2.txt");
 		cjt.alta_doc("DocumentoAlta3.txt");
-		cjt.alta_doc("DocumentoAlta5.txt");
 		cjt.alta_doc("DocumentoAlta4.txt");
-		cjt.alta_doc("DocumentoAlta6.txt");
-		cjt.alta_doc("DocumentoAlta7.txt");
+		cjt.alta_doc("DocumentoAlta5.txt");
 		
 	
 		do {
@@ -114,12 +111,6 @@ public class Driver_similitud {
 		}
 		else System.out.println(" es:");
 		
-		/*for (int i = res.size()-1; i >= 0; --i){
-			System.out.print(res.get(i).get_titulo());
-			System.out.print(" de ");
-			System.out.println(res.get(i).get_autor());
-		}
-		*/
 		for (int i = 0; i < sim.get_resultado().size(); ++i) {
 			System.out.println("\"" +sim.get_resultado().get(i).get_titulo()+"\"" + " de " + "\"" +sim.get_resultado().get(i).get_autor()+"\"");
 		}

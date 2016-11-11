@@ -1,30 +1,33 @@
 //Gerard Heredia
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Driver_documento {
-	
+
 	private static Scanner codigo;
 	private static Scanner scanner;
 	private static Scanner aux;
-	
+
 	public static void main(String[] args) throws IOException {
 		
+		System.out.println("Bienvenido/a al driver de la clase Documento. Por favor dé de alta un documento.");
+
 		Documento d = new Documento();
 		Frase f = new Frase();
 		Palabra pal = new Palabra();
 		int accion;
 		int k;
+		boolean hay_doc = false;
 		String s;
 		codigo = new Scanner(System.in);
 		scanner = new Scanner(System.in);
 		aux = new Scanner(System.in);
-		
+
 		do {
 			System.out.println("1. Alta documento.");
 			System.out.println("2. Consulta título.");
@@ -40,138 +43,130 @@ public class Driver_documento {
 			System.out.println("12. Añadir una palabra al final de la frase i del contenido.");
 			System.out.println("13. Imprime el documento por pantalla.");
 			System.out.println("0. Salir del driver.");
-			
+
 			accion = codigo.nextInt();
 			switch (accion){
-			
+
 			case 1:
 				System.out.println("Escribe la ruta del documento.");
 				s = scanner.nextLine();
-				d = new Documento(s);
+				File fi = new File(s);
+				if (!fi.isFile()) System.out.println("No existe el documento.");
+				else {
+					d = new Documento(s);
+					hay_doc = true;
+				}
 				break;
 			case 2:
-				f = d.get_titulo();
-				System.out.println("El título es: ");
-				f.escribirfrase();
-				System.out.println("");
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					f = d.get_titulo();
+					System.out.println("El título es: ");
+					f.escribirfrase();
+					System.out.println("");
+				}
 				break;
 			case 3:
-				f = d.get_autor();
-				System.out.println("El autor es: ");
-				f.escribirfrase();
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					f = d.get_autor();
+					System.out.println("El autor es: ");
+					f.escribirfrase();
+				}
 				break;
 			case 4:
-				f = d.get_tema();
-				System.out.println("El tema es: ");
-				f.escribirfrase();
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					f = d.get_tema();
+					System.out.println("El tema es: ");
+					f.escribirfrase();
+				}
 				break;
 			case 5:
-				System.out.println("La fecha es: ");
-				System.out.println(d.get_fecha_date());
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("La fecha es: ");
+					System.out.println(d.get_fecha_date());
+				}
 				break;
 			case 6:
-				System.out.println("El número de frases es: ");
-				System.out.println(d.get_num_frases());
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("El número de frases es: ");
+					System.out.println(d.get_num_frases());
+				}
 				break;
 			case 7:
-				System.out.println("El contenido del documento es: ");
-				ArrayList<Frase> c = new ArrayList<Frase>();
-				c = d.get_contenido();
-				for (int i = 0; i < c.size(); ++i) {
-					c.get(i).escribirfrase();
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("El contenido del documento es: ");
+					ArrayList<Frase> c = new ArrayList<Frase>();
+					c = d.get_contenido();
+					for (int i = 0; i < c.size(); ++i) {
+						c.get(i).escribirfrase();
+					}
 				}
 				break;
 			case 8:
-				System.out.println("Inserte un natural i.");
-				k = scanner.nextInt();
-				f = d.get_frase(k);
-				System.out.println("La frase en la posición i es: ");
-				f.escribirfrase();
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("Inserte un natural i.");
+					k = scanner.nextInt();
+					f = d.get_frase(k);
+					System.out.println("La frase en la posición i es: ");
+					f.escribirfrase();
+				}
 				break;
 			case 9:
-				Map<String, Double> a = new HashMap<String,Double>();
-				a = d.get_pesos();
-				System.out.println("El vector de frecuencias es: "+ a);
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					Map<String, Double> a = new HashMap<String,Double>();
+					a = d.get_pesos();
+					System.out.println("El vector de frecuencias es: "+ a);
+				}
 				break;
 			case 10:
-				System.out.println("El número total de palabras no funcionales es: ");
-				System.out.println(d.get_total_words());
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("El número total de palabras no funcionales es: ");
+					System.out.println(d.get_total_words());
+				}
 				break;
-			
+
 			case 11:
-				System.out.println("Escriba la palabra.");
-				s = aux.nextLine();
-				pal = new Palabra(s);
-				System.out.println("Escriba el número de frase.");
-				k = scanner.nextInt();
-				d.borrar_palabra(k, pal);
-				System.out.println("Primera aparición de la palabra "+ pal.palabra() + " de la frase número " +k+" borrada.");
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("Escriba la palabra.");
+					s = aux.nextLine();
+					pal = new Palabra(s);
+					System.out.println("Escriba el número de frase.");
+					k = scanner.nextInt();
+					d.borrar_palabra(k, pal);
+					System.out.println("Primera aparición de la palabra "+ pal.palabra() + " de la frase número " +k+" borrada.");
+				}
 				break;
 			case 12:
-				System.out.println("Escriba la palabra.");
-				s = aux.nextLine();
-				pal = new Palabra(s);
-				System.out.println("Escriba el número de frase.");
-				k = scanner.nextInt();
-				d.anyadir_palabra(k, pal);
-				System.out.println("Palabra "+ pal.palabra()+" añadida al dinal de la frase número "+k+".");
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("Escriba la palabra.");
+					s = aux.nextLine();
+					pal = new Palabra(s);
+					System.out.println("Escriba el número de frase.");
+					k = scanner.nextInt();
+					d.anyadir_palabra(k, pal);
+					System.out.println("Palabra "+ pal.palabra()+" añadida al dinal de la frase número "+k+".");
+				}
 				break;
 			case 13:
-				d.pintar_documento();
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else d.pintar_documento();
 				break;
-				
+
 			}
 		}while (accion != 0);
-		
-		/*System.out.println("Introduce el directorio donde se encuentra el documento");
-		String directorio=texto.nextLine();
-		File carpeta=new File(directorio);
-		if (carpeta.isDirectory()) {
-			System.out.println("Introduce el nombre de un documento");
-			String tituloint=texto.nextLine();
-			File[] ficheros=carpeta.listFiles();
-			int j=0;
-			boolean trobat=false;
-			while (j<ficheros.length && !trobat) {
-				if (ficheros[j].getName().equals(tituloint)) trobat=true;
-				++j;
-			}
-			if (trobat) {
-				BufferedReader in = new BufferedReader(new FileReader(tituloint));
-				String funcional = in.readLine();
-				if (!funcional.isEmpty()) {
-					Frase a=new Frase(funcional);
-					funcional=in.readLine();
-					if (!funcional.isEmpty()) {
-						Frase ti=new Frase(funcional);
-						funcional=in.readLine();
-						Frase te=new Frase(funcional);
-						funcional=in.readLine();
-						ArrayList<Frase> c= new ArrayList<Frase>();
-						String delimitadores= "[.;?!:]";
-						while (funcional != null){
-							String[] frasesseparadas = funcional.split(delimitadores);
-							for (int i=0; i<frasesseparadas.length; ++i) {
-								funcional=frasesseparadas[i];
-								c.add(new Frase(funcional));
-							}
-							funcional = in.readLine();
-						} 
-						d=new Documento(ti,a,te,c);
-						System.out.println("Documento leido correctamente");
-					}
-					else System.out.println("Formato de documento incorrecto: autor no puede ser vacio"); 
-				}
-				else System.out.println("Formato de documento incorrecto: titulo no puede ser vacio");
-				in.close();
-			}
-			else System.out.println("El documento no existe en el directorio introducido");
-		}
-		else System.out.println("El directorio no existe o esta mal introducido");
-		*/
-		
+
 	}
-	
+
 
 }
 

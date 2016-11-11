@@ -17,23 +17,20 @@ public class Similitud {
 	};
 	
 	public void similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
-		//if(!resultado.isEmpty()) for (int i = 0; i < resultado.size();++i) resultado.remove(i); //vacia el resultado
 		Map<Double, ArrayList<Documento>> res = new TreeMap<Double, ArrayList<Documento>>();
 		Map<Double, ArrayList<Documento>> res_ordenado = new TreeMap(Collections.reverseOrder());
-		String ti = d.get_titulo().toString();
-		String au = d.get_autor().toString();
 		
 		double simi;
 		for (String clave1 : cjt.get_por_titulo().keySet()) {
 			for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()){
 				if (!(clave1 == d.get_titulo().toString() && clave2 == d.get_autor().toString())){
 					simi = calculaSimilitud(d, cjt.get_por_titulo().get(clave1).get(clave2), cjt, metodo);
-					if (!res.containsKey(simi) /*&& ((!clave1.equals(ti)) && (!clave2.equals(au)))*/) {
+					if (!res.containsKey(simi)) {
 						ArrayList<Documento> docs = new ArrayList<Documento>();
 						docs.add(cjt.get_por_titulo().get(clave1).get(clave2));
 						res.put(simi, docs);
 					}
-					else if (res.containsKey(simi) /*&& ((!clave1.equals(ti)) && (!clave2.equals(au)))*/) {
+					else if (res.containsKey(simi)) {
 						ArrayList<Documento> docs2 = res.get(simi);
 						docs2.add(cjt.get_por_titulo().get(clave1).get(clave2));
 						res.put(simi, docs2);
@@ -83,7 +80,7 @@ public class Similitud {
 		if (lengthA <= 0.0 || lengthB <= 0.0){
 			similitudCos = 0.0;
 		}
-		//La fórmula del coseno
+	
 		else {
 			similitudCos = (producto / (Math.sqrt(lengthA)*Math.sqrt(lengthB)));
 		}
@@ -104,7 +101,6 @@ public class Similitud {
 		}
 	}
 	
-	//calcula el length de los vectores. La suma del cuadrado de los pesos.
 	
 	private double getLength(Map<String,Double> a){
 		double res = 0.0d;
@@ -114,7 +110,6 @@ public class Similitud {
 		return res;
 	}
 	
-	//Guarda la intersección de los dos vectores en un set
 	
 	private Set<String> getIntersection(Map<String,Double> a, Map<String,Double> b){
 		Set<String> intersection = new HashSet<String>(a.keySet());
@@ -122,7 +117,6 @@ public class Similitud {
 		return intersection;
 	}
 	
-	//Calcula el dot product de los dos vectores
 	
 	private double producto(Map<String,Double> a, Map<String,Double> b, Set<String> intersection){
 		double prod = 0;
