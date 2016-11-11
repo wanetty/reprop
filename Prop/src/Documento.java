@@ -66,7 +66,7 @@ public class Documento {
 
 
 	}
-	
+
 	public void anyadir_palabra(int numfras, Palabra panyad) throws IOException{
 		contenido.get(numfras).anyadirpalabra(panyad, contenido.get(numfras).midafrase());
 		if (!panyad.esfuncional()){
@@ -189,11 +189,14 @@ public class Documento {
 						contenido.add(new Frase(funcional));
 					}
 					funcional = in.readLine();
-				} 
+				}
 				construirPesos();
-				in.close();
+				System.out.println("Documento leido correctamente");
 			}
+			else System.out.println("Formato de documento incorrecto: autor no puede ser vacio");
 		}
+		else System.out.println("Formato de documento incorrecto: titulo no puede ser vacio");
+		in.close();
 	}
 
 	private void string_to_arraylist(ArrayList<Frase> c, String s) throws IOException {
