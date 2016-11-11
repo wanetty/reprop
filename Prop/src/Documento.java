@@ -210,12 +210,12 @@ public class Documento {
 
 	public void guardar_documento(String text) throws IOException {
 		String del="\\n";
-		String[] aux = text.split(del);
+		String[] aux = text.split(del);//aux contiene parrafos
 		Frase ti = new Frase(aux[1]);
 		Frase a = new Frase(aux[0]);
 		Frase te= new Frase(aux[2]);
 		ArrayList<Frase> c= new ArrayList<Frase>();
-		for (int i=3; i<aux.length; ++i) {
+		for (int i=3; i<aux.length; ++i) {//el for es porque en aux a partir de la posicion 3 tenemos el contenido separado por parrafos
 			string_to_arraylist(c,aux[i]);
 		}
 		titulo = ti;
@@ -223,5 +223,6 @@ public class Documento {
 		tema = te;
 		contenido = c;
 		construirPesos();
+		System.out.println("Documento leido correctamente");
 	}
 }
