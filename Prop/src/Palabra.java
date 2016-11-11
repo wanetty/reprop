@@ -15,11 +15,7 @@ public class Palabra {
 	}
 
 	public Palabra (String pal){
-		if (comprobar(pal)){
-			if(pal.charAt(0) == '(' || pal.charAt(0) == ')' || pal.charAt(0) == '[' || pal.charAt(0) == ']'|| pal.charAt(0) == '{' || pal.charAt(0) == '{') pal = pal.substring(1,pal.length());
-			if(pal.charAt(pal.length()-1) == ')' || pal.charAt(pal.length()-1) == '(' || pal.charAt(pal.length()-1) == '[' || pal.charAt(pal.length()-1) == ']' || pal.charAt(pal.length()-1) == '{'|| pal.charAt(pal.length()-1) == '}') pal = pal.substring(0,pal.length()-1);
-			palabra = pal.toLowerCase();
-		}
+		if (comprobar(pal))palabra = pal.toLowerCase();	
 		else palabra = null;
 	}
 
@@ -27,11 +23,7 @@ public class Palabra {
 	//modificadora 
 
 	public void modificar (String pal) {
-		if (comprobar(pal)){
-			if(pal.charAt(0) == '(' || pal.charAt(0) == ')' || pal.charAt(0) == '[' || pal.charAt(0) == ']'|| pal.charAt(0) == '{' || pal.charAt(0) == '{') pal = pal.substring(1,pal.length());
-			if(pal.charAt(pal.length()-1) == ')' || pal.charAt(pal.length()-1) == '(' || pal.charAt(pal.length()-1) == '[' || pal.charAt(pal.length()-1) == ']' || pal.charAt(pal.length()-1) == '{'|| pal.charAt(pal.length()-1) == '}') pal = pal.substring(0,pal.length()-1);
-			palabra = pal.toLowerCase();
-		}
+		if (comprobar(pal))palabra = pal.toLowerCase();	
 		else palabra = null;
 	} 
 
