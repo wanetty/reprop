@@ -1,3 +1,5 @@
+//Gerard Heredia
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -121,7 +123,55 @@ public class Driver_documento {
 			}
 		}while (accion != 0);
 		
+		/*System.out.println("Introduce el directorio donde se encuentra el documento");
+		String directorio=texto.nextLine();
+		File carpeta=new File(directorio);
+		if (carpeta.isDirectory()) {
+			System.out.println("Introduce el nombre de un documento");
+			String tituloint=texto.nextLine();
+			File[] ficheros=carpeta.listFiles();
+			int j=0;
+			boolean trobat=false;
+			while (j<ficheros.length && !trobat) {
+				if (ficheros[j].getName().equals(tituloint)) trobat=true;
+				++j;
+			}
+			if (trobat) {
+				BufferedReader in = new BufferedReader(new FileReader(tituloint));
+				String funcional = in.readLine();
+				if (!funcional.isEmpty()) {
+					Frase a=new Frase(funcional);
+					funcional=in.readLine();
+					if (!funcional.isEmpty()) {
+						Frase ti=new Frase(funcional);
+						funcional=in.readLine();
+						Frase te=new Frase(funcional);
+						funcional=in.readLine();
+						ArrayList<Frase> c= new ArrayList<Frase>();
+						String delimitadores= "[.;?!:]";
+						while (funcional != null){
+							String[] frasesseparadas = funcional.split(delimitadores);
+							for (int i=0; i<frasesseparadas.length; ++i) {
+								funcional=frasesseparadas[i];
+								c.add(new Frase(funcional));
+							}
+							funcional = in.readLine();
+						} 
+						d=new Documento(ti,a,te,c);
+						System.out.println("Documento leido correctamente");
+					}
+					else System.out.println("Formato de documento incorrecto: autor no puede ser vacio"); 
+				}
+				else System.out.println("Formato de documento incorrecto: titulo no puede ser vacio");
+				in.close();
+			}
+			else System.out.println("El documento no existe en el directorio introducido");
+		}
+		else System.out.println("El directorio no existe o esta mal introducido");
+		*/
+		
 	}
+	
 
 }
 
