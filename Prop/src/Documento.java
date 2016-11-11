@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +15,7 @@ public class Documento {
 	private ArrayList<Frase> contenido = new ArrayList<Frase>();
 	private Map<String, Double> pesos = new HashMap<String, Double>();//constructoras
 	public Documento(){}
-	
+
 	public Documento(Frase ti, Frase a, Frase te, ArrayList<Frase> c) throws IOException{
 		titulo = ti;
 		autor = a;
@@ -25,7 +27,7 @@ public class Documento {
 	private void construirPesos() throws IOException{
 		int sizeDoc = contenido.size();
 		Frase fraseActual = new Frase();
-		
+
 		for (int i = 0; i < sizeDoc; ++i) {
 			fraseActual = contenido.get(i);
 			int sizeFrase = fraseActual.midafrase();
@@ -48,9 +50,9 @@ public class Documento {
 			}
 		}
 	}
-	
+
 	//modificadora
-	
+
 	//Modificaciones
 	//de momento suponemos que desde el progama principal le pasara la posicion de la palabra en la frase
 	//nota: hay que anyadir en el caso de usos que el usuario tendria que indicar el numero de la frase a la que pertenece la palabra que se quiere borrar y la palabra borrada.
@@ -66,8 +68,8 @@ public class Documento {
 				pesos.put(termino, frec);
 			}
 		}
-		
-		
+
+
 	}
 	public void anyadir_palabra(int numfras, Palabra panyad) throws IOException{
 		contenido.get(numfras).anyadirpalabra(panyad, contenido.get(numfras).midafrase());
@@ -82,17 +84,17 @@ public class Documento {
 			else pesos.put(termino, (double) 1);
 		}
 	}
-	
+
 	//consultoras
-	
+
 	public Frase get_titulo() {
 		return titulo;
 	}
-	
+
 	public Frase get_autor() {
 		return autor;
 	}
-	
+
 	public Frase get_tema() {
 		return tema;
 	}
@@ -107,21 +109,26 @@ public class Documento {
 		String nuevo=anyo+mes+dia;
 		return nuevo;
 	}
+	
+	public Date get_fecha_date() {
+		return fecha;
+	}
+	
 	public int get_num_frases(){
 		return contenido.size();
 	}
 	public ArrayList<Frase> get_contenido(){
 		return contenido;
 	}
-	
+
 	public Frase get_frase(int i){
 		return contenido.get(i);
 	}
-	
+
 	public Map<String, Double> get_pesos(){
 		return pesos;
 	}
-	
+
 	public double get_total_words() throws IOException{
 		double res = 0;
 		Frase aux = new Frase();
@@ -131,12 +138,12 @@ public class Documento {
 		}
 		return res;
 	}
-	
-	
+
+
 	//modificadoras
-	
+
 	public void borrar_frase(int i) throws IOException{
-		
+
 		if (i < contenido.size()) {/*contenido.remove(i);*/
 			Frase f = new Frase();
 			int n = f.midafrase();
@@ -146,7 +153,7 @@ public class Documento {
 			}
 		}
 	}
-	
+
 	public void set_frase(int i, Frase f) throws IOException{
 		contenido.add(i, f);
 		Palabra actual = new Palabra();
@@ -161,7 +168,7 @@ public class Documento {
 			else pesos.put(palKey, (double) 1);	
 		}
 	}
-	
+
 	public void pintar_documento() {
 		System.out.println(titulo.toString());
 		System.out.println(autor.toString());
@@ -169,6 +176,32 @@ public class Documento {
 		for (int i=0; i<contenido.size(); ++i) {
 			System.out.print(contenido.get(i).toString());
 			System.out.println(".");
+		}
+	}
+
+	public Documento(String raiz) throws IOException {
+		BufferedReader in = new BufferedReader(new FileReader(raiz));
+		String funcional = in.readLine();
+		if (!funcional.isEmpty()) {
+			autor=new Frase(funcional);
+			funcional=in.readLine();
+			if (!funcional.isEmpty()) {
+				titulo=new Frase(funcional);
+				funcional=in.readLine();
+				tema=new Frase(funcional);
+				funcional=in.readLine();
+				String delimitadores= "[.;?!:]";
+				while (funcional != null){
+					String[] frasesseparadas = funcional.split(delimitadores);
+					for (int i=0; i<frasesseparadas.length; ++i) {
+						funcional=frasesseparadas[i];
+						contenido.add(new Frase(funcional));
+					}
+					funcional = in.readLine();
+				} 
+				construirPesos();
+				in.close();
+			}
 		}
 	}
 }

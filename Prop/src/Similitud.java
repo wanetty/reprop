@@ -40,7 +40,6 @@ public class Similitud {
 			}
 		}
 		res_ordenado.putAll(res);
-		//System.out.println(res_ordenado);
 		resultado = similitud_docs(n,res_ordenado);
 	}
 	
@@ -49,7 +48,6 @@ public class Similitud {
 		int fin = 0;
 		if (n > 0) {
 			for (Double sim : a.keySet()){
-				//System.out.println("frecuencia"+sim);
 				for (int i = 0; i < a.get(sim).size(); ++i) {
 					res.add(a.get(sim).get(i));
 					++fin;
@@ -70,12 +68,9 @@ public class Similitud {
 		double nB =a.get_total_words();
 		tf(mapA,nA);
 		tf(mapB,nB);
-		//System.out.println(mapA);
-		//System.out. println(mapB);
-		//System.out.println(mapA);
+		
 		globalizar(mapA,cjt,metodo);
 		globalizar(mapB,cjt,metodo);
-		//System.out.println(mapA);
 		
 		Set<String> inter = new HashSet<String>();
 		inter = getIntersection(mapA,mapB);
@@ -90,8 +85,6 @@ public class Similitud {
 		else {
 			similitudCos = (producto / (Math.sqrt(lengthA)*Math.sqrt(lengthB)));
 		}
-		System.out.println(a.get_titulo() + "  " + b.get_titulo());
-		System.out.println(similitudCos);
 		return similitudCos;
 	}
 	
@@ -138,10 +131,8 @@ public class Similitud {
 	}
 	
 	private double idf(String termino, Cjt_documentos cjt, int metodo){
-		int n = cjt.apariencias_cjtdoc_palabra(termino); //frecuencia global del termino
-		//System.out.println("Esto es la n "+ n);
-		//System.out.println("la palabra "+termino +" esta en "+ n+ " documentos");
-		if (metodo == 1) return Math.log(1+ (cjt.get_cjt_size() / n)); //n puede ser 0 asi que sumamos 1
+		int n = cjt.apariencias_cjtdoc_palabra(termino); 
+		if (metodo == 1) return Math.log(1+ (cjt.get_cjt_size() / n)); 
 		else return Math.log((1+ (cjt.get_cjt_size() - n) / n));
 	}
 	
@@ -150,7 +141,6 @@ public class Similitud {
 			double frec = a.get(clave);
 			
 			double frec_idf = idf(clave, cjt, metodo);
-			//System.out.println("idf es "+ frec_idf);
 			a.put(clave, frec*frec_idf);
 		}
 	}

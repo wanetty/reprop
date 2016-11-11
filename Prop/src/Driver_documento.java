@@ -14,9 +14,7 @@ public class Driver_documento {
 	public static void main(String[] args) throws IOException {
 		
 		Documento d = new Documento();
-		Cjt_documentos cjt = new Cjt_documentos();
 		Frase f = new Frase();
-		
 		Palabra pal = new Palabra();
 		int accion;
 		int k;
@@ -47,16 +45,8 @@ public class Driver_documento {
 			case 1:
 				System.out.println("Escribe la ruta del documento.");
 				s = scanner.nextLine();
-				if (cjt.get_cjt_size() == 1) cjt.baja_individual_doc(d);
-				cjt.alta_doc(s);
-				if (cjt.get_cjt_size() == 1) System.out.println("Alta correcta.");
-				for(String clave1 : cjt.get_por_titulo().keySet()) {
-					for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()) {
-						d = cjt.get_por_titulo().get(clave1).get(clave2);
-					}
-				}
+				d = new Documento(s);
 				break;
-				
 			case 2:
 				f = d.get_titulo();
 				System.out.println("El título es: ");
@@ -75,13 +65,14 @@ public class Driver_documento {
 				break;
 			case 5:
 				System.out.println("La fecha es: ");
-				System.out.println(d.get_fecha());
+				System.out.println(d.get_fecha_date());
 				break;
 			case 6:
 				System.out.println("El número de frases es: ");
 				System.out.println(d.get_num_frases());
 				break;
 			case 7:
+				System.out.println("El contenido del documento es: ");
 				ArrayList<Frase> c = new ArrayList<Frase>();
 				c = d.get_contenido();
 				for (int i = 0; i < c.size(); ++i) {
