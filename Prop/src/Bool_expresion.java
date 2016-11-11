@@ -84,11 +84,15 @@ public class Bool_expresion {
 		if(actual.getNodoIz()!= null) orden(actual.getNodoIz());
 		if(actual.getNodoDer() != null)orden(actual.getNodoDer());
 		postorden.add(actual.getValor());}
-	private boolean comprueba(String exp){
+	private boolean comprueba(String exp) throws IOException{
 		boolean comillas = false;
 		if (exp.isEmpty())return false;
 		if(exp.length() == 1 && (exp.charAt(0) == '&' || exp.charAt(0) == '|' || exp.charAt(0) == '&' || exp.charAt(0) == '!' ))return false;
 		if(cuenta_parentesis(exp)%2 != 0) return false;
+		if(cuenta_operadores(exp) == 0){
+			Frase f = new Frase(exp);
+			if(f.midafrase() != 1) return false;
+		}
 		if (cuenta_operadores(exp) == 0 && cuenta_parentesis(exp) > 0) return false;
 		if(exp.charAt(0) == '&' || exp.charAt(0) == '|' || exp.charAt(exp.length()-1) == '&' || exp.charAt(exp.length()-1) == '|') return false;
 		for (int i = 0; i < exp.length();++i){
