@@ -51,7 +51,7 @@ public class frase_driver {
 				else {
 				System.out.println("Escribe la posicion de la palabra que quieres borrar");
 				aux = opcion.nextInt();
-				if(aux > f.midafrase()-1) System.out.println("palabra no borrada, posicion incorrecta");
+				if(aux > f.midafrase()-1 && aux < 0) System.out.println("palabra no borrada, posicion incorrecta");
 				else f.borrarpalabra(aux);
 				}
 				break;
@@ -78,7 +78,7 @@ public class frase_driver {
 				else{
 				System.out.println("Escribe la posicion de la palabra que quieres consultar.");
 				aux = opcion.nextInt();
-				if(aux > f.midafrase()-1) System.out.println("palabra no consultada, posicion incorrecta");
+				if(aux > f.midafrase()-1 && aux < 0) System.out.println("palabra no consultada, posicion incorrecta");
 				else System.out.println("En la posicion  : " + aux + "esta la palabra  \"" + f.posfrase(aux).palabra()+"\"");}
 				break;
 			case 8:	

@@ -25,12 +25,11 @@ public class frecuencias_driver {
 			System.out.println("3. borrar_frecuencias(Documento d)");
 			System.out.println("4. borrar_frecuencias(String s, Documento d)");
 			System.out.println("5. valor_global(String p)");
-			System.out.println("6. frecglobal");
-			System.out.println("7. frecdocumentos(String p)");
-			System.out.println("8. valor_documento(String p, Documento d)");
-			System.out.println("9. valor_documento(String p, String a, String t)");
-			System.out.println("10. apariencias_doc_palabra(String p)");
-			System.out.println("11. lee un documento");
+			System.out.println("6. frecdocumentos(String p)");
+			System.out.println("7. valor_documento(String p, Documento d)");
+			System.out.println("8. valor_documento(String p, String a, String t)");
+			System.out.println("9. apariencias_doc_palabra(String p)");
+			System.out.println("10. lee un documento");
 			System.out.println("0. Salir del driver.");
 			var = opcion.nextInt();
 			switch(var){
@@ -75,14 +74,6 @@ public class frecuencias_driver {
 			case 6:	
 				if (d==null) System.out.println("No hay ningun documento leido");
 				else {
-					Map<String,Double> m=f.frecglobal();
-					System.out.println("m contiene un mapa que indica la frecuencia global de cada palabra");
-					System.out.println(m);
-				}
-				break;
-			case 7:	
-				if (d==null) System.out.println("No hay ningun documento leido");
-				else {
 					System.out.println("Introduce una palabra");  
 					System.out.println("fdoc contiene un mapa que guarda los documentos a los que pertenece la palabra introducida,"+
 					"contiene como llave el autor y como valor una lista de titulos");
@@ -90,14 +81,14 @@ public class frecuencias_driver {
 					System.out.println(fdoc);
 				}
 				break;
-			case 8:	
+			case 7:	
 				if (d==null) System.out.println("No hay ningun documento leido");
 				else {
 					System.out.println("Introduce una palabra");
 					System.out.println("La palabra introducida aparece en el documento " + f.valor_documento(texto.nextLine(),d)+ " veces");
 				}
 				break;
-			case 9:	
+			case 8:	
 				if (d==null) System.out.println("No hay ningun documento leido");
 				else {
 					System.out.println("Introduce una palabra");
@@ -106,14 +97,14 @@ public class frecuencias_driver {
 					System.out.println("La palabra introducida aparece en el documento "+ f.valor_documento(texto.nextLine(),texto.nextLine(),texto.nextLine())+" veces");
 				}
 				break;
-			case 10:	
+			case 9:	
 				if (d==null) System.out.println("No hay ningun documento leido");
 				else {
 					System.out.println("Introduce una palabra"); 
 					System.out.println("La palabra introducida aparece en el documento " + f.apariencias_doc_palabra(texto.nextLine())+ " veces");
 				}
 				break;
-			case 11:
+			case 10:
 				System.out.println("Introduce el directorio donde se encuentra el documento");
 				String directorio=texto.nextLine();
 				File carpeta=new File(directorio);

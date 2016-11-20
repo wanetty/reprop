@@ -1,9 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 
 public class frecuencias_globales {
@@ -25,7 +23,6 @@ public class frecuencias_globales {
 			for (int j = 0; j < sizeFrase; ++j){
 				Palabra palActual = fraseActual.posfrase(j);
 				String palKey = palActual.palabra();
-				//palKey = palKey.toLowerCase();
 				if (!palActual.esfuncional()) {
 					anyadir_frecuencias(palKey,d);
 				}
@@ -111,7 +108,6 @@ public class frecuencias_globales {
 				global.remove(s);
 				global.put(s,pes);
 				if (frecdoc.get(s).containsKey(aut) && frecdoc.get(s).get(aut).containsKey(tit)) {
-					//System.out.print("llega aqui_?");
 					if (frecdoc.get(s).get(aut).get(tit)>1) {
 						pes=frecdoc.get(s).get(aut).get(tit);
 						--pes;
@@ -150,35 +146,18 @@ public class frecuencias_globales {
 		else return 0;
 	}
 	
-	//devuelve el mapa de frecuencia globales
-	public Map<String,Double> frecglobal() {
-		return global;
-	}
-	
 	//devuelve una lista de los documentos identificados por el autor y el titulo a la que pertenece la palabra s
 	public Map<String,ArrayList<String>> frecdocumentos(String s) {
 		Map<String,ArrayList<String>> res=new HashMap<String,ArrayList<String>>();
-		for (String clave1 : frecdoc.get(s).keySet()) {
-			//System.out.println(frecdoc.get(s).size());
-			ArrayList<String> arraux=new ArrayList<String>();
-			for(String clave2 : frecdoc.get(s).get(clave1).keySet()) {
-				//System.out.println(frecdoc.get(s).get(clave1).size());
-				arraux.add(clave2);
-				res.put(clave1,arraux);
+		if (frecdoc.containsKey(s)) {
+			for (String clave1 : frecdoc.get(s).keySet()) {
+				ArrayList<String> arraux=new ArrayList<String>();
+				for(String clave2 : frecdoc.get(s).get(clave1).keySet()) {
+					arraux.add(clave2);
+					res.put(clave1,arraux);
+				}
 			}
 		}
-		
-		/*Iterator it= frecdoc.get(s).entrySet().iterator();
-		while (it.hasNext()) {
-			String k=(String) it.next();
-			Iterator it2=frecdoc.get(s).get(k).entrySet().iterator();
-			ArrayList<String> titaux=new ArrayList<String>(); 
-			while(it2.hasNext()) {
-				String q=(String) it2.next();
-				titaux.add(q);
-			}
-			res.put(k,titaux);
-		}*/
 		return res;
 	}
 	

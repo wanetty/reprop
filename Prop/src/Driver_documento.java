@@ -1,4 +1,4 @@
-//Gerard Heredia
+//Creador: Gerard Heredia
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class Driver_documento {
 	private static Scanner aux;
 
 	public static void main(String[] args) throws IOException {
-		
+
 		System.out.println("Bienvenido/a al driver de la clase Documento. Por favor dé de alta un documento.");
 
 		Documento d = new Documento();
@@ -110,11 +110,12 @@ public class Driver_documento {
 			case 8:
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else {
-					System.out.println("Inserte un natural i.");
+					System.out.println("Inserte un natural i, el número 0 equivale a la primera frase.");
 					k = scanner.nextInt();
 					f = d.get_frase(k);
-					System.out.println("La frase en la posición i es: ");
-					f.escribirfrase();
+					if(f == null) System.out.println("Natural i incorrecto, no se ha podido realizar la accion");
+					else {System.out.println("La frase en la posición "+ k + " es: ");
+					f.escribirfrase();}
 				}
 				break;
 			case 9:
@@ -139,10 +140,17 @@ public class Driver_documento {
 					System.out.println("Escriba la palabra.");
 					s = aux.nextLine();
 					pal = new Palabra(s);
-					System.out.println("Escriba el número de frase.");
+					System.out.println("Escriba el número de frase, el número 0 equivale a la primera.");
 					k = scanner.nextInt();
-					d.borrar_palabra(k, pal);
-					System.out.println("Primera aparición de la palabra "+ pal.palabra() + " de la frase número " +k+" borrada.");
+					if (k < 0 || k >= d.get_contenido().size()) {
+						System.out.println("Número de frase incorrecto.");
+					}
+					else {
+						int aux = d.get_contenido().get(k).midafrase();
+						d.borrar_palabra(k, pal);
+						if (! (aux == d.get_contenido().get(k).midafrase()))
+							System.out.println("Primera aparición de la palabra "+ pal.palabra() + " de la frase número " +k+" borrada.");
+					}
 				}
 				break;
 			case 12:
@@ -151,10 +159,15 @@ public class Driver_documento {
 					System.out.println("Escriba la palabra.");
 					s = aux.nextLine();
 					pal = new Palabra(s);
-					System.out.println("Escriba el número de frase.");
+					System.out.println("Escriba el número de frase, el número 0 equivale a la primera.");
 					k = scanner.nextInt();
-					d.anyadir_palabra(k, pal);
-					System.out.println("Palabra "+ pal.palabra()+" añadida al dinal de la frase número "+k+".");
+					if (k < 0 || k >= d.get_contenido().size()) {
+						System.out.println("Número de frase incorrecto.");
+					}
+					else {
+						d.anyadir_palabra(k, pal);
+						System.out.println("Palabra "+ pal.palabra()+" añadida al final de la frase número "+k+".");
+					}
 				}
 				break;
 			case 13:

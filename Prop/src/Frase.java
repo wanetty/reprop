@@ -40,25 +40,6 @@ public class Frase {
 	
 	//consultora
 	
-	//devuelve la frase de la que es prefijo s si el string s es prefijo de la frase
-	public boolean es_prefijo(String s) throws IOException {
-	    int midas=s.length();
-	    int summida=0, i=0;
-	    String saux = null;//voy guardando los primeros segmentos de la frase incluyendo espacios
-	    while (i<frase.size() && summida < midas){
-	        saux.concat(frase.get(i).palabra());
-	        saux.concat(" ");
-	        summida=summida+frase.get(i).midapalabra()+1;
-	        ++i;
-	    }
-	    if (summida > midas) {
-	        String comp= saux.substring(0, s.length());//comp guarda un prefijo de mi frase de la misma mida que el string que entra
-	        if(s.equals(comp)) {
-	            return true;
-	        }
-	    }
-	    return false;
-	}
 	
 	//devuelve el numero de palabras que ocntiene la frase
 	public int midafrase() throws IOException{
@@ -74,6 +55,7 @@ public class Frase {
 	}
 	public String toString() {///transforma una frase en string
 		String res = null;
+		if (!frase.isEmpty()){
 		for(int i=0; i<frase.size(); ++i) {
 			Palabra p=frase.get(i);
 			if (res == null) res=p.palabra();
@@ -81,6 +63,8 @@ public class Frase {
 			if (i != frase.size()-1) res+=(" ");
 		}
 		return res;
+		}
+		else return "-1";
 	}
 	//devuelve la posicion en la que se encuentra la palabra pal en la frase
 	//devuelve -1 en caso de que no se encuentre en ella
