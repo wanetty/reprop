@@ -105,7 +105,6 @@ public class frecuencias_globales {
 			double pes=global.get(s);
 			if (pes > 1) {
 				pes=pes-1;
-				global.remove(s);
 				global.put(s,pes);
 				if (frecdoc.get(s).containsKey(aut) && frecdoc.get(s).get(aut).containsKey(tit)) {
 					if (frecdoc.get(s).get(aut).get(tit)>1) {
@@ -114,7 +113,12 @@ public class frecuencias_globales {
 						frecdoc.get(s).get(aut).remove(tit);
 						frecdoc.get(s).get(aut).put(tit,pes);
 					}
-					else frecdoc.get(s).get(aut).remove(tit);
+					else {
+						frecdoc.get(s).get(aut).remove(tit);
+						int n=numdoc.get(s);
+						--n;
+						numdoc.put(s,n);
+					}
 					if (frecdoc.get(s).get(aut).isEmpty()) frecdoc.get(s).remove(aut);
 					if (frecdoc.get(s).isEmpty()) frecdoc.remove(s);
 				}

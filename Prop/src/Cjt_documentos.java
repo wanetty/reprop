@@ -35,21 +35,24 @@ public class Cjt_documentos {
 			autdoc.put(a, d);
 			por_titulo.put(ti, autdoc);
 		}
-		else {//si titulo ya existe anyadir el autor (un mismo titulo no puede tener el mismo autor por eso el documento no sustituira a uno antiguo )
-			por_titulo.get(ti).put(a, d);
+		else por_titulo.get(ti).put(a, d);//si titulo ya existe anyadir el autor (un mismo titulo no puede tener el mismo autor por eso el documento no sustituira a uno antiguo )
+
+		if (!por_autor.containsKey(a)) {
+			Map<String,Documento> titulodocaut = new HashMap<String,Documento>();
+			titulodocaut.put(ti,d);
+			Map<String,Map<String,Documento>> auttitdocaut = new HashMap<String,Map<String,Documento>>();
+			auttitdocaut.put(a, titulodocaut);
+			por_autor.put(a, titulodocaut); //si el autor es nuevo,anyade una lista nueva de autor, titulo con su documento
 		}
-
-		Map<String,Documento> titulodoc = new HashMap<String,Documento>();
-		titulodoc.put(ti,d);
-		Map<String,Map<String,Documento>> auttitdoc = new HashMap<String,Map<String,Documento>>();
-		auttitdoc.put(a, titulodoc);
-
-		if (!por_autor.containsKey(a)) por_autor.put(a, titulodoc); //si el autor es nuevo,anyade una lista nueva de autor, titulo con su documento
 		else por_autor.get(a).put(ti,d); //si autor ya existe,anyade un titulo junto a su documento
 
-		if (!por_tema.containsKey(te.toString())) por_tema.put(te,auttitdoc); //si el tema es nuevo, anyado una lista nueva de documentos para este tema
+		Map<String,Documento> titulodoctem = new HashMap<String,Documento>();
+		titulodoctem.put(ti,d);
+		Map<String,Map<String,Documento>> auttitdoctem = new HashMap<String,Map<String,Documento>>();
+		auttitdoctem.put(a, titulodoctem);
+		if (!por_tema.containsKey(te.toString())) por_tema.put(te,auttitdoctem); //si el tema es nuevo, anyado una lista nueva de documentos para este tema
 		else {//si el tema ya existia, tengo que mirar si los documentos de este tema contiene este autor
-			if (!por_tema.get(te).containsKey(a)) por_tema.get(te).put(a,titulodoc); //si no contiene este autor, anyado el autor y el titulo junto al documento
+			if (!por_tema.get(te).containsKey(a)) por_tema.get(te).put(a,titulodoctem); //si no contiene este autor, anyado el autor y el titulo junto al documento
 			else por_tema.get(te).get(a).put(ti, d); //si lo contiene, anyado solo el titulo y el documento
 		}
 
@@ -63,9 +66,13 @@ public class Cjt_documentos {
 		mes=mes.valueOf(mesaux);
 		dia=dia.valueOf(diaaux);
 		String nuevo=anyo+mes+dia;
-		if (!por_fecha.containsKey(nuevo)) por_fecha.put(nuevo,auttitdoc); //si la fecha es nueva, anyado una lista nueva de documentos para esta fecha	
+		Map<String,Documento> titulodocdat = new HashMap<String,Documento>();
+		titulodocdat.put(ti,d);
+		Map<String,Map<String,Documento>> auttitdocdat = new HashMap<String,Map<String,Documento>>();
+		auttitdocdat.put(a, titulodocdat);
+		if (!por_fecha.containsKey(nuevo)) por_fecha.put(nuevo,auttitdocdat); //si la fecha es nueva, anyado una lista nueva de documentos para esta fecha	
 		else {//si la fecha ya existia, tengo que mirar si los documentos de esta fecha contiene este autor
-			if (!por_fecha.get(nuevo).containsKey(a)) por_fecha.get(nuevo).put(a,titulodoc); //si no contiene este autor, anyado el autor y el titulo junto al documento
+			if (!por_fecha.get(nuevo).containsKey(a)) por_fecha.get(nuevo).put(a,titulodocdat); //si no contiene este autor, anyado el autor y el titulo junto al documento
 			else por_fecha.get(nuevo).get(a).put(ti, d); //si lo contiene, anyado solo el titulo y el documento
 		}
 
@@ -196,6 +203,7 @@ public class Cjt_documentos {
 		}
 		else System.out.println("No existe ningun documento con el autor introducido");
 		por_autor.remove(aut);
+		System.out.println(por_autor);
 	}
 
 

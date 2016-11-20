@@ -71,8 +71,8 @@ public class Documento {
 	public void guardar_documento(String text) throws IOException {
 		String del="\\n";
 		String[] aux = text.split(del);//aux contiene parrafos
-		Frase ti = new Frase(aux[1]);
-		Frase a = new Frase(aux[0]);
+		Frase ti = new Frase(aux[0]);
+		Frase a = new Frase(aux[1]);
 		Frase te= new Frase(aux[2]);
 		ArrayList<Frase> c= new ArrayList<Frase>();
 		string_to_arraylist(c,aux[3]);
@@ -119,7 +119,7 @@ public class Documento {
 	//nota: hay que anyadir en el caso de usos que el usuario tendria que indicar el numero de la frase a la que pertenece la palabra que se quiere borrar y la palabra borrada.
 	//0<=numfras<=numero de frases en total del documento
 	public void borrar_palabra(int numfras, Palabra pborr) throws IOException{
-		if(numfras >= 0 && numfras<=contenido.size()) {
+		if(numfras >= 0 && numfras<contenido.size()) {
 			int pos=contenido.get(numfras).posfrase(pborr);
 			if (pos >= 0) {
 				contenido.get(numfras).borrarpalabra(pos);
@@ -139,7 +139,7 @@ public class Documento {
 
 	}
 	public void anyadir_palabra(int numfras, Palabra panyad) throws IOException{
-		if(numfras >= 0 && numfras<=contenido.size()) {
+		if(numfras >= 0 && numfras<contenido.size()) {
 			contenido.get(numfras).anyadirpalabra(panyad, contenido.get(numfras).midafrase());
 			if (!panyad.esfuncional()){
 				String termino = panyad.palabra().toLowerCase();

@@ -154,12 +154,13 @@ public class Cjt_driver {
 					System.out.println("Introduce la palabra que se quiere eliminar");
 					Palabra pborr=new Palabra(texto.nextLine());
 					cjt.borrar_palabra(borrd,numfras,pborr);
+					System.out.println("Palabra borrada");
 				}
 				break;
 			case 7:	
-				System.out.println("Introduce el autor del documento que se desea anadir la palabra");
+				System.out.println("Introduce el autor del documento que se desea anyadir la palabra");
 				String anyadraut=texto.nextLine();
-				System.out.println("Introduce el titulo del documento que se desea anadir la palabra");
+				System.out.println("Introduce el titulo del documento que se desea anyadir la palabra");
 				String anyadtit=texto.nextLine();
 				Documento anyadd=cjt.busqueda_por_auttit(anyadraut,anyadtit);
 				if (anyadd != null) {
@@ -168,6 +169,7 @@ public class Cjt_driver {
 					System.out.println("Introduce la palabra que se quiere anyadir");
 					Palabra panyad=new Palabra(texto.nextLine());
 					cjt.anyadir_palabra(anyadd,anyadfras,panyad);
+					System.out.println("Palabra anyadida");
 				}
 				break;
 			case 8:	
@@ -210,18 +212,20 @@ public class Cjt_driver {
 				System.out.println("Introduce la palabra que se desea consultar");
 				String p=texto.nextLine();
 				int resu=(int)cjt.frecuencia_glob_palabra(p);
-				System.out.println("La palabra consultada aparece en el conjunto "+resu+" veces");
+				if (resu == 1) System.out.println("La palabra consultada aparece en el conjunto 1 vez");
+				else System.out.println("La palabra consultada aparece en el conjunto "+resu+" veces");
 				break;
 			case 13:
 				System.out.println("Introduce la palabra que se desea consultar");
 				String pc=texto.nextLine();
-				System.out.println("La palabra consultada aparece en "+cjt.apariencias_cjtdoc_palabra(pc)+" documentos del conjunto");
+				if (cjt.apariencias_cjtdoc_palabra(pc) == 1) System.out.println("La palabra consultada aparece en 1 documento del conjunto");
+				else System.out.println("La palabra consultada aparece en "+cjt.apariencias_cjtdoc_palabra(pc)+" documentos del conjunto");
 				break;
 			case 14:
 				System.out.println("Introduce la palabra que se desea consultar");
 				String plist=texto.nextLine();
-				 Map<String,ArrayList<String>> mlist= cjt.list_doc_palabra(plist);
-				 System.out.println(mlist);
+				Map<String,ArrayList<String>> mlist= cjt.list_doc_palabra(plist);
+				System.out.println(mlist);
 				break;
 			case 15:
 				System.out.println("Introduce el autor del documento que se desea buscar");
@@ -232,7 +236,8 @@ public class Cjt_driver {
 				String pfrec=texto.nextLine();
 				Documento dfrec=cjt.busqueda_por_auttit(autfrec, titfrec);
 				if (dfrec!=null) {
-					System.out.println("La palabra introducida aparece en el documento "+ cjt.frecuenciadoc_palabra(dfrec,pfrec)+ " veces");
+					if (cjt.frecuenciadoc_palabra(dfrec,pfrec) == 1) System.out.println("La palabra introducida aparece en el documento 1 vez");
+					else System.out.println("La palabra introducida aparece en el documento "+ cjt.frecuenciadoc_palabra(dfrec,pfrec)+ " veces");
 				}
 				break;
 			case 16:
