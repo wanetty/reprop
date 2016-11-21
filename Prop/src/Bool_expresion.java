@@ -87,6 +87,7 @@ public class Bool_expresion {
 	private boolean comprueba(String exp) throws IOException{
 		boolean comillas = false;
 		if (exp.isEmpty())return false;
+		//>Implementar que operador en medio de espacios no pete.
 		if(exp.length() == 1 && (exp.charAt(0) == '&' || exp.charAt(0) == '|' || exp.charAt(0) == '&' || exp.charAt(0) == '!' ))return false;
 		if(cuenta_parentesis(exp)%2 != 0) return false;
 		if(cuenta_operadores(exp) == 0){
@@ -121,6 +122,9 @@ public class Bool_expresion {
 					actual.setValor(expresion.substring(0,1));
 					actual.setNodoIzq(analiza(actual.getNodoIz(),expresion.substring(1,expresion.length())));
 				}
+			}
+			else if(expresion.charAt(0) == '{' && expresion.charAt(expresion.length()-1) == '}'){
+				return separador(actual,expresion.substring(1,expresion.length()-1));
 			}
 			else if(actual.getValor() == null){
 				actual.setValor(expresion);
@@ -168,6 +172,17 @@ public class Bool_expresion {
 			}
 		}
 
+
+	}
+	private Nodo separador (Nodo actual, String expresion) throws IOException {
+		Frase aux = new Frase(expresion);
+		Palabra auxp = new Palabra("&");
+		for(int i = 0; i < aux.midafrase();++i ){
+			if(!aux.posfrase(i).palabra().equals("&") && i != aux.midafrase()-1){
+				aux.anyadirpalabra(auxp,i+1);
+			}
+		}
+		return analiza(actual,aux.toString());
 
 	}
 	private void cantidad(Nodo reco) {

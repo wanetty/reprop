@@ -33,6 +33,7 @@ public class driver_boleano
 			System.out.println("4. Consultar cantidad de nodos del arbol");
 			System.out.println("5. Consultar altura del arbol");
 			System.out.println("6. Consultar si es nulo");
+			System.out.println("7. Consultar separador ");
 			System.out.println("0. Salir del driver.");
 			var = opcion.nextInt();
 			switch(var){
