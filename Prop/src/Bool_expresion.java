@@ -86,11 +86,14 @@ public class Bool_expresion {
 		postorden.add(actual.getValor());}
 	private boolean comprueba(String exp) throws IOException{
 		boolean comillas = false;
+		int claves = 0;
 		if (exp.isEmpty())return false;
+		
 		//>Implementar que operador en medio de espacios no pete.
-		if(exp.length() == 1 && (exp.charAt(0) == '&' || exp.charAt(0) == '|' || exp.charAt(0) == '&' || exp.charAt(0) == '!' ))return false;
+		if(exp.length() == 1 && (exp.charAt(0) == '&' || exp.charAt(0) == '|' ||  exp.charAt(0) == '!' ))return false;
 		if(cuenta_parentesis(exp)%2 != 0) return false;
-		if(cuenta_operadores(exp) == 0){
+		
+		if(cuenta_operadores(exp) == 0 && (exp.charAt(0) != '{' || exp.charAt(exp.length()-1) !='}')){
 			Frase f = new Frase(exp);
 			if(f.midafrase() != 1) return false;
 		}
@@ -100,6 +103,13 @@ public class Bool_expresion {
 			if(exp.charAt(i) == '"'){
 				if (!comillas)comillas = true;
 				else comillas = false;
+			}
+			if(exp.charAt(i) == '{' ){
+				++claves;
+			}
+			else if (exp.charAt(i) == '}' ){ 
+				if(claves == 0)return false;
+				--claves;
 			}
 			if (i != 0 && i != exp.length()-1 && (exp.charAt(i) != '&' && exp.charAt(i) != '|') && (exp.charAt(i-1) == ' ' && exp.charAt(i+1) == ' ') && !comillas) return false;
 			if (exp.charAt(i) == '(' && exp.charAt(i+1) == ')' && !comillas) return false;
