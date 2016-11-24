@@ -19,12 +19,16 @@ public class Similitud {
 	public void similitud_n(Documento d, int n, Cjt_documentos cjt, int metodo) throws IOException {
 		Map<Double, ArrayList<Documento>> res = new TreeMap<Double, ArrayList<Documento>>();
 		Map<Double, ArrayList<Documento>> res_ordenado = new TreeMap(Collections.reverseOrder());
+		Map<String, Double> mapD = new HashMap<String, Double>(d.get_pesos());
+		double nA = d.get_total_words();
+		tf(mapD,nA);
+		globalizar(mapD,cjt,metodo);
 		
 		double simi;
 		for (String clave1 : cjt.get_por_titulo().keySet()) {
 			for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()){
 				if (!(clave1 == d.get_titulo().toString() && clave2 == d.get_autor().toString())){
-					simi = calculaSimilitud(d, cjt.get_por_titulo().get(clave1).get(clave2), cjt, metodo);
+					simi = calculaSimilitud(mapD, cjt.get_por_titulo().get(clave1).get(clave2), cjt, metodo, nA);
 					if (!res.containsKey(simi)) {
 						ArrayList<Documento> docs = new ArrayList<Documento>();
 						docs.add(cjt.get_por_titulo().get(clave1).get(clave2));
@@ -58,17 +62,12 @@ public class Similitud {
 		return res;
 	}
 	
-	private double calculaSimilitud(Documento a, Documento b, Cjt_documentos cjt, int metodo) throws IOException{
-		Map<String, Double> mapA = new HashMap<String, Double>();
-		Map<String, Double> mapB = new HashMap<String, Double>();
-		llenar_map(mapA, a);
-		llenar_map(mapB, b);
-		double nA = a.get_total_words();
-		double nB =a.get_total_words();
-		tf(mapA,nA);
+	private double calculaSimilitud(Map<String, Double> mapA, Documento b, Cjt_documentos cjt, int metodo, double nA) throws IOException{
+		Map<String, Double> mapB = new HashMap<String, Double>(b.get_pesos());
+		//llenar_map(mapA, a);
+		//llenar_map(mapB, b);
+		double nB =b.get_total_words();
 		tf(mapB,nB);
-		
-		globalizar(mapA,cjt,metodo);
 		globalizar(mapB,cjt,metodo);
 		
 		Set<String> inter = new HashSet<String>();
@@ -87,12 +86,14 @@ public class Similitud {
 		return similitudCos;
 	}
 	
+	/*
 	private void llenar_map(Map<String,Double> mapA, Documento a){
 		for(String clave : a.get_pesos().keySet()) {
 			Double frec = a.get_pesos().get(clave);
 			mapA.put(clave, frec);
 		}
 	}
+	*/
 	
 	private void tf(Map<String,Double> a, double n) {
 		for (String clave : a.keySet()){
