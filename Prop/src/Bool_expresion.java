@@ -185,14 +185,31 @@ public class Bool_expresion {
 
 	}
 	private Nodo separador (Nodo actual, String expresion) throws IOException {
-		Frase aux = new Frase(expresion);
+		String delimitadores= "[ .,;?!\'\"\\[\\]]+";
+		String[] pseparadas = expresion.split(delimitadores);
 		Palabra auxp = new Palabra("&");
-		for(int i = 0; i < aux.midafrase();++i ){
-			if(!aux.posfrase(i).palabra().equals("&") && i != aux.midafrase()-1){
-				aux.anyadirpalabra(auxp,i+1);
+		ArrayList<String> aux = new ArrayList<String>();
+		int j = 0;
+		for(int i = 0; i < pseparadas.length;++i ){
+			//if(pseparadas[i].charAt(pseparadas[i].length()-1) == ',')
+			aux.add(pseparadas[i]);
+			
+			if(!aux.get(j).equals(auxp.palabra()) && i != pseparadas.length -1){
+				aux.add(auxp.palabra());
+				++j;
 			}
+			++j;
 		}
-		return analiza(actual,aux.toString());
+		String ret = "";
+		for(int i = 0; i <aux.size();++i){
+		
+			if(aux.size() >= 1 && i == 0 ) ret = aux.get(i) + " ";
+			else if(i == 0) ret = aux.get(i);
+			else if(i < aux.size()-1)ret += aux.get(i) + " ";
+			else ret += aux.get(i);
+		}
+		System.out.println(ret);
+		return analiza(actual,ret);
 
 	}
 	private void cantidad(Nodo reco) {
