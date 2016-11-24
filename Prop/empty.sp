@@ -1,4 +1,6 @@
 
+º
+ª
 a
 actualmente
 adelante

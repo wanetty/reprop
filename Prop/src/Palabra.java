@@ -8,10 +8,14 @@ import java.io.IOException;
 
 public class Palabra {
 
-	private String palabra;	
+	private String palabra;
+	private String adelante;
+	private String detras;
 	//constructoras
 	public Palabra(){
 		palabra = null;
+		adelante = "-1";
+		detras = "-1";
 	}
 
 	public Palabra (String pal){
@@ -29,11 +33,29 @@ public class Palabra {
 
 
 	//consultoras
+	
+	
 
 	public int midapalabra() throws IOException {
 		return palabra.length();
 	}
 
+
+	public String getAdelante() {
+		return adelante;
+	}
+
+	public void setAdelante(String adelante) {
+		this.adelante = adelante;
+	}
+
+	public String getDetras() {
+		return detras;
+	}
+
+	public void setDetras(String detras) {
+		this.detras = detras;
+	}
 
 	public boolean son_iguales(Palabra pal){
 
