@@ -246,11 +246,11 @@ public class Documento {
 	}
 
 	public void pintar_documento() {
-		System.out.println(titulo.toString());
-		System.out.println(autor.toString());
-		System.out.println(tema.toString());
+		System.out.println(titulo.toString_consigno());
+		System.out.println(autor.toString_consigno());
+		System.out.println(tema.toString_consigno());
 		for (int i=0; i<contenido.size(); ++i) {
-			System.out.print(contenido.get(i).toString());
+			System.out.print(contenido.get(i).toString_consigno());
 			System.out.println(".");
 		}
 	}

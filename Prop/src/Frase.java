@@ -64,6 +64,19 @@ public class Frase {
 		return res;
 	}
 	public String toString() {///transforma una frase en string
+		String res = "";
+		if (!frase.isEmpty()){
+			for(int i=0; i<frase.size(); ++i) {
+				Palabra p=frase.get(i);
+				res+=p.palabra();
+				if (i != frase.size()-1) res+=(" ");
+			}
+			return res;
+		}
+		else return "-1";
+	}
+	
+	public String toString_consigno() {///transforma una frase en string
 		String res = null;
 		if (!frase.isEmpty()){
 			for(int i=0; i<frase.size(); ++i) {
@@ -83,7 +96,7 @@ public class Frase {
 				if(!p.getDetras().equals("-1"))res+=p.getDetras();
 				if (i != frase.size()-1) res+=(" ");
 			}
-		return res;
+			return res;
 		}
 		else return "-1";
 	}
