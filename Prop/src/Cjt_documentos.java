@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 public class Cjt_documentos {
 	private Map<String, Map<String,Documento>> por_titulo = new HashMap<String,Map<String,Documento>>();//guarda todos los documentos por titulo y los autores que lo tienen y su documento
@@ -63,9 +64,13 @@ public class Cjt_documentos {
 		int diaaux=f.getDate();
 		String anyo = null, mes=null, dia=null;
 		anyo=anyo.valueOf(anyoaux);
+		System.out.println(anyo);
 		mes=mes.valueOf(mesaux);
+		System.out.println(mesaux);
 		dia=dia.valueOf(diaaux);
+		System.out.println(diaaux);
 		String nuevo=anyo+mes+dia;
+		System.out.println(nuevo);
 		Map<String,Documento> titulodocdat = new HashMap<String,Documento>();
 		titulodocdat.put(ti,d);
 		Map<String,Map<String,Documento>> auttitdocdat = new HashMap<String,Map<String,Documento>>();
@@ -219,63 +224,40 @@ public class Cjt_documentos {
 	}
 
 	//Busquedas
-
+	
+	//Pre:existe algun documento con aut i tit
 	public Documento busqueda_por_auttit(String aut, String tit) {
-		aut = aut.toLowerCase();
-		tit = tit.toLowerCase();
-		if (por_autor.containsKey(aut)) {
-			if (por_autor.get(aut).containsKey(tit)) return por_autor.get(aut).get(tit); 
-			System.out.println("Combinacion de titulo o autor inexistente");
-		}
-		else System.out.println("Combinacion de titulo o autor inexistente");
-		Documento nada= null;
-		return nada;
-	}
-
-	public ArrayList<Documento> busqueda_por_titulo(String t){
-		ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
-		if (por_titulo.containsKey(t)) {
-			for (String clave1 : por_titulo.get(t).keySet()) conjDocumento_res.add(por_titulo.get(t).get(clave1));
-			return conjDocumento_res;
-		}
-		System.out.println("No existe documento con el titulo introducido");
-		return conjDocumento_res;
+		return por_autor.get(aut).get(tit);
 	}
 	
-	public ArrayList<Documento> busqueda_por_tema(String tem){
-		ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
-		if (por_tema.containsKey(tem)) {
-			for (String clave1 : por_tema.get(tem).keySet()) {
-				for (String clave2 : por_tema.get(tem).get(clave1).keySet())
-				conjDocumento_res.add(por_tema.get(tem).get(clave1).get(clave2));
-			}
-		}
-		else System.out.println("No existe documento con el tema introducido");
-		return conjDocumento_res;
+	//Pre:existe algun documento con autor aut
+	public Map<String,Documento> busqueda_por_autor(String aut) {
+		return por_autor.get(aut);
+	}
+	
+	//Pre:existe algun documento con titulo tit
+	public Map<String,Documento> busqueda_por_titulo(String tit){
+		return por_titulo.get(tit);
+	}
+	
+	//Pre:existe algun documento con tema tem
+	public Map<String, Map<String,Documento>> busqueda_por_tema(String tem){
+		return por_tema.get(tem);
 	}
 
-
-	//Devuelve si un prefijo s es prefijo de aut;
-	private boolean es_prefijo(String aut, String s) throws IOException {
-		if (s.length() <= aut.length()) {
-			String comp=aut.substring(0, s.length());//comp guarda un prefijo de mi frase de la misma mida que el string que entra
-			if(s.equals(comp)) {
-				return true;
-			}
-		}
-		return false;
+	//Pre:existe algun documento con fecha fec
+	public Map<String, Map<String,Documento>> busqueda_por_fecha(String fec){
+		return por_fecha.get(fec);
 	}
 
-	//Devuelve una lista de los autores que contiene el prefijo pref
-	public ArrayList<String> busqueda_por_prefijo(String pref) throws IOException{
-		ArrayList<String> autores= new ArrayList<String>();
-		for(String clave1 : por_autor.keySet())
-			if (es_prefijo(clave1,pref)) {
-				autores.add(clave1);
-			}
-		return autores;
+	//Devuelve TreeMap de autores ordenados por orden alfabetico
+	public TreeMap busqueda_por_prefijo() throws IOException{
+		TreeMap t = new TreeMap();
+		t.putAll(por_autor);
+		return t;
 	}
 
+	//Frecuencias
 
 	//Devuelve la frecuencia de una palabra p en el total de conjunto de documentos
 	public double frecuencia_glob_palabra(String p) {
@@ -307,5 +289,63 @@ public class Cjt_documentos {
 		return por_titulo;
 	}
 
+	//Existencias
+	public boolean existe_autor(String aut) {
+		if (por_autor.containsKey(aut)) return true;
+		return false;
+	}
+	
+	public boolean existe_titulo(String tit) {
+		if (por_titulo.containsKey(tit)) return true;
+		return false;
+	}
+	
+	public boolean existe_tema(String tem) {
+		if (por_tema.containsKey(tem)) return true;
+		return false;
+	}
+	
+	public boolean existe_fecha(String fec) {
+		if (por_fecha.containsKey(fec)) return true;
+		return false;
+	}
+	
 }
 
+
+/*
+public Documento busqueda_por_auttit(String aut, String tit) {
+	aut = aut.toLowerCase();
+	tit = tit.toLowerCase();
+	if (por_autor.containsKey(aut)) {
+		if (por_autor.get(aut).containsKey(tit)) return por_autor.get(aut).get(tit); 
+		System.out.println("Combinacion de titulo o autor inexistente");
+	}
+	else System.out.println("Combinacion de titulo o autor inexistente");
+	Documento nada= null;
+	return nada;
+}*/
+
+/*
+public ArrayList<Documento> busqueda_por_titulo(String t){
+	ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
+	if (por_titulo.containsKey(t)) {
+		for (String clave1 : por_titulo.get(t).keySet()) conjDocumento_res.add(por_titulo.get(t).get(clave1));
+		return conjDocumento_res;
+	}
+	System.out.println("No existe documento con el titulo introducido");
+	return conjDocumento_res;
+}*/
+
+/*
+public ArrayList<Documento> busqueda_por_tema(String tem){
+	ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
+	if (por_tema.containsKey(tem)) {
+		for (String clave1 : por_tema.get(tem).keySet()) {
+			for (String clave2 : por_tema.get(tem).get(clave1).keySet())
+			conjDocumento_res.add(por_tema.get(tem).get(clave1).get(clave2));
+		}
+	}
+	else System.out.println("No existe documento con el tema introducido");
+	return conjDocumento_res;
+}*/
