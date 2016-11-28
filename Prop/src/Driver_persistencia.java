@@ -174,74 +174,7 @@ public class Driver_persistencia {
 				Documento dbusc=cjt.busqueda_por_auttit(autbusc, titbusc);
 				if (dbusc!=null) dbusc.pintar_documento();
 				break;
-			case 9:	
-				System.out.println("Introduce el titulo del documento que se desea buscar");
-				String buscpt=texto.nextLine();
-				ArrayList<Documento> dbuscpt=cjt.busqueda_por_titulo(buscpt);
-				for (int i=0; i<dbuscpt.size(); ++i) {
-					dbuscpt.get(i).pintar_documento();
-				}
-				break;
-			case 10:
-				System.out.println("Introduce el tema del documento que se desea buscar");
-				String busctem=texto.nextLine();
-				ArrayList<Documento> dbusctem=cjt.busqueda_por_tema(busctem);
-				for (int i=0; i<dbusctem.size(); ++i) {
-					dbusctem.get(i).pintar_documento();
-				}
-				break;
-			case 11:
-				System.out.println("Introduce el prefijo de autor");
-				String pref=texto.nextLine();
-				ArrayList<String> dpref=cjt.busqueda_por_prefijo(pref);
-				if (dpref.size()>0) {
-					System.out.println("Los autores que contienen el prefijo introducido son:");
-					for (int i=0; i<dpref.size(); ++i) {
-						System.out.println(dpref.get(i));
-					}
-				}
-				else System.out.println("No existe ningun autor con el prefijo introducido");
-				break;
-			case 12:
-				System.out.println("Introduce la palabra que se desea consultar");
-				String p=texto.nextLine();
-				int resu=(int)cjt.frecuencia_glob_palabra(p);
-				if (resu == 1) System.out.println("La palabra consultada aparece en el conjunto 1 vez");
-				else System.out.println("La palabra consultada aparece en el conjunto "+resu+" veces");
-				break;
-			case 13:
-				System.out.println("Introduce la palabra que se desea consultar");
-				String pc=texto.nextLine();
-				if (cjt.apariencias_cjtdoc_palabra(pc) == 1) System.out.println("La palabra consultada aparece en 1 documento del conjunto");
-				else System.out.println("La palabra consultada aparece en "+cjt.apariencias_cjtdoc_palabra(pc)+" documentos del conjunto");
-				break;
-			case 14:
-				System.out.println("Introduce la palabra que se desea consultar");
-				String plist=texto.nextLine();
-				Map<String,ArrayList<String>> mlist= cjt.list_doc_palabra(plist);
-				System.out.println(mlist);
-				break;
-			case 15:
-				System.out.println("Introduce el autor del documento que se desea buscar");
-				String autfrec=texto.nextLine();
-				System.out.println("Introduce el titulo del documento que se desea buscar");
-				String titfrec=texto.nextLine();
-				System.out.println("Introduce la palabra que se desea consultar");
-				String pfrec=texto.nextLine();
-				Documento dfrec=cjt.busqueda_por_auttit(autfrec, titfrec);
-				if (dfrec!=null) {
-					if (cjt.frecuenciadoc_palabra(dfrec,pfrec) == 1) System.out.println("La palabra introducida aparece en el documento 1 vez");
-					else System.out.println("La palabra introducida aparece en el documento "+ cjt.frecuenciadoc_palabra(dfrec,pfrec)+ " veces");
-				}
-				break;
-			case 16:
-				if (cjt.get_cjt_size() == 1) System.out.println("Hay en total "+ cjt.get_cjt_size()+ " documento");
-				else System.out.println("Hay en total "+ cjt.get_cjt_size()+ " documentos");
-				break;
-			case 17:
-				 Map<String, Map<String,Documento>> mgpt=cjt.get_por_titulo();
-				 System.out.println(mgpt);
-				break;
+
 			case 18:
 				ruta.setArchivo("guardado1.txt");
 				ruta.guardar(cjt);

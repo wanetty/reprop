@@ -26,14 +26,16 @@ public class Persistencia  {
 		this.archivo = archivo;
 	}
 
-	public void guardar (Cjt_documentos prog){
+	public void guardar (Cjt_documentos prog) throws IOException{
 		if(prog.get_cjt_size() != 0){
 			Map<String, Map<String,Documento>> aux = prog.get_por_titulo();
 			File arch = new File(archivo);
+			if(!arch.exists()){
+					arch.createNewFile();
+			}
 			System.out.println("te lo guardo : "+ archivo);
-			BufferedWriter bw;
-			try {
-					bw = new BufferedWriter(new FileWriter(arch));
+			FileWriter fw = new FileWriter(arch.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
 					bw.write("<ficheroprop>");
 					bw.newLine();
 					for (String clave1 : aux.keySet()){
@@ -43,15 +45,12 @@ public class Persistencia  {
 							bw.newLine();
 							Documento d = aux.get(clave1).get(clave2);
 							EscribirDoc(d,bw);
-							
 						}
-						bw.close();
 					}	
+					bw.close();
 
 				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
 		}
 
 
@@ -78,8 +77,7 @@ public class Persistencia  {
 			bw.newLine();
 			bw.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			
+			e.printStackTrace();
 		}
 
 
