@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
@@ -38,20 +39,26 @@ public class Cjt_driver {
 			System.out.println("1. Dar de alta un documento dado su directiva(String raiz)");
 			System.out.println("2. alta_sin_fichero(String text)");
 			System.out.println("3. alta_multiple(String text, int n)");
-			System.out.println("4. baja_individual_doc(Documento d))");
-			System.out.println("5. baja_multiple(String aut)"); 
-			System.out.println("6. borrar_palabra(Documento d, int numfras, Palabra pborr)");
-			System.out.println("7. anyadir_palabra(Documento d, int numfras, Palabra panyad)");
-			System.out.println("8. busqueda_por_auttit(String aut, String tit)");
-			System.out.println("9. busqueda_por_titulo(String t)");
-			System.out.println("10. busqueda_por_tema (String tem)");
-			System.out.println("11. busqueda_por_prefijo(String pref)");
-			System.out.println("12. frecuencia_glob_palabra(String p)");
-			System.out.println("13. apariencias_cjtdoc_palabra(String p)");
-			System.out.println("14. list_doc_palabra(String s)");
-			System.out.println("15. frecuenciadoc_palabra(Documento d, String p)");
-			System.out.println("16. get_cjt_size()");
-			System.out.println("17. get_por_titulo()");
+			System.out.println("4. existe_autor(String aut)");
+			System.out.println("5. existe_titulo(String tit)");
+			System.out.println("6. existe_tema(String tem)");
+			System.out.println("7. existe_fecha(String fec)");			
+			System.out.println("8. baja_individual_doc(Documento d))");
+			System.out.println("9. baja_multiple(String aut)"); 
+			System.out.println("10. borrar_palabra(Documento d, int numfras, Palabra pborr)");
+			System.out.println("11. anyadir_palabra(Documento d, int numfras, Palabra panyad)");
+			System.out.println("12. busqueda_por_auttit(String aut, String tit)");
+			System.out.println("13. busqueda_por_autor(String aut)");
+			System.out.println("14. busqueda_por_titulo(String t)");
+			System.out.println("15. busqueda_por_tema (String tem)");
+			System.out.println("16. busqueda_por_fecha(String fec)");
+			System.out.println("17. busqueda_por_prefijo(String pref)");
+			System.out.println("18. frecuencia_glob_palabra(String p)");
+			System.out.println("19. apariencias_cjtdoc_palabra(String p)");
+			System.out.println("20. list_doc_palabra(String s)");
+			System.out.println("21. frecuenciadoc_palabra(Documento d, String p)");
+			System.out.println("22. get_cjt_size()");
+			System.out.println("23. get_por_titulo()");
 			System.out.println("0. Salir del driver.");
 			var = opcion.nextInt();
 			switch(var){
@@ -130,6 +137,30 @@ public class Cjt_driver {
 				else System.out.println("El directorio no existe o esta mal introducido");
 				break;
 			case 4:
+				System.out.println("Introduce el autor que se desea consultar");
+				String consaut=texto.nextLine();
+				if (cjt.existe_autor(consaut)) System.out.println("El autor a consultar existe");
+				else System.out.println("El autor a consultar no existe");
+				break;
+			case 5:
+				System.out.println("Introduce el titulo que se desea consultar");
+				String constit=texto.nextLine();
+				if (cjt.existe_titulo(constit)) System.out.println("El titulo a consultar existe");
+				else System.out.println("El titulo a consultar no existe");
+				break;
+			case 6:
+				System.out.println("Introduce el tema que se desea consultar");
+				String constem=texto.nextLine();
+				if (cjt.existe_tema(constem)) System.out.println("El tema a consultar existe");
+				else System.out.println("El tema a consultar no existe");
+				break;
+			case 7:
+				System.out.println("Introduce la fecha que se desea consultar");
+				String consfec=texto.nextLine();
+				if (cjt.existe_fecha(consfec)) System.out.println("La fecha a consultar existe");
+				else System.out.println("La fecha a consultar no existe");
+				break;
+			case 8:
 				System.out.println("Introduce el autor del documento que se desea dar de baja");
 				String aut=texto.nextLine();
 				System.out.println("Introduce el titulo del documento que se desea dar de baja");
@@ -137,12 +168,12 @@ public class Cjt_driver {
 				Documento d=cjt.busqueda_por_auttit(aut,tit);
 				if (d!= null) cjt.baja_individual_doc(d);
 				break;
-			case 5:
+			case 9:
 				System.out.println("Introduce el autor de los documentos que se desea dar de baja");
 				String autores=texto.nextLine();
 				cjt.baja_multiple(autores);
 				break;
-			case 6:	
+			case 10:	
 				System.out.println("Introduce el autor del documento que se desea borrar la palabra");
 				String borraut=texto.nextLine();
 				System.out.println("Introduce el titulo del documento que se desea borrar la palabra");
@@ -157,7 +188,7 @@ public class Cjt_driver {
 					System.out.println("Palabra borrada");
 				}
 				break;
-			case 7:	
+			case 11:	
 				System.out.println("Introduce el autor del documento que se desea anyadir la palabra");
 				String anyadraut=texto.nextLine();
 				System.out.println("Introduce el titulo del documento que se desea anyadir la palabra");
@@ -172,62 +203,92 @@ public class Cjt_driver {
 					System.out.println("Palabra anyadida");
 				}
 				break;
-			case 8:	
+			case 12:	
 				System.out.println("Introduce el autor del documento que se desea buscar");
 				String autbusc=texto.nextLine();
 				System.out.println("Introduce el titulo del documento que se desea buscar");
 				String titbusc=texto.nextLine();
-				Documento dbusc=cjt.busqueda_por_auttit(autbusc, titbusc);
-				if (dbusc!=null) dbusc.pintar_documento();
-				break;
-			case 9:	
-				System.out.println("Introduce el titulo del documento que se desea buscar");
-				String buscpt=texto.nextLine();
-				ArrayList<Documento> dbuscpt=cjt.busqueda_por_titulo(buscpt);
-				for (int i=0; i<dbuscpt.size(); ++i) {
-					dbuscpt.get(i).pintar_documento();
+				if (cjt.existe_autor(autbusc) && cjt.existe_titulo(titbusc)) {
+					Documento dbusc=cjt.busqueda_por_auttit(autbusc, titbusc);
+					dbusc.pintar_documento();
 				}
+				else System.out.println("Combinacion de titulo o autor inexistente");
 				break;
-			case 10:
-				System.out.println("Introduce el tema del documento que se desea buscar");
-				String busctem=texto.nextLine();
-				ArrayList<Documento> dbusctem=cjt.busqueda_por_tema(busctem);
-				for (int i=0; i<dbusctem.size(); ++i) {
-					dbusctem.get(i).pintar_documento();
-				}
-				break;
-			case 11:
-				System.out.println("Introduce el prefijo de autor");
-				String pref=texto.nextLine();
-				ArrayList<String> dpref=cjt.busqueda_por_prefijo(pref);
-				if (dpref.size()>0) {
-					System.out.println("Los autores que contienen el prefijo introducido son:");
-					for (int i=0; i<dpref.size(); ++i) {
-						System.out.println(dpref.get(i));
+			case 13:	
+				System.out.println("Introduce el autor de los documentos que se desea buscar");
+				String buscpa=texto.nextLine();
+				if (cjt.existe_autor(buscpa)) {
+					Map<String,Documento> aux=cjt.busqueda_por_autor(buscpa);
+					for (String clave :  aux.keySet()) {
+						aux.get(clave).pintar_documento();
 					}
 				}
-				else System.out.println("No existe ningun autor con el prefijo introducido");
+				else System.out.println("No existen documentos con el autor introducido");
 				break;
-			case 12:
+			case 14:	
+				System.out.println("Introduce el titulo de los documentos que se desea buscar");
+				String buscpt=texto.nextLine();
+				if (cjt.existe_titulo(buscpt)) {
+					Map<String,Documento> aux=cjt.busqueda_por_titulo(buscpt);
+					for (String clave :  aux.keySet()) {
+						aux.get(clave).pintar_documento();
+					}
+				}
+				else System.out.println("No existen documentos con el titulo introducido");
+				break;
+			case 15:
+				System.out.println("Introduce el tema del documento que se desea buscar");
+				String busctem=texto.nextLine();
+				if (cjt.existe_tema(busctem)) {
+					Map<String, Map<String, Documento>> aux=cjt.busqueda_por_tema(busctem);
+					for (String clave1 :  aux.keySet()) {
+						for (String clave2 : aux.get(clave1).keySet())
+							aux.get(clave1).get(clave2).pintar_documento();
+					}
+				}
+				else System.out.println("No existen documentos con el tema introducido");
+				break;
+			case 16:
+				System.out.println("Introduce la fecha del documento que se desea buscar (Formato:dd/mm/yy)");
+				String buscfec=texto.nextLine();
+				if (cjt.existe_fecha(buscfec)) {
+					Map<String, Map<String, Documento>> aux=cjt.busqueda_por_fecha(buscfec);
+					for (String clave1 :  aux.keySet()) {
+						for (String clave2 : aux.get(clave1).keySet())
+							aux.get(clave1).get(clave2).pintar_documento();
+					}
+				}
+				else System.out.println("No existen documentos con el tema introducido");
+				break;
+			case 17:
+				System.out.println("Lista de autores ordenados alfabeticamente con sus correspondientes titulos:");
+				TreeMap<String,Map<String,Documento>> t=cjt.autores_ordenados();
+				for (String clave1 : t.keySet()) {
+					for (String clave2 : t.get(clave1).keySet()) {
+						System.out.println(clave1+" : "+clave2);
+					}
+				}
+				break;
+			case 18:
 				System.out.println("Introduce la palabra que se desea consultar");
 				String p=texto.nextLine();
 				int resu=(int)cjt.frecuencia_glob_palabra(p);
 				if (resu == 1) System.out.println("La palabra consultada aparece en el conjunto 1 vez");
 				else System.out.println("La palabra consultada aparece en el conjunto "+resu+" veces");
 				break;
-			case 13:
+			case 19:
 				System.out.println("Introduce la palabra que se desea consultar");
 				String pc=texto.nextLine();
 				if (cjt.apariencias_cjtdoc_palabra(pc) == 1) System.out.println("La palabra consultada aparece en 1 documento del conjunto");
 				else System.out.println("La palabra consultada aparece en "+cjt.apariencias_cjtdoc_palabra(pc)+" documentos del conjunto");
 				break;
-			case 14:
+			case 20:
 				System.out.println("Introduce la palabra que se desea consultar");
 				String plist=texto.nextLine();
 				Map<String,ArrayList<String>> mlist= cjt.list_doc_palabra(plist);
 				System.out.println(mlist);
 				break;
-			case 15:
+			case 21:
 				System.out.println("Introduce el autor del documento que se desea buscar");
 				String autfrec=texto.nextLine();
 				System.out.println("Introduce el titulo del documento que se desea buscar");
@@ -240,11 +301,11 @@ public class Cjt_driver {
 					else System.out.println("La palabra introducida aparece en el documento "+ cjt.frecuenciadoc_palabra(dfrec,pfrec)+ " veces");
 				}
 				break;
-			case 16:
+			case 22:
 				if (cjt.get_cjt_size() == 1) System.out.println("Hay en total "+ cjt.get_cjt_size()+ " documento");
 				else System.out.println("Hay en total "+ cjt.get_cjt_size()+ " documentos");
 				break;
-			case 17:
+			case 23:
 				 Map<String, Map<String,Documento>> mgpt=cjt.get_por_titulo();
 				 System.out.println(mgpt);
 				break;

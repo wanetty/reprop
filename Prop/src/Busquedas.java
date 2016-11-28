@@ -28,7 +28,7 @@ public class Busquedas {
 			Map<String,Documento> aux=c.busqueda_por_autor(aut);
 			for (String clave : aux.keySet()) d.add(aux.get(clave));
 		}
-		//else excepcion System.out.println("No existe documento con el autor introducido");
+		//else excepcion System.out.println("No existen documentos con el autor introducido");
 		return d;
 	}
 	
@@ -39,7 +39,7 @@ public class Busquedas {
 			Map<String,Documento> aux=c.busqueda_por_titulo(tit);
 			for (String clave : aux.keySet()) d.add(aux.get(clave));
 		}
-		//else excepcion System.out.println("No existe documento con el titulo introducido");
+		//else excepcion System.out.println("No existen documentos con el titulo introducido");
 		return d;
 	}
 	
@@ -53,7 +53,7 @@ public class Busquedas {
 				d.add(aux.get(clave1).get(clave2));
 			}
 		}
-		//else excepcion System.out.println("No existe documento con el tema introducido");
+		//else excepcion System.out.println("No existen documentos con el tema introducido");
 		return d;
 	}
 	
@@ -66,12 +66,12 @@ public class Busquedas {
 				d.add(aux.get(clave1).get(clave2));
 			}
 		}
-		//else excepcion System.out.println("No existe documento con la fecha introducida");
+		//else excepcion System.out.println("No existen documentos con la fecha introducida");
 		return d;
 	}
 	
 	Set<String> por_prefijo(Cjt_documentos c,String pref) throws IOException {
-		TreeMap<String,Map<String,Documento>> t=c.busqueda_por_prefijo();
+		TreeMap<String,Map<String,Documento>> t=c.autores_ordenados();
 		if (!pref.isEmpty()) {
 			char l=pref.charAt(pref.length()-1);
 			l=(char) (l+1);

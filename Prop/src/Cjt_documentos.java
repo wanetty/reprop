@@ -64,13 +64,11 @@ public class Cjt_documentos {
 		int diaaux=f.getDate();
 		String anyo = null, mes=null, dia=null;
 		anyo=anyo.valueOf(anyoaux);
-		System.out.println(anyo);
 		mes=mes.valueOf(mesaux);
-		System.out.println(mesaux);
 		dia=dia.valueOf(diaaux);
-		System.out.println(diaaux);
-		String nuevo=anyo+mes+dia;
-		System.out.println(nuevo);
+		String nuevo;
+		if (mes.equals("12")) nuevo=dia+"/01/"+anyo.substring(1, 3);
+		else nuevo=dia+'/'+mes.charAt(0)+(char)(mes.charAt(1)+1)+'/'+anyo.substring(1, 3);
 		Map<String,Documento> titulodocdat = new HashMap<String,Documento>();
 		titulodocdat.put(ti,d);
 		Map<String,Map<String,Documento>> auttitdocdat = new HashMap<String,Map<String,Documento>>();
@@ -142,6 +140,26 @@ public class Cjt_documentos {
 		for (int i=0; i<docs.size(); ++i) alta_doc(docs.get(i));
 	}
 	
+	//Existencias
+		public boolean existe_autor(String aut) {
+			if (por_autor.containsKey(aut)) return true;
+			return false;
+		}
+		
+		public boolean existe_titulo(String tit) {
+			if (por_titulo.containsKey(tit)) return true;
+			return false;
+		}
+		
+		public boolean existe_tema(String tem) {
+			if (por_tema.containsKey(tem)) return true;
+			return false;
+		}
+		
+		public boolean existe_fecha(String fec) {
+			if (por_fecha.containsKey(fec)) return true;
+			return false;
+		}
 	
 	//Bajas
 
@@ -251,7 +269,7 @@ public class Cjt_documentos {
 	}
 
 	//Devuelve TreeMap de autores ordenados por orden alfabetico
-	public TreeMap busqueda_por_prefijo() throws IOException{
+	public TreeMap autores_ordenados() throws IOException{
 		TreeMap t = new TreeMap();
 		t.putAll(por_autor);
 		return t;
@@ -287,27 +305,6 @@ public class Cjt_documentos {
 	//Devuelve un mapa de los documentos por titulo
 	public Map<String, Map<String,Documento>> get_por_titulo(){
 		return por_titulo;
-	}
-
-	//Existencias
-	public boolean existe_autor(String aut) {
-		if (por_autor.containsKey(aut)) return true;
-		return false;
-	}
-	
-	public boolean existe_titulo(String tit) {
-		if (por_titulo.containsKey(tit)) return true;
-		return false;
-	}
-	
-	public boolean existe_tema(String tem) {
-		if (por_tema.containsKey(tem)) return true;
-		return false;
-	}
-	
-	public boolean existe_fecha(String fec) {
-		if (por_fecha.containsKey(fec)) return true;
-		return false;
 	}
 	
 }
