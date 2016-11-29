@@ -176,12 +176,10 @@ public class Documento {
 		anyo=String.valueOf(anyoaux);
 		mes=String.valueOf(mesaux);
 		dia=String.valueOf(diaaux);
-		String nuevo=anyo+mes+dia;
+		String nuevo;
+		if (mes.equals("12")) nuevo=dia+"/01/"+anyo.substring(1, 3);
+		else nuevo=dia+'/'+mes.charAt(0)+(char)(mes.charAt(1)+1)+'/'+anyo.substring(1, 3);
 		return nuevo;
-	}
-
-	public Date get_fecha_date() {
-		return fecha;
 	}
 
 	public int get_num_frases(){
@@ -213,6 +211,16 @@ public class Documento {
 
 	//modificadoras
 
+	public void modificar_autordoc(String aut) throws IOException {
+		Frase newaut=new Frase(aut);
+		autor=newaut;
+	}
+	
+	public void modificar_titulodoc(String tit) throws IOException {
+		Frase newtit=new Frase(tit);
+		autor=newtit;
+	}
+	
 	public void borrar_frase(int i) throws IOException{
 		if(i >= 0 && i<=contenido.size()) {
 			if (i < contenido.size()) {/*contenido.remove(i);*/

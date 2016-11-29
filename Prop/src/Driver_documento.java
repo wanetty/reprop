@@ -15,7 +15,7 @@ public class Driver_documento {
 
 	public static void main(String[] args) throws IOException {
 
-		System.out.println("Bienvenido/a al driver de la clase Documento. Por favor dÈ de alta un documento.");
+		System.out.println("Bienvenido/a al driver de la clase Documento. Por favor dÔøΩ de alta un documento.");
 
 		Documento d = new Documento();
 		Frase f = new Frase();
@@ -30,18 +30,20 @@ public class Driver_documento {
 
 		do {
 			System.out.println("1. Alta documento.");
-			System.out.println("2. Consulta tÌtulo.");
+			System.out.println("2. Consulta tÈüôulo.");
 			System.out.println("3. Consulta autor.");
 			System.out.println("4. Consulta tema.");
 			System.out.println("5. Consulta fecha.");
-			System.out.println("6. Consulta el n˙mero de frases del contenido.");
+			System.out.println("6. Consulta el nÈ∑êero de frases del contenido.");
 			System.out.println("7. Consulta contenido.");
-			System.out.println("8. Consulta la frase en la posiciÛn i.");
+			System.out.println("8. Consulta la frase en la posiciÈ´á i.");
 			System.out.println("9. Consulta el vector de frecuencias del documento.");
-			System.out.println("10. Consulta el n˙mero total de palabras no funcionales del contenido del documento.");
-			System.out.println("11. Borrar la primera apariciÛn de la palabra p en la frase i del contenido.");
-			System.out.println("12. AÒadir una palabra al final de la frase i del contenido.");
-			System.out.println("13. Imprime el documento por pantalla.");
+			System.out.println("10. Consulta el nÈ∑êero total de palabras no funcionales del contenido del documento.");
+			System.out.println("11. Modifica el autor del documento.");
+			System.out.println("12. Modifica el titulo del documento.");
+			System.out.println("13. Borrar la primera apariciÈ´á de la palabra p en la frase i del contenido.");
+			System.out.println("14. AÈ¶ªdir una palabra al final de la frase i del contenido.");
+			System.out.println("15. Imprime el documento por pantalla.");
 			System.out.println("0. Salir del driver.");
 
 			accion = codigo.nextInt();
@@ -61,9 +63,8 @@ public class Driver_documento {
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else {
 					f = d.get_titulo();
-					System.out.println("El tÌtulo es: ");
+					System.out.println("El tÈüôulo es: ");
 					f.escribirfrase();
-					System.out.println("");
 				}
 				break;
 			case 3:
@@ -86,13 +87,13 @@ public class Driver_documento {
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else {
 					System.out.println("La fecha es: ");
-					System.out.println(d.get_fecha_date());
+					System.out.println(d.get_fecha());
 				}
 				break;
 			case 6:
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else {
-					System.out.println("El n˙mero de frases es: ");
+					System.out.println("El nÈ∑êero de frases es: ");
 					System.out.println(d.get_num_frases());
 				}
 				break;
@@ -110,11 +111,11 @@ public class Driver_documento {
 			case 8:
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else {
-					System.out.println("Inserte un natural i, el n˙mero 0 equivale a la primera frase.");
+					System.out.println("Inserte un natural i, el nÈ∑êero 0 equivale a la primera frase.");
 					k = scanner.nextInt();
 					f = d.get_frase(k);
 					if(f == null) System.out.println("Natural i incorrecto, no se ha podido realizar la accion");
-					else {System.out.println("La frase en la posiciÛn "+ k + " es: ");
+					else {System.out.println("La frase en la posiciÈ´á "+ k + " es: ");
 					f.escribirfrase();}
 				}
 				break;
@@ -129,48 +130,65 @@ public class Driver_documento {
 			case 10:
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else {
-					System.out.println("El n˙mero total de palabras no funcionales es: ");
+					System.out.println("El nÈ∑êero total de palabras no funcionales es: ");
 					System.out.println(d.get_total_words());
 				}
 				break;
-
 			case 11:
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else {
-					System.out.println("Escriba la palabra.");
-					s = aux.nextLine();
-					pal = new Palabra(s);
-					System.out.println("Escriba el n˙mero de frase, el n˙mero 0 equivale a la primera.");
-					k = scanner.nextInt();
-					if (k < 0 || k >= d.get_contenido().size()) {
-						System.out.println("N˙mero de frase incorrecto.");
-					}
-					else {
-						int aux = d.get_contenido().get(k).midafrase();
-						d.borrar_palabra(k, pal);
-						if (! (aux == d.get_contenido().get(k).midafrase()))
-							System.out.println("Primera apariciÛn de la palabra "+ pal.palabra() + " de la frase n˙mero " +k+" borrada.");
-					}
+					System.out.println("Escriba el autor: ");
+					s=aux.next();
+					d.modificar_autordoc(s);
+					System.out.println("Autor modificado.");
 				}
 				break;
 			case 12:
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else {
-					System.out.println("Escriba la palabra.");
-					s = aux.nextLine();
-					pal = new Palabra(s);
-					System.out.println("Escriba el n˙mero de frase, el n˙mero 0 equivale a la primera.");
-					k = scanner.nextInt();
-					if (k < 0 || k >= d.get_contenido().size()) {
-						System.out.println("N˙mero de frase incorrecto.");
-					}
-					else {
-						d.anyadir_palabra(k, pal);
-						System.out.println("Palabra "+ pal.palabra()+" aÒadida al final de la frase n˙mero "+k+".");
-					}
+					System.out.println("Escriba el titulo: ");
+					s=aux.next();
+					d.modificar_titulodoc(s);
+					System.out.println("Titulo modificado.");
 				}
 				break;
 			case 13:
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("Escriba la palabra.");
+					s = aux.nextLine();
+					pal = new Palabra(s);
+					System.out.println("Escriba el nÈ∑êero de frase, el nÈ∑êero 0 equivale a la primera.");
+					k = scanner.nextInt();
+					if (k < 0 || k >= d.get_contenido().size()) {
+						System.out.println("NÈ∑êero de frase incorrecto.");
+					}
+					else {
+						int aux = d.get_contenido().get(k).midafrase();
+						d.borrar_palabra(k, pal);
+						if (! (aux == d.get_contenido().get(k).midafrase()))
+							System.out.println("Primera apariciÈ´á de la palabra "+ pal.palabra() + " de la frase nÈ∑êero " +k+" borrada.");
+					}
+				}
+				break;
+			case 14:
+				if (!hay_doc) System.out.println("Da de alta un documento primero.");
+				else {
+					System.out.println("Escriba la palabra.");
+					s = aux.nextLine();
+					pal = new Palabra(s);
+					System.out.println("Escriba el nÈ∑êero de frase, el nÈ∑êero 0 equivale a la primera.");
+					k = scanner.nextInt();
+					if (k < 0 || k >= d.get_contenido().size()) {
+						System.out.println("NÈ∑êero de frase incorrecto.");
+					}
+					else {
+						d.anyadir_palabra(k, pal);
+						System.out.println("Palabra "+ pal.palabra()+" aÈ¶ªdida al final de la frase nÈ∑êero "+k+".");
+					}
+				}
+				break;
+			case 15:
 				if (!hay_doc) System.out.println("Da de alta un documento primero.");
 				else d.pintar_documento();
 				break;

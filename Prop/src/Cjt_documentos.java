@@ -18,19 +18,17 @@ public class Cjt_documentos {
 	private frecuencias_globales frecuencias= new frecuencias_globales();
 	private int cjt_size;
 	
-	//Constructora
+	/*Constructora*/
 	public Cjt_documentos() {
 		cjt_size=0;
 	}
 
-	//Altas
-
-	public void alta_doc(String raiz) throws IOException{
-		Documento d= new Documento(raiz);
+	/*Altas*/
+	
+	private void llenar_estructuras(Documento d) {
 		String ti=d.get_titulo().toString();
 		String a=d.get_autor().toString();
 		String te=d.get_tema().toString();
-		//Rellenar las estructuras por_autor,por_titulo,por_tema,por_fecha
 		if (!por_titulo.containsKey(ti)){ //si titulo no exsite crear un titulo con el autor correspondiente
 			Map<String,Documento> autdoc = new HashMap<String,Documento>();
 			autdoc.put(a, d);
@@ -78,7 +76,11 @@ public class Cjt_documentos {
 			if (!por_fecha.get(nuevo).containsKey(a)) por_fecha.get(nuevo).put(a,titulodocdat); //si no contiene este autor, anyado el autor y el titulo junto al documento
 			else por_fecha.get(nuevo).get(a).put(ti, d); //si lo contiene, anyado solo el titulo y el documento
 		}
-
+	}
+	
+	public void alta_doc(String raiz) throws IOException{
+		Documento d= new Documento(raiz);
+		llenar_estructuras(d);
 		//actualizo frecuencias
 		frecuencias.anyadir_frecuencias(d);
 		++cjt_size;
@@ -117,15 +119,17 @@ public class Cjt_documentos {
 
 		//creo un nuevo calendario para guardar solo la fecha y no las horas
 		//Calendar caux = null;
-		Date f= new Date();
+		Date f=new Date();
 		int anyoaux=f.getYear();
 		int mesaux=f.getMonth();
 		int diaaux=f.getDate();
 		String anyo = null, mes=null, dia=null;
-		anyo=String.valueOf(anyoaux);
-		mes=String.valueOf(mesaux);
-		dia=String.valueOf(diaaux); 
-		String nuevo=anyo+mes+dia;
+		anyo=anyo.valueOf(anyoaux);
+		mes=mes.valueOf(mesaux);
+		dia=dia.valueOf(diaaux);
+		String nuevo;
+		if (mes.equals("12")) nuevo=dia+"/01/"+anyo.substring(1, 3);
+		else nuevo=dia+'/'+mes.charAt(0)+(char)(mes.charAt(1)+1)+'/'+anyo.substring(1, 3);
 		if (!por_fecha.containsKey(nuevo)) por_fecha.put(nuevo,auttitdoc); //si la fecha es nueva, anyado una lista nueva de documentos para esta fecha	
 		else {//si la fecha ya existia, tengo que mirar si los documentos de esta fecha contiene este autor
 			if (!por_fecha.get(nuevo).containsKey(a)) por_fecha.get(nuevo).put(a,titulodoc); //si no contiene este autor, anyado el autor y el titulo junto al documento
@@ -135,34 +139,32 @@ public class Cjt_documentos {
 		frecuencias.anyadir_frecuencias(d);
 	}
 
-	//Cuando sea una alta convencional n=0, cuando sea multiple n>0;
 	public void alta_multiple(ArrayList<String> docs) throws IOException {
 		for (int i=0; i<docs.size(); ++i) alta_doc(docs.get(i));
 	}
 	
-	//Existencias
-		public boolean existe_autor(String aut) {
-			if (por_autor.containsKey(aut)) return true;
-			return false;
-		}
-		
-		public boolean existe_titulo(String tit) {
-			if (por_titulo.containsKey(tit)) return true;
-			return false;
-		}
-		
-		public boolean existe_tema(String tem) {
-			if (por_tema.containsKey(tem)) return true;
-			return false;
-		}
-		
-		public boolean existe_fecha(String fec) {
+	/*Existencias*/
+	public boolean existe_autor(String aut) {
+		if (por_autor.containsKey(aut)) return true;
+		return false;
+	}
+	
+	public boolean existe_titulo(String tit) {
+		if (por_titulo.containsKey(tit)) return true;
+		return false;
+	}
+	
+	public boolean existe_tema(String tem) {
+		if (por_tema.containsKey(tem)) return true;
+		return false;
+	}
+	
+	public boolean existe_fecha(String fec) {
 			if (por_fecha.containsKey(fec)) return true;
 			return false;
 		}
 	
-	//Bajas
-
+	/*Bajas*/
 	//Da de baja un documento
 	public void baja_individual_doc(Documento d) throws IOException{
 		if (d!=null) {
@@ -192,7 +194,6 @@ public class Cjt_documentos {
 						if (por_fecha.get(fec).get(aut).isEmpty()) por_fecha.get(fec).remove(aut);
 						if (por_fecha.get(fec).isEmpty()) por_fecha.remove(fec);
 					}
-					
 					frecuencias.borrar_frecuencias(d);
 					System.out.println("Baja realizada");
 				}
@@ -230,19 +231,40 @@ public class Cjt_documentos {
 	}
 
 
-	//Modificaciones
+	/*Modificaciones*/
 
+	public void modificar_autor(String aut, String tit, String autmod) throws IOException {
+		Documento dmod=por_autor.get(aut).get(tit);
+		baja_individual_doc(dmod);
+		dmod.modificar_autordoc(autmod);
+		llenar_estructuras(dmod);
+		frecuencias.anyadir_frecuencias(dmod);
+		System.out.println(por_autor);
+		System.out.println(por_titulo);
+		System.out.println(por_tema);
+		System.out.println(por_fecha);
+	}
+	
+	public void modificar_titulo(String aut, String tit, String titmod) throws IOException {
+		Documento dmod=por_autor.get(aut).get(tit);
+		baja_individual_doc(dmod);
+		dmod.modificar_autordoc(titmod);
+		llenar_estructuras(dmod);
+		frecuencias.anyadir_frecuencias(dmod);
+		
+	}
+	
 	public void borrar_palabra(Documento d, int numfras, Palabra pborr) throws IOException{
 		d.borrar_palabra(numfras, pborr);
 		frecuencias.borrar_frecuencias(pborr.palabra(), d);
 	}
+	
 	public void anyadir_palabra(Documento d, int numfras, Palabra panyad) throws IOException{
 		d.anyadir_palabra(numfras, panyad);
 		frecuencias.anyadir_frecuencias(panyad.palabra(), d);
 	}
 
-	//Busquedas
-	
+	/*Busquedas*/
 	//Pre:existe algun documento con aut i tit
 	public Documento busqueda_por_auttit(String aut, String tit) {
 		return por_autor.get(aut).get(tit);
@@ -275,8 +297,7 @@ public class Cjt_documentos {
 		return t;
 	}
 
-	//Frecuencias
-
+	/*Frecuencias*/
 	//Devuelve la frecuencia de una palabra p en el total de conjunto de documentos
 	public double frecuencia_glob_palabra(String p) {
 		return frecuencias.valor_global(p);
@@ -308,41 +329,3 @@ public class Cjt_documentos {
 	}
 	
 }
-
-
-/*
-public Documento busqueda_por_auttit(String aut, String tit) {
-	aut = aut.toLowerCase();
-	tit = tit.toLowerCase();
-	if (por_autor.containsKey(aut)) {
-		if (por_autor.get(aut).containsKey(tit)) return por_autor.get(aut).get(tit); 
-		System.out.println("Combinacion de titulo o autor inexistente");
-	}
-	else System.out.println("Combinacion de titulo o autor inexistente");
-	Documento nada= null;
-	return nada;
-}*/
-
-/*
-public ArrayList<Documento> busqueda_por_titulo(String t){
-	ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
-	if (por_titulo.containsKey(t)) {
-		for (String clave1 : por_titulo.get(t).keySet()) conjDocumento_res.add(por_titulo.get(t).get(clave1));
-		return conjDocumento_res;
-	}
-	System.out.println("No existe documento con el titulo introducido");
-	return conjDocumento_res;
-}*/
-
-/*
-public ArrayList<Documento> busqueda_por_tema(String tem){
-	ArrayList<Documento> conjDocumento_res = new ArrayList<Documento>();
-	if (por_tema.containsKey(tem)) {
-		for (String clave1 : por_tema.get(tem).keySet()) {
-			for (String clave2 : por_tema.get(tem).get(clave1).keySet())
-			conjDocumento_res.add(por_tema.get(tem).get(clave1).get(clave2));
-		}
-	}
-	else System.out.println("No existe documento con el tema introducido");
-	return conjDocumento_res;
-}*/
