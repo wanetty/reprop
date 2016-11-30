@@ -85,6 +85,18 @@ public class Cjt_documentos {
 		frecuencias.anyadir_frecuencias(d);
 		++cjt_size;
 	}
+	public void alta_doc(Documento d) throws IOException{
+		llenar_estructuras(d);
+		//actualizo frecuencias
+		frecuencias.anyadir_frecuencias(d);
+		++cjt_size;
+	}
+	public void alta_doc(ArrayList<Documento> d) throws IOException{
+		for(int i = 0;i < d.size();++i){
+			alta_doc(d.get(i));
+		}
+	}
+		
 	
 	@SuppressWarnings("deprecation")
 	public void alta_sin_fichero(String text) throws IOException{
