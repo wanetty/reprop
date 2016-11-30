@@ -20,11 +20,11 @@ public class Driver_persistencia {
 		numero = new Scanner(System.in);
 		Persistencia ruta = new Persistencia();
 		Cjt_documentos cjt= new Cjt_documentos();
-		cjt.alta_doc("DocumentoAlta1.txt");
+		/*cjt.alta_doc("DocumentoAlta1.txt");
 		cjt.alta_doc("DocumentoAlta2.txt");
 		cjt.alta_doc("DocumentoAlta3.txt");
 		cjt.alta_doc("DocumentoAlta4.txt");
-		cjt.alta_doc("DocumentoAlta5.txt");
+		cjt.alta_doc("DocumentoAlta5.txt");*/
 		System.out.println("Se han precargado los cinco documentos que estan en la raiz");
 
 		do{
@@ -46,6 +46,7 @@ public class Driver_persistencia {
 			System.out.println("16. get_cjt_size()");
 			System.out.println("17. get_por_titulo()");
 			System.out.println("18. guardar");
+			System.out.println("19. recuperar");
 			System.out.println("0. Salir del driver.");
 			var = opcion.nextInt();
 			switch(var){
@@ -179,7 +180,19 @@ public class Driver_persistencia {
 				ruta.setArchivo("guardado1.txt");
 				ruta.guardar(cjt);
 				break;
+			case 19:
+				System.out.println("Escribe la ruta de  archivo guardado.");
+				String s = texto.nextLine();
+				File fi = new File(s);
+				if (!fi.isFile()) System.out.println("No existe el documento.");
+				else {
+					ruta.setArchivo(s);
+					cjt.alta_doc(ruta.recuperar());
+					System.out.println(cjt.get_cjt_size());
+				}
 			}
+	
+
 			
 				
 		}while(var!= 0);

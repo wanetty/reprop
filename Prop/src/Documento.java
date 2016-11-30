@@ -258,8 +258,8 @@ public class Documento {
 		System.out.println(autor.toString_consigno());
 		System.out.println(tema.toString_consigno());
 		for (int i=0; i<contenido.size(); ++i) {
-			System.out.print(contenido.get(i).toString_consigno());
-			System.out.println(".");
+			System.out.println(contenido.get(i).toString_consigno());
+			//System.out.println(".");
 		}
 	}
 }
