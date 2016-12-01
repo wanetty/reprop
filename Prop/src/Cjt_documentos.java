@@ -156,6 +156,11 @@ public class Cjt_documentos {
 	}
 	
 	/*Existencias*/
+	public boolean existe_combinacion(String aut, String tit) {
+		if (por_autor.containsKey(aut) && por_autor.get(aut).containsKey(tit)) return true;
+		return false;
+	}
+	
 	public boolean existe_autor(String aut) {
 		if (por_autor.containsKey(aut)) return true;
 		return false;
@@ -251,10 +256,6 @@ public class Cjt_documentos {
 		dmod.modificar_autordoc(autmod);
 		llenar_estructuras(dmod);
 		frecuencias.anyadir_frecuencias(dmod);
-		System.out.println(por_autor);
-		System.out.println(por_titulo);
-		System.out.println(por_tema);
-		System.out.println(por_fecha);
 	}
 	
 	public void modificar_titulo(String aut, String tit, String titmod) throws IOException {
@@ -263,7 +264,6 @@ public class Cjt_documentos {
 		dmod.modificar_autordoc(titmod);
 		llenar_estructuras(dmod);
 		frecuencias.anyadir_frecuencias(dmod);
-		
 	}
 	
 	public void borrar_palabra(Documento d, int numfras, Palabra pborr) throws IOException{

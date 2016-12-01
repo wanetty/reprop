@@ -14,7 +14,7 @@ public class Busquedas {
 		aut=aut.toLowerCase();
 		tit=tit.toLowerCase();
 		Documento d=null;
-		if (c.existe_autor(aut) && c.existe_titulo(tit)) {
+		if (c.existe_combinacion(aut, tit)) {
 			d=c.busqueda_por_auttit(aut, tit);	
 		}
 		//else excepcion System.out.println("Combinacion de titulo o autor inexistente");
