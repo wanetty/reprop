@@ -20,6 +20,7 @@ public class Driver_persistencia {
 		numero = new Scanner(System.in);
 		Persistencia ruta = new Persistencia();
 		Cjt_documentos cjt= new Cjt_documentos();
+		Palabra pal = new Palabra("hola.");
 		/*cjt.alta_doc("DocumentoAlta1.txt");
 		cjt.alta_doc("DocumentoAlta2.txt");
 		cjt.alta_doc("DocumentoAlta3.txt");
@@ -177,19 +178,16 @@ public class Driver_persistencia {
 				break;
 
 			case 18:
-				ruta.setArchivo("guardado1.txt");
 				ruta.guardar(cjt);
 				break;
 			case 19:
-				System.out.println("Escribe la ruta de  archivo guardado.");
-				String s = texto.nextLine();
-				File fi = new File(s);
-				if (!fi.isFile()) System.out.println("No existe el documento.");
-				else {
-					ruta.setArchivo(s);
-					cjt.alta_doc(ruta.recuperar());
-					System.out.println(cjt.get_cjt_size());
+				try {
+					cjt = ruta.recuperar();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				break;
 			}
 	
 
