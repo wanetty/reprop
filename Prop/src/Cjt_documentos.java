@@ -26,9 +26,9 @@ public class Cjt_documentos {
 	/*Altas*/
 	
 	private void llenar_estructuras(Documento d) {
-		String ti=d.get_titulo().toString();
-		String a=d.get_autor().toString();
-		String te=d.get_tema().toString();
+		String ti=d.get_titulo().toString_consigno();
+		String a=d.get_autor().toString_consigno();
+		String te=d.get_tema().toString_consigno();
 		if (!por_titulo.containsKey(ti)){ //si titulo no exsite crear un titulo con el autor correspondiente
 			Map<String,Documento> autdoc = new HashMap<String,Documento>();
 			autdoc.put(a, d);
@@ -49,7 +49,7 @@ public class Cjt_documentos {
 		titulodoctem.put(ti,d);
 		Map<String,Map<String,Documento>> auttitdoctem = new HashMap<String,Map<String,Documento>>();
 		auttitdoctem.put(a, titulodoctem);
-		if (!por_tema.containsKey(te.toString())) por_tema.put(te,auttitdoctem); //si el tema es nuevo, anyado una lista nueva de documentos para este tema
+		if (!por_tema.containsKey(te)) por_tema.put(te,auttitdoctem); //si el tema es nuevo, anyado una lista nueva de documentos para este tema
 		else {//si el tema ya existia, tengo que mirar si los documentos de este tema contiene este autor
 			if (!por_tema.get(te).containsKey(a)) por_tema.get(te).put(a,titulodoctem); //si no contiene este autor, anyado el autor y el titulo junto al documento
 			else por_tema.get(te).get(a).put(ti, d); //si lo contiene, anyado solo el titulo y el documento
@@ -96,61 +96,14 @@ public class Cjt_documentos {
 			alta_doc(d.get(i));
 		}
 	}
-		
-	
 	@SuppressWarnings("deprecation")
 	public void alta_sin_fichero(String text) throws IOException{
 		Documento d= new Documento();
 		d.guardar_documento(text);
-		String ti=d.get_titulo().toString();
-		String a=d.get_autor().toString();
-		String te=d.get_tema().toString();
-		if (!por_titulo.containsKey(ti)){ //si titulo no exsite crear un titulo con el autor correspondiente
-			Map<String,Documento> autdoc = new HashMap<String,Documento>();
-			autdoc.put(a, d);
-			por_titulo.put(ti, autdoc);
-		}
-		else {//si titulo ya existe anyadir el autor (un mismo titulo no puede tener el mismo autor por eso el documento no sustituira a uno antiguo )
-			por_titulo.get(ti).put(a, d);
-		}
-		++cjt_size;
-
-		Map<String,Documento> titulodoc = new HashMap<String,Documento>();
-		titulodoc.put(ti,d);
-		Map<String,Map<String,Documento>> auttitdoc = new HashMap<String,Map<String,Documento>>();
-		auttitdoc.put(a, titulodoc);
-
-		if (!por_autor.containsKey(toString())) por_autor.put(a, titulodoc); //si el autor es nuevo,anyade una lista nueva de autor, titulo con su documento
-		else por_autor.get(a).put(ti,d); //si autor ya existe,anyade un titulo junto a su documento
-
-		if (!por_tema.containsKey(te.toString())) por_tema.put(te.toString(),auttitdoc); //si el tema es nuevo, anyado una lista nueva de documentos para este tema
-		else {//si el tema ya existia, tengo que mirar si los documentos de este tema contiene este autor
-			if (!por_tema.get(te.toString()).containsKey(toString())) por_tema.get(te.toString()).put(toString(),titulodoc); //si no contiene este autor, anyado el autor y el titulo junto al documento
-			else por_tema.get(te.toString()).get(toString()).put(ti, d); //si lo contiene, anyado solo el titulo y el documento
-		}
-
-		//creo un nuevo calendario para guardar solo la fecha y no las horas
-		//Calendar caux = null;
-		Date f=new Date();
-		int anyoaux=f.getYear();
-		int mesaux=f.getMonth();
-		int diaaux=f.getDate();
-		String anyo = null, mes=null, dia=null;
-		anyo=anyo.valueOf(anyoaux);
-		mes=mes.valueOf(mesaux);
-		dia=dia.valueOf(diaaux);
-		String nuevo;
-		if (mes.equals("12")) nuevo=dia+"/01/"+anyo.substring(1, 3);
-		else nuevo=dia+'/'+mes.charAt(0)+(char)(mes.charAt(1)+1)+'/'+anyo.substring(1, 3);
-		if (!por_fecha.containsKey(nuevo)) por_fecha.put(nuevo,auttitdoc); //si la fecha es nueva, anyado una lista nueva de documentos para esta fecha	
-		else {//si la fecha ya existia, tengo que mirar si los documentos de esta fecha contiene este autor
-			if (!por_fecha.get(nuevo).containsKey(a)) por_fecha.get(nuevo).put(a,titulodoc); //si no contiene este autor, anyado el autor y el titulo junto al documento
-			else por_fecha.get(nuevo).get(a).put(ti, d); //si lo contiene, anyado solo el titulo y el documento
-		}
+		llenar_estructuras(d);
 		//actualizo frecuencias
 		frecuencias.anyadir_frecuencias(d);
 	}
-
 	public void alta_multiple(ArrayList<String> docs) throws IOException {
 		for (int i=0; i<docs.size(); ++i) alta_doc(docs.get(i));
 	}
@@ -185,9 +138,9 @@ public class Cjt_documentos {
 	//Da de baja un documento
 	public void baja_individual_doc(Documento d) throws IOException{
 		if (d!=null) {
-			String aut=d.get_autor().toString();
-			String tit=d.get_titulo().toString();
-			String tem = d.get_tema().toString();
+			String aut=d.get_autor().toString_consigno();
+			String tit=d.get_titulo().toString_consigno();
+			String tem = d.get_tema().toString_consigno();
 			String fec=d.get_fecha(); 
 			if (por_titulo.containsKey(tit)) {
 				if (por_titulo.get(tit).containsKey(aut)) {
@@ -227,7 +180,7 @@ public class Cjt_documentos {
 		if (por_autor.containsKey(aut)) {
 			for(String clave1 : por_autor.get(aut).keySet()) {
 				String tit=clave1;
-				String tem = por_autor.get(aut).get(clave1).get_tema().toString();
+				String tem = por_autor.get(aut).get(clave1).get_tema().toString_consigno();
 				String fec=por_autor.get(aut).get(clave1).get_fecha();
 				--cjt_size;
 				frecuencias.borrar_frecuencias(por_autor.get(aut).get(tit));

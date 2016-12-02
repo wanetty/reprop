@@ -25,6 +25,7 @@ public class busquedas_driver {
 		
 		int var;
 		texto = new Scanner(System.in);
+		numero = new Scanner(System.in);
 		opcion = new Scanner(System.in);
 		Cjt_documentos cjt= new Cjt_documentos();
 		Busquedas bus= new Busquedas();
@@ -49,14 +50,35 @@ public class busquedas_driver {
 			var = opcion.nextInt();
 			switch(var){
 			case 1:
-				break;
+				System.out.println("Dado un documento T y un natural k, obtener los k documentos mas parecidos a T.");
+				System.out.println("Introduce el autor del documento T");
+				String aut=texto.nextLine();
+				System.out.println("Introduce el titulo del documento T");
+				String tit=texto.nextLine();
+				if (cjt.existe_combinacion(aut,tit)) {
+					Documento T = new Documento();
+					T = cjt.busqueda_por_auttit(aut,tit);
+					System.out.println("Introduce un natural k");
+					int k = numero.nextInt();
+					if (k < 1) System.out.println("Numero invalido.");
+					else {
+						System.out.println("1. Utilizar inverse document frequency smooth");
+						System.out.println("2. Utilizar probabilistic inverse document frequency");
+						int metodo = numero.nextInt();
+						if (metodo != 1 && metodo != 2) System.out.println("No existe este metodo.");
+						else {
+							ArrayList<Documento> docs=bus.por_similitud(cjt, aut, tit, k, metodo);
+						}
+					}
+				}
+				else System.out.println("El documento no existe.");
 			case 2:
 				break;
 			case 3:
 				System.out.println("Introduce el autor del documento a buscar");
-				String aut=texto.nextLine();
+				aut=texto.nextLine();
 				System.out.println("Introduce el titulo del documento a buscar");
-				String tit=texto.nextLine();
+				tit=texto.nextLine();
 				Documento auttit=bus.por_auttit(cjt, aut, tit);
 				auttit.pintar_documento();
 				break;
@@ -93,6 +115,7 @@ public class busquedas_driver {
 			}
 		}while(var!= 0);
 	}
+	
 }
 
 

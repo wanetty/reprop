@@ -56,11 +56,13 @@ public class Driver_similitud {
 			case 2: 
 				System.out.println("Escribe el título del documento a dar de baja.");
 				s = aux.nextLine();
+				s = s.toLowerCase();
 				System.out.println("Escribe el autor del documento a dar de baja.");
 				s2 = aux2.nextLine();
+				s2 = s2.toLowerCase();
 				Documento T1 = new Documento();
-				T1 = cjt.busqueda_por_auttit(s2, s);
-				if (T1 != null){
+				if (cjt.existe_combinacion(s2, s)) {
+					T1 = cjt.busqueda_por_auttit(s2, s);
 					cjt.baja_individual_doc(T1);
 					System.out.println("Documento dado de baja con éxito.");
 				}
@@ -79,10 +81,12 @@ public class Driver_similitud {
 				System.out.println("Dado un documento T y un natural k, obtener los k documentos más parecidos a T.");
 				System.out.println("Introduce título del documento T");
 				s = aux.nextLine();
+				s = s.toLowerCase();
 				System.out.println("Introduce el autor del documento T");
 				s2 = aux2.nextLine();
-				T = cjt.busqueda_por_auttit(s2, s);
-				if (T != null) {
+				s2 = s2.toLowerCase();
+				if (cjt.existe_combinacion(s2, s)) {
+					T = cjt.busqueda_por_auttit(s2, s);
 					System.out.println("Introduce un natural k");
 					int k = scanner.nextInt();
 					if (k < 1) System.out.println("Número inválido.");
@@ -106,7 +110,7 @@ public class Driver_similitud {
 		} while(accion != 0);
 	}
 
-	static void print_resultado(Documento T, int k, ArrayList<Documento> res, Similitud sim) throws IOException {
+	public static void print_resultado(Documento T, int k, ArrayList<Documento> res, Similitud sim) throws IOException {
 
 		if (k > 1){
 			System.out.print("Los " + k +" documentos más parecidos a ");
@@ -114,9 +118,9 @@ public class Driver_similitud {
 		else {
 			System.out.print("El documento más parecido a ");
 		}
-		System.out.print("\"" + T.get_titulo().toString()+ "\"");
+		System.out.print("\"" + T.get_titulo().toString_consigno()+ "\"");
 		System.out.print(" de ");
-		System.out.print("\""+T.get_autor().toString()+"\"");
+		System.out.print("\""+T.get_autor().toString_consigno()+"\"");
 		if (k > 1) {
 			System.out.println(" son:");
 		}

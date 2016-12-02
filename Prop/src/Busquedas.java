@@ -6,7 +6,27 @@ import java.util.TreeMap;
 
 public class Busquedas {
 
-	//ArrayList<Documento> por_similitud() {}
+	ArrayList<Documento> por_similitud(Cjt_documentos c, String aut, String tit, int k, int metd) throws IOException {
+		aut=aut.toLowerCase();
+		tit=tit.toLowerCase();
+		ArrayList<Documento> a=new ArrayList<Documento>();
+		Similitud s=new Similitud();
+		if (c.existe_combinacion(aut, tit)) {
+			Documento d=c.busqueda_por_auttit(aut,tit);
+			if (k >= 1) {
+				if (metd == 1 || metd == 2) {
+					s.similitud_n(d,k,c,metd);
+					a = s.get_resultado();
+					if (k >= c.get_cjt_size()) k = c.get_cjt_size()-1;
+					print_resultado(d, k, a,s);//se quita
+				}
+				//else excepcion System.out.println("No existe este método.");
+			}
+			//else excepcion System.out.println("Numero invalido");
+		}
+		//else excepcion System.out.println("Combinacion de titulo o autor inexistente");
+		return a;
+	}
 	
 	//ArrayList<Documento> por_booleano() {}
 	
@@ -81,6 +101,26 @@ public class Busquedas {
 		}
 		return t.keySet();
 	}
-	
+
+	public static void print_resultado(Documento T, int k, ArrayList<Documento> res, Similitud sim) throws IOException {
+
+		if (k > 1){
+			System.out.print("Los " + k +" documentos más parecidos a ");
+		}
+		else {
+			System.out.print("El documento más parecido a ");
+		}
+		System.out.print("\"" + T.get_titulo().toString_consigno()+ "\"");
+		System.out.print(" de ");
+		System.out.print("\""+T.get_autor().toString_consigno()+"\"");
+		if (k > 1) {
+			System.out.println(" son:");
+		}
+		else System.out.println(" es:");
+
+		for (int i = 0; i < sim.get_resultado().size(); ++i) {
+			System.out.println("\"" +sim.get_resultado().get(i).get_titulo()+"\"" + " de " + "\"" +sim.get_resultado().get(i).get_autor()+"\"");
+		}
+	}
 	
 }

@@ -178,6 +178,7 @@ public class Cjt_driver {
 				String tit=texto.nextLine();
 				if (cjt.existe_combinacion(aut, tit)) {
 					Documento d=cjt.busqueda_por_auttit(aut,tit);
+					cjt.baja_individual_doc(d);
 					d.pintar_documento();
 				}
 				else System.out.println("Combinacion de titulo o autor inexistente");

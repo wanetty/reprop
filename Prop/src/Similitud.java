@@ -27,7 +27,7 @@ public class Similitud {
 		double simi;
 		for (String clave1 : cjt.get_por_titulo().keySet()) {
 			for (String clave2 : cjt.get_por_titulo().get(clave1).keySet()){
-				if (!(clave1 == d.get_titulo().toString() && clave2 == d.get_autor().toString())){
+				if (!(clave1 == d.get_titulo().toString_consigno() && clave2 == d.get_autor().toString_consigno())){
 					simi = calculaSimilitud(mapD, cjt.get_por_titulo().get(clave1).get(clave2), cjt, metodo, nA);
 					if (!res.containsKey(simi)) {
 						ArrayList<Documento> docs = new ArrayList<Documento>();
