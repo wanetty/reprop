@@ -9,6 +9,54 @@ import java.util.HashMap;
 
 public class Documento {
 	private Frase titulo = new Frase();
+	public Frase getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(Frase titulo) {
+		this.titulo = titulo;
+	}
+
+	public Frase getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Frase autor) {
+		this.autor = autor;
+	}
+
+	public Frase getTema() {
+		return tema;
+	}
+
+	public void setTema(Frase tema) {
+		this.tema = tema;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public ArrayList<Frase> getContenido() {
+		return contenido;
+	}
+
+	public void setContenido(ArrayList<Frase> contenido) {
+		this.contenido = contenido;
+	}
+
+	public Map<String, Double> getPesos() {
+		return pesos;
+	}
+
+	public void setPesos(Map<String, Double> pesos) {
+		this.pesos = pesos;
+	}
+
 	private Frase autor = new Frase();
 	private Frase tema = new Frase();
 	private Date fecha = new Date();
@@ -85,7 +133,7 @@ public class Documento {
 	}
 
 	//Construye un mapa <string, double> que contiene palabras con su peso
-	private void construirPesos() throws IOException{
+	public void construirPesos() throws IOException{
 		int sizeDoc = contenido.size();
 		Frase fraseActual = new Frase();
 
