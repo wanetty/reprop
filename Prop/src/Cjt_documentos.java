@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Cjt_documentos {
@@ -274,8 +276,15 @@ public class Cjt_documentos {
 	}
 
 	//Devuelve la lista de documentos que contiene la palabra s 
-	public Map<String,ArrayList<String>> list_doc_palabra(String s) {
-		return frecuencias.frecdocumentos(s);
+	public Set<Documento> list_doc_palabra(String s) {
+		Set<Documento> res=new HashSet<Documento>();
+		Map<String,Map<String,Double>> maux=frecuencias.frecdocumentos(s);
+		for(String clave1 : maux.keySet()) {
+			for(String clave2 : maux.get(clave1).keySet()) {
+				res.add(por_autor.get(clave1).get(clave2));
+			}
+		}
+		return res;
 	}
 
 	//Devuelve la frecuencia de una palabra en el documento d

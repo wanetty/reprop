@@ -310,4 +310,8 @@ public class Documento {
 			//System.out.println(".");
 		}
 	}
+	
+	public boolean doc_iguales(Documento d) {
+		return d.get_autor().toString_consigno().equals(autor.toString_consigno()) && d.get_titulo().toString_consigno().equals(titulo.toString_consigno());
+	}
 }

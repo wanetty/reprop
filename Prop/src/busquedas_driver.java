@@ -34,6 +34,10 @@ public class busquedas_driver {
 		cjt.alta_doc("DocumentoAlta3.txt");
 		cjt.alta_doc("DocumentoAlta4.txt");
 		cjt.alta_doc("DocumentoAlta5.txt");
+		cjt.alta_doc("DocumentoAlta6.txt");
+		cjt.alta_doc("DocumentoAlta7.txt");
+		cjt.alta_doc("DocumentoAlta8.txt");
+		
 		System.out.println("Se han precargado los cinco documentos que estan en la raiz");
 
 		do{
@@ -73,14 +77,21 @@ public class busquedas_driver {
 				}
 				else System.out.println("El documento no existe.");
 			case 2:
+				System.out.println("Introduce una expresion booleana");
+				String expresion=texto.nextLine();
+				Set<Documento> boolres=bus.por_booleano(cjt, expresion);
+				System.out.println(boolres);
 				break;
 			case 3:
 				System.out.println("Introduce el autor del documento a buscar");
 				aut=texto.nextLine();
 				System.out.println("Introduce el titulo del documento a buscar");
 				tit=texto.nextLine();
-				Documento auttit=bus.por_auttit(cjt, aut, tit);
-				auttit.pintar_documento();
+				if (cjt.existe_combinacion(aut,tit)) {
+					Documento auttit=bus.por_auttit(cjt, aut, tit);
+					auttit.pintar_documento();
+				}
+				else System.out.println("El documento no existe");
 				break;
 			case 4:
 				System.out.println("Introduce el autor de los documento a buscar");

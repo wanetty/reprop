@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -28,7 +30,19 @@ public class Busquedas {
 		return a;
 	}
 	
-	//ArrayList<Documento> por_booleano() {}
+	Set<Documento> por_booleano(Cjt_documentos c, String expresion) throws IOException {
+		Set<Documento> d=new HashSet<Documento>();
+		Bool_expresion b=new Bool_expresion(expresion);
+		ArrayList<String> p=b.PostOrden();
+		Set<Documento> docs= new HashSet<Documento>(); 
+		for(int i=0; i<p.size(); ++i) {
+			if(!p.get(i).equals('&') && !p.get(i).equals('|') && !p.get(i).equals('!')) {
+				docs=c.list_doc_palabra(p.get(i));
+			}
+			d.addAll(docs);
+		}
+		return d;
+	}
 	
 	Documento por_auttit(Cjt_documentos c, String aut, String tit) {
 		aut=aut.toLowerCase();

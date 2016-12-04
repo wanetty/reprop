@@ -43,10 +43,10 @@ public class frecuencias_globales {
 		}
 		Map <String,Double> titulofreq=new HashMap<String,Double>();
 		Frase aux=d.get_titulo();
-		String sauxt=aux.toString();
+		String sauxt=aux.toString_consigno();
 		titulofreq.put(sauxt, (double) 1);
 		aux=d.get_autor();
-		String sauxa=aux.toString();
+		String sauxa=aux.toString_consigno();
 		Map <String,Map<String,Double>> auttitfreq=new HashMap<String,Map<String,Double>>();
 		auttitfreq.put(sauxa, titulofreq); //auttitfreq indica el autor, titulo a la que pertenece y que ha aparecido por primera vez la palabra
 		if (frecdoc.containsKey(s)) {
@@ -99,8 +99,8 @@ public class frecuencias_globales {
 	}
 	
 	public void borrar_frecuencias(String s, Documento d) throws IOException {//resta la frecuencia de la palabra p en el documento d
-		String aut=d.get_autor().toString();
-		String tit=d.get_titulo().toString();
+		String aut=d.get_autor().toString_consigno();
+		String tit=d.get_titulo().toString_consigno();
 		if (global.containsKey(s)) {
 			double pes=global.get(s);
 			if (pes > 1) {
@@ -151,24 +151,18 @@ public class frecuencias_globales {
 	}
 	
 	//devuelve una lista de los documentos identificados por el autor y el titulo a la que pertenece la palabra s
-	public Map<String,ArrayList<String>> frecdocumentos(String s) {
-		Map<String,ArrayList<String>> res=new HashMap<String,ArrayList<String>>();
-		if (frecdoc.containsKey(s)) {
-			for (String clave1 : frecdoc.get(s).keySet()) {
-				ArrayList<String> arraux=new ArrayList<String>();
-				for(String clave2 : frecdoc.get(s).get(clave1).keySet()) {
-					arraux.add(clave2);
-					res.put(clave1,arraux);
-				}
-			}
+	public Map<String,Map<String,Double>> frecdocumentos(String s) {
+		if (frecdoc.containsKey(s)) return frecdoc.get(s);
+		else {//excepcion: la palabra no existe en ningun documento
+			Map<String,Map<String,Double>> vacio= new HashMap<String,Map<String,Double>>();
+			return vacio;
 		}
-		return res;
 	}
 	
 	public double valor_documento(String p, Documento d) throws IOException {//devuelve la frecuencia de la palabra en el documento
 		String a, t;
-		a=d.get_autor().toString();
-		t=d.get_titulo().toString();
+		a=d.get_autor().toString_consigno();
+		t=d.get_titulo().toString_consigno();
 		if (frecdoc.containsKey(p)) {
 			if (frecdoc.get(p).containsKey(a)) {
 				if(frecdoc.get(p).get(a).containsKey(t)) return frecdoc.get(p).get(a).get(t); 
