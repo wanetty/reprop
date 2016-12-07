@@ -3,7 +3,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Frase {
+public class Frase implements java.io.Serializable  {
 	private ArrayList<Palabra> frase = new ArrayList<Palabra>();
 	
 	//constructoras

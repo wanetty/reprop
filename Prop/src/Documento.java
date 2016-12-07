@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Documento {
-	private Frase titulo = new Frase();
+public class Documento implements java.io.Serializable  {
+	private Frase titulo = new Frase(); 
 	public Frase getTitulo() {
 		return titulo;
 	}

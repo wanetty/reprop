@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class frecuencias_globales {
+public class frecuencias_globales implements java.io.Serializable  {
 
 	private Map <String,Double> global=new HashMap<String,Double>();
 	private Map <String,Map<String,Map<String,Double>>> frecdoc=new HashMap <String,Map<String,Map<String,Double>>>();

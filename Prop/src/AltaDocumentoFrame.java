@@ -4,6 +4,7 @@ public class AltaDocumentoFrame extends javax.swing.JFrame {
     /**
      * Creates new form AltaDocumentoFrame
      */
+
     public AltaDocumentoFrame() {
         initComponents();
         setLocationRelativeTo(null);

@@ -1,5 +1,5 @@
 
-public class Nodo {
+public class Nodo implements java.io.Serializable  {
 	
 		 
 	    /* Declaraciones de variables */

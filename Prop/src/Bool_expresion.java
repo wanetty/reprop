@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 
-public class Bool_expresion {
+public class Bool_expresion implements java.io.Serializable  {
 	//creadoras
 
 	private Nodo estrucexp;

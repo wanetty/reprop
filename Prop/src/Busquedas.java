@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class Busquedas {
+public class Busquedas implements java.io.Serializable  {
 
 	ArrayList<Documento> por_similitud(Cjt_documentos c, String aut, String tit, int k, int metd) throws IOException {
 		aut=aut.toLowerCase();

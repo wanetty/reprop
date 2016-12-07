@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
-public class Similitud {
+public class Similitud implements java.io.Serializable  {
 		
 	private ArrayList<Documento> resultado;
 	
