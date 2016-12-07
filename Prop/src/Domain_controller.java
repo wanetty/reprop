@@ -36,7 +36,7 @@ public class Domain_controller {
 		}
 	}
 	
-	
+	/*
 	public Documento Crear_raiz(String raiz){
 		try {
 			ArrayList<Frase> contenido = new ArrayList<Frase>();
@@ -75,12 +75,20 @@ public class Domain_controller {
 			return null;
 		}
 	}
+	*/
+	
+	public void Crear_raiz(String raiz) {
+		PER.setRuta(raiz);
+		PER.alta_doc();
+	}
 	
 	public void ALTA_DOC(Documento d) {
 		try {
 			CJT.alta_doc(d);
 		}catch (Exception e){}
 	}
+	
+	//public void BAJA_DOC(Documento d)
 	
 	//BUSQUEDA
 	
