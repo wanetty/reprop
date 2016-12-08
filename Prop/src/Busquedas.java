@@ -30,12 +30,49 @@ public class Busquedas implements java.io.Serializable  {
 		return a;
 	}
 	
+	//post: devuelve los documentos que cumplen la expresion que tiene como raiz del subarbol el nodo nact
+	Set<Documento> juntar_documentos(Cjt_documentos c, Nodo nact) {
+		Set<Documento> sret=new HashSet<Documento>();
+		if (nact != null) {
+			Set<Documento> sauxiz=new HashSet<Documento>();
+			Set<Documento> sauxde=new HashSet<Documento>();
+			sauxiz=juntar_documentos(c, nact.getNodoIz());
+			sauxde=juntar_documentos(c, nact.getNodoDer());
+			String act=nact.getValor();
+			if(act == "&") {
+				sret.addAll(sauxiz);
+				sret.addAll(sauxde);
+				sret.retainAll(sauxiz);
+				sret.retainAll(sauxde);
+			}
+			else if (act == "|") {
+				sret.addAll(sauxiz);
+				sret.addAll(sauxde);
+			}
+			else if (act == "!") {
+				sret.addAll(sauxiz);
+				sret.addAll(sauxde);
+			}
+			else if(act.charAt(0) == '"') {
+				act=act.substring(1, act.length()-1);
+				//comprobar en cada documento que existe act e ir anyadiendo a sret
+			}
+			else {
+				sret=c.list_doc_palabra(nact.getValor());
+			}
+		}
+		return sret;
+	}
+	
 	Set<Documento> por_booleano(Cjt_documentos c, String expresion) throws IOException {
 		Set<Documento> d=new HashSet<Documento>();
 		Bool_expresion b=new Bool_expresion(expresion);
 		ArrayList<String> p=b.PostOrden();
 		Set<Documento> docs= new HashSet<Documento>(); 
 		for(int i=0; i<p.size(); ++i) {
+			Nodo naux=b.devuelve_expresion();
+			juntar_documentos(c,naux);
+			
 			if(!p.get(i).equals('&') && !p.get(i).equals('|') && !p.get(i).equals('!')) {
 				docs=c.list_doc_palabra(p.get(i));
 			}
