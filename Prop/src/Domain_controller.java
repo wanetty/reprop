@@ -81,7 +81,7 @@ public class Domain_controller {
 		PER.setRuta(raiz);
 		PER.alta_doc();
 	}
-	
+	//no se si hace falta...
 	public void ALTA_DOC(Documento d) {
 		try {
 			CJT.alta_doc(d);
