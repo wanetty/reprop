@@ -7,7 +7,8 @@ import Prop.Domain_controller;
 
 
 public class AltaTxtFrame extends javax.swing.JFrame {
-  
+	
+	Domain_controller estado = new Domain_controller();
 	
     public AltaTxtFrame() {
         initComponents();
@@ -18,7 +19,8 @@ public class AltaTxtFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-
+    	
+    	estado.cargar_estado();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         ruta = new javax.swing.JTextField();
@@ -89,8 +91,9 @@ public class AltaTxtFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         if(!ruta.getText().isEmpty()){
-        	Domain_controller doc = new Domain_controller();
-        	doc.Crear_raiz(jLabel1.getText());
+        	estado.Crear_raiz(ruta.getText());
+        	System.out.println(estado.BUSQUEDA_TITULO("algoritmo."));
+        	estado.guardar_estado();
         	JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
         }
         else {

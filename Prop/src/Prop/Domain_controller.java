@@ -1,5 +1,6 @@
 package Prop;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +19,28 @@ public class Domain_controller {
 	public Domain_controller(){
 		
 	}
+	
+	//eduard
+	public void cargar_estado(){
+		PER.setRuta("System.prop");
+		try {
+			CJT = PER.recuperar();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}		
+	}
+	//eduard
+	public void guardar_estado(){
+		PER.setRuta("System.prop");
+		try {
+			PER.guardar(CJT);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Documento Crear_manual(String titulo, String autor, String tema, String contenido){
 		try {
 			Documento Doc = new Documento();
@@ -84,7 +107,12 @@ public class Domain_controller {
 	
 	public void Crear_raiz(String raiz) {
 		PER.setRuta(raiz);
-		PER.alta_doc();
+		try {
+			CJT.alta_doc(PER.alta_doc());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//no se si hace falta...
 	public void ALTA_DOC(Documento d) {

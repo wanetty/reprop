@@ -24,11 +24,10 @@ public class StartWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	Domain_controller estado = new Domain_controller();
+    	estado.guardar_estado();
         jButton1 = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jButton1.setBackground(new java.awt.Color(102, 102, 255));
         jButton1.setFont(new java.awt.Font("Arial", 2, 11)); // NOI18N
         jButton1.setText("ALTA DOCUMENTO");

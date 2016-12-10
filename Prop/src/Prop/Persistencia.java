@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Persistencia  {
 	
-	String ruta;
+	private String ruta;
 	
 	public Persistencia(){
 		ruta = null;
