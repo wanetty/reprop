@@ -5,12 +5,7 @@ import Prop.Domain_controller;
 
 
 
- 
 
-/**
- *
- * @author Papilomavirus
- */
 public class AltaTxtFrame extends javax.swing.JFrame {
   
 	

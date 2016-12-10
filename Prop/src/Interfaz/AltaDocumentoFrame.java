@@ -98,11 +98,15 @@ public class AltaDocumentoFrame extends javax.swing.JFrame {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    	/*        AltaMultipleFrame ven = new AltaMultipleFrame();
+        ven.setVisible(true);
+        this.dispose();*/
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+    	AltaManualFrame ven = new AltaManualFrame();
+        ven.setVisible(true);
+        this.dispose();
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
