@@ -1,18 +1,24 @@
 
 package Interfaz;
 
+import Prop.Domain_controller;
+
 
 
 public class AltaDocumentoFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AltaDocumentoFrame
-     */
-    public AltaDocumentoFrame() {
+	Domain_controller estado = new Domain_controller();
+	   
+	public AltaDocumentoFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        this.estado = null;
     }
-
+	public AltaDocumentoFrame(Domain_controller estado) {
+        initComponents();
+        setLocationRelativeTo(null);
+        this.estado = estado;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,7 +98,7 @@ public class AltaDocumentoFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AltaTxtFrame ven = new AltaTxtFrame();
+        AltaTxtFrame ven = new AltaTxtFrame(estado);
         ven.setVisible(true);
         this.dispose();
     }
@@ -104,7 +110,7 @@ public class AltaDocumentoFrame extends javax.swing.JFrame {
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    	AltaManualFrame ven = new AltaManualFrame();
+    	AltaManualFrame ven = new AltaManualFrame(estado);
         ven.setVisible(true);
         this.dispose();
     }

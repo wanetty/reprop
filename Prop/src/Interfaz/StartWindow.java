@@ -4,70 +4,118 @@
  * and open the template in the editor.
  */
 package Interfaz;
+
 import Prop.Domain_controller;
 
 /**
  *
- * @author Papilomavirus
+ * @author Eduard
  */
 public class StartWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form StartWindow
      */
-    public StartWindow() {
+  Domain_controller estado = new Domain_controller();
+   
+	public StartWindow() {
         initComponents();
         setLocationRelativeTo(null);
     }
-
-   
+	public StartWindow(Domain_controller estado) {
+        initComponents();
+        setLocationRelativeTo(null);
+        this.estado = estado;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-    	Domain_controller estado = new Domain_controller();
-    	estado.guardar_estado();
-        jButton1 = new javax.swing.JButton();
+
+        AltaDoc = new javax.swing.JButton();
+        BusquedasDoc = new javax.swing.JButton();
+        Salir = new javax.swing.JButton();
+        GuardarSalir = new javax.swing.JButton();
+        Guardar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        jButton1.setBackground(new java.awt.Color(102, 102, 255));
-        jButton1.setFont(new java.awt.Font("Arial", 2, 11)); // NOI18N
-        jButton1.setText("ALTA DOCUMENTO");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        jButton1.setVerifyInputWhenFocusTarget(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        setTitle("GESTOR DE DOCUMENTOS");
+
+        AltaDoc.setText("ALTA DOCUMENTOS");
+        AltaDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AltaDocActionPerformed(evt);
             }
         });
+
+        BusquedasDoc.setText("BÚSQUEDAS DE DOCUMENTOS");
+        BusquedasDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BusquedasDocActionPerformed(evt);
+            }
+        });
+
+        Salir.setText("Salir sin guardar");
+
+        GuardarSalir.setText("Guardar y salir");
+
+        Guardar.setText("Guardar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jButton1)
-                .addContainerGap(654, Short.MAX_VALUE))
+                .addGap(73, 73, 73)
+                .addComponent(AltaDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BusquedasDoc)
+                .addContainerGap(367, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GuardarSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(295, Short.MAX_VALUE))
+                .addGap(93, 93, 93)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AltaDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BusquedasDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addComponent(Guardar)
+                .addGap(18, 18, 18)
+                .addComponent(GuardarSalir)
+                .addGap(18, 18, 18)
+                .addComponent(Salir)
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AltaDocumentoFrame ven = new AltaDocumentoFrame();
+    private void AltaDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaDocActionPerformed
+        AltaDocumentoFrame ven = new AltaDocumentoFrame(estado);
         ven.setVisible(true);
         this.setVisible(false);
-    }
+    }//GEN-LAST:event_AltaDocActionPerformed
 
-  
+    private void BusquedasDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedasDocActionPerformed
+        
+    }//GEN-LAST:event_BusquedasDocActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
-       
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -94,7 +142,11 @@ public class StartWindow extends javax.swing.JFrame {
         });
     }
 
-    private javax.swing.JButton jButton1;
-    
-     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AltaDoc;
+    private javax.swing.JButton BusquedasDoc;
+    private javax.swing.JButton Guardar;
+    private javax.swing.JButton GuardarSalir;
+    private javax.swing.JButton Salir;
+    // End of variables declaration//GEN-END:variables
 }

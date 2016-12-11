@@ -7,19 +7,25 @@ package Interfaz;
 
 import javax.swing.JOptionPane;
 
+import Prop.Domain_controller;
+
 /**
  *
  * @author Papilomavirus
  */
 public class AltaManualFrame extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AltaManualFrame
-     */
-    public AltaManualFrame() {
+	Domain_controller estado = new Domain_controller();
+	   
+	public AltaManualFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        this.estado = null;
     }
-
+	public AltaManualFrame(Domain_controller estado) {
+        initComponents();
+        setLocationRelativeTo(null);
+        this.estado = estado;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -153,7 +159,7 @@ public class AltaManualFrame extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        StartWindow ven = new StartWindow();
+        StartWindow ven = new StartWindow(estado);
         ven.setVisible(true);
         this.dispose();
     }                                        
@@ -171,10 +177,15 @@ public class AltaManualFrame extends javax.swing.JFrame {
     }                                           
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        if (jTextField1.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Título vacío", " Error", JOptionPane.ERROR_MESSAGE);
-        else if (jTextField2.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacío", " Error", JOptionPane.ERROR_MESSAGE);
+        if (jTextField1.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Tï¿½tulo vacï¿½o", " Error", JOptionPane.ERROR_MESSAGE);
+        else if (jTextField2.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacï¿½o", " Error", JOptionPane.ERROR_MESSAGE);
         else{
-            //codigo para dar de alta manual.
+           String titulo = jTextField1.getText();
+           String autor = jTextField2.getText();
+           String tema = jTextField3.getText();
+           String contenido = jEditorPane1.getText();
+           estado.Crear_manual(titulo, autor, tema, contenido);
+           JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
         }
       
     }                                        
