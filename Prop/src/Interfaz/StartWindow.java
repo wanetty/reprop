@@ -13,9 +13,7 @@ import Prop.Domain_controller;
  */
 public class StartWindow extends javax.swing.JFrame {
 
-    /**
-     * Creates new form StartWindow
-     */
+    
   Domain_controller estado = new Domain_controller();
    
 	public StartWindow() {
@@ -39,6 +37,7 @@ public class StartWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GESTOR DE DOCUMENTOS");
+        
 
         AltaDoc.setText("ALTA DOCUMENTOS");
         AltaDoc.addActionListener(new java.awt.event.ActionListener() {
@@ -57,8 +56,18 @@ public class StartWindow extends javax.swing.JFrame {
         Salir.setText("Salir sin guardar");
 
         GuardarSalir.setText("Guardar y salir");
+        GuardarSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarSalirActionPerformed(evt);
+            }
+        });
 
         Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,27 +104,32 @@ public class StartWindow extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void AltaDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaDocActionPerformed
         AltaDocumentoFrame ven = new AltaDocumentoFrame(estado);
         ven.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_AltaDocActionPerformed
+    }
 
     private void BusquedasDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedasDocActionPerformed
-        
-    }//GEN-LAST:event_BusquedasDocActionPerformed
-
+    	SelecBusqueda ven = new SelecBusqueda(estado);
+        ven.setVisible(true);
+        setVisible(false);
+    }
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedasDocActionPerformed
+    	 GuardarFrame ven = new GuardarFrame(estado);
+         ven.setVisible(true);
+    }
+    private void GuardarSalirActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    	GuardarFrame ven = new GuardarFrame(estado);
+        ven.setVisible(true);
+        setVisible(false);
+    }     
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

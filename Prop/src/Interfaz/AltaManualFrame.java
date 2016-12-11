@@ -9,10 +9,6 @@ import javax.swing.JOptionPane;
 
 import Prop.Domain_controller;
 
-/**
- *
- * @author Papilomavirus
- */
 public class AltaManualFrame extends javax.swing.JFrame {
 	Domain_controller estado = new Domain_controller();
 	   
@@ -177,8 +173,8 @@ public class AltaManualFrame extends javax.swing.JFrame {
     }                                           
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        if (jTextField1.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo T�tulo vac�o", " Error", JOptionPane.ERROR_MESSAGE);
-        else if (jTextField2.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vac�o", " Error", JOptionPane.ERROR_MESSAGE);
+        if (jTextField1.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Titulo vacio", " Error", JOptionPane.ERROR_MESSAGE);
+        else if (jTextField2.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacio", " Error", JOptionPane.ERROR_MESSAGE);
         else{
            String titulo = jTextField1.getText();
            String autor = jTextField2.getText();
@@ -193,7 +189,7 @@ public class AltaManualFrame extends javax.swing.JFrame {
    
     
 
-    // Variables declaration - do not modify                     
+                       
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JEditorPane jEditorPane1;
@@ -204,7 +200,6 @@ public class AltaManualFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    // End of variables declaration                   
+    private javax.swing.JTextField jTextField3;                   
 }
 

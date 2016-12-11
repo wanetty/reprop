@@ -1,20 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Interfaz;
+
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import Prop.Domain_controller;
 
+public class GuardarFrame extends javax.swing.JFrame {
 
-
-
-public class AltaTxtFrame extends javax.swing.JFrame {
 	Domain_controller estado = new Domain_controller();
 	   
-	public AltaTxtFrame() {
+	public GuardarFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        this.estado = null;
     }
-	public AltaTxtFrame(Domain_controller estado) {
+	public GuardarFrame(Domain_controller estado) {
         initComponents();
         setLocationRelativeTo(null);
         this.estado = estado;
@@ -22,14 +26,15 @@ public class AltaTxtFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-    	
 
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         ruta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("GUARDADO");
+        setResizable(false);
 
         jButton4.setText("Atras");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -37,10 +42,8 @@ public class AltaTxtFrame extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-
         jLabel1.setText("Ruta de archivo:");
-
-        jButton1.setText("Dar de Alta!");
+        jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -63,7 +66,7 @@ public class AltaTxtFrame extends javax.swing.JFrame {
                         .addComponent(ruta)))
                 .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(193, Short.MAX_VALUE)
+                .addContainerGap(213, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(211, 211, 211))
         );
@@ -86,28 +89,30 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        if(ruta.getText().isEmpty()){
+        	JOptionPane.showMessageDialog(null,"Campo Vacio", " Error", JOptionPane.ERROR_MESSAGE);
+        }
+        //FALTA CODIGO GUARDAR EN DOMAIN_CONTROLLER.
+        else {
+        	//estado.guardar(ruta.getText());
+        	JOptionPane.showMessageDialog(null,"Se ha guardado correctamente.", " Correcto", JOptionPane.INFORMATION_MESSAGE);
+        	dispose();
+        }
+    }                                        
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         StartWindow ven = new StartWindow(estado);
         ven.setVisible(true);
         this.dispose();
     }                                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        if(!ruta.getText().isEmpty()){	
-        	estado.Crear_raiz(ruta.getText());
-        	JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
-         JOptionPane.showMessageDialog(null, "Campo Vacio", "Error",JOptionPane.ERROR_MESSAGE);
-        }
-    }                                        
 
 
-
-             
+    // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField ruta;
-                      
+    // End of variables declaration                   
 }

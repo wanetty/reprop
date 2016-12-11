@@ -116,7 +116,7 @@ public class AltaDocumentoFrame extends javax.swing.JFrame {
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        StartWindow ven = new StartWindow();
+        StartWindow ven = new StartWindow(estado);
         ven.setVisible(true);
         this.dispose();
     }

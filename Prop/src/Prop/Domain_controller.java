@@ -20,7 +20,7 @@ public class Domain_controller {
 	}
 	
 
-	public Documento Crear_manual(String titulo, String autor, String tema, String contenido){
+	public void Crear_manual(String titulo, String autor, String tema, String contenido){
 		try {
 			Documento Doc = new Documento();
 			Date fecha = new Date();
@@ -37,9 +37,9 @@ public class Domain_controller {
 			}
 			Doc.setContenido(c);
 			Doc.construirPesos();
-			return Doc;
+			CJT.alta_doc(Doc);
 		}catch (Exception e) {
-			return null;
+			e.printStackTrace();
 		}
 	}
 	
@@ -144,6 +144,13 @@ public class Domain_controller {
 	public ArrayList<Documento> BUSQUEDA_FECHA(String fecha) {
 		try {
 			return BUS.por_fecha(CJT, fecha);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	public Documento BUSQUEDA_auttit(String autor, String titulo) {
+		try {
+			return BUS.por_auttit(CJT, autor, titulo);
 		} catch (Exception e) {
 			return null;
 		}
