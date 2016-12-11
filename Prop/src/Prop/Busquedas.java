@@ -77,14 +77,29 @@ public class Busquedas implements java.io.Serializable  {
 					}
 				}
 			}
+			else if (act.charAt(0) == '"') {
+				act=act.substring(1, act.length()-1);
+				act=act.toLowerCase();
+				String delimitadores= "[.;?!] ";
+				String[] pseparadas = act.split(delimitadores);
+				Set<Documento> saux=c.list_doc_palabra(pseparadas[0]);
+				for(Documento doc:saux) {
+					Set<Integer> apaaux=doc.apariencia_num_frase(pseparadas[0]);
+					Set<Integer> apa=new HashSet<Integer>();
+					for(Integer i:apaaux) {
+						if (doc.get_frase(i).toString_consigno().contains(act)){
+							apa.add(i);
+						}
+					}
+					if (!apa.isEmpty()) eret.put(doc,apa);
+				}
+			}
 			else {
-				if(act.charAt(0) == '"') act=act.substring(1, act.length()-1);
 				act=act.toLowerCase();
 				Set<Documento> saux=c.list_doc_palabra(act);
 				for(Documento doc:saux) {
 					Set<Integer> apa=doc.apariencia_num_frase(act);
-					Documento daux=doc;
-					eret.put(daux, apa);
+					eret.put(doc, apa);
 				}
 			}
 		}
