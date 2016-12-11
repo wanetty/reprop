@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Documento implements java.io.Serializable  {
 	private Frase titulo = new Frase(); 
@@ -109,7 +111,7 @@ public class Documento implements java.io.Serializable  {
 	}
 
 	private void string_to_arraylist(ArrayList<Frase> c, String s) throws IOException {
-		String delimitadores= "[.;?!]";//faltan los puntos suspensivos
+		String delimitadores= "[.;?!]";
 		String[] frasesseparadas = s.split(delimitadores);
 		for (int i=0; i<frasesseparadas.length; ++i) {
 			Frase aux=new Frase(frasesseparadas[i]);
@@ -257,6 +259,16 @@ public class Documento implements java.io.Serializable  {
 		return res;
 	}
 
+	//devuelve un array que contiene las frases en las que aparece la palabra p
+	public Set<Integer> apariencia_num_frase(String p) {
+		Set<Integer> res=new HashSet<Integer>();
+		String fraseaux;
+		for(int i=0; i<contenido.size(); ++i) {
+			fraseaux=contenido.get(i).toString();
+			if (fraseaux.contains(p)) res.add(i);
+		}
+		return res;
+	}
 
 	//modificadoras
 
@@ -312,7 +324,8 @@ public class Documento implements java.io.Serializable  {
 		}
 	}
 	
+	/*
 	public boolean doc_iguales(Documento d) {
 		return d.get_autor().toString_consigno().equals(autor.toString_consigno()) && d.get_titulo().toString_consigno().equals(titulo.toString_consigno());
-	}
+	}*/
 }

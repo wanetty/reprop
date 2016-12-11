@@ -81,7 +81,9 @@ public class busquedas_driver {
 				System.out.println("Introduce una expresion booleana");
 				String expresion=texto.nextLine();
 				Set<Documento> boolres=bus.por_booleano(cjt, expresion);
-				System.out.println(boolres);
+				for(Documento d:boolres) {
+					System.out.println(d.get_autor().toString_consigno() + ' ' + d.get_titulo().toString_consigno());
+				}
 				break;
 			case 3:
 				System.out.println("Introduce el autor del documento a buscar");

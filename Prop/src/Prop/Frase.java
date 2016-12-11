@@ -122,7 +122,6 @@ public class Frase implements java.io.Serializable  {
 	}
 	
 	//escribe la frase por pantalla
-	/*!!PROBLEMA, SIGNOS DE PUNTUACION SE PIERDEN*/
 	public void escribirfrase() {
 		String res = null;
 		for(int i=0; i<frase.size(); ++i) {

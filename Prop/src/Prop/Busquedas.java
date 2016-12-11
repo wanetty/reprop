@@ -7,9 +7,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 public class Busquedas implements java.io.Serializable  {
 
-	ArrayList<Documento> por_similitud(Cjt_documentos c, String aut, String tit, int k, int metd) throws IOException {
+	public ArrayList<Documento> por_similitud(Cjt_documentos c, String aut, String tit, int k, int metd) throws IOException {
 		aut=aut.toLowerCase();
 		tit=tit.toLowerCase();
 		ArrayList<Documento> a=new ArrayList<Documento>();
@@ -30,59 +32,72 @@ public class Busquedas implements java.io.Serializable  {
 		//else excepcion System.out.println("Combinacion de titulo o autor inexistente");
 		return a;
 	}
-	
+		
 	//post: devuelve los documentos que cumplen la expresion que tiene como raiz del subarbol el nodo nact
-	Set<Documento> juntar_documentos(Cjt_documentos c, Nodo nact) {
-		Set<Documento> sret=new HashSet<Documento>();
+	//nfrases:devuelve el numero de la frase en la que aparece la palabra dentro de los documentos
+	//masc:si el valor es 0-&, la palabra tiene que aparecer en la misma frase, si el valor es 1-|, la palabra puede no aparecer, si el valor es 2-!, no puede aparecer 
+	private Map<Documento,Set<Integer>> juntar_documentos(Cjt_documentos c, Nodo nact) {
+		Map<Documento,Set<Integer>> eret=new HashMap<Documento,Set<Integer>>();
 		if (nact != null) {
-			Set<Documento> sauxiz=new HashSet<Documento>();
-			Set<Documento> sauxde=new HashSet<Documento>();
-			sauxiz=juntar_documentos(c, nact.getNodoIz());
-			sauxde=juntar_documentos(c, nact.getNodoDer());
+			Map<Documento,Set<Integer>> eiz=new HashMap<Documento,Set<Integer>>();
+			Map<Documento,Set<Integer>> ede=new HashMap<Documento,Set<Integer>>();
+			eiz=juntar_documentos(c, nact.getNodoIz());
+			ede=juntar_documentos(c, nact.getNodoDer());
 			String act=nact.getValor();
-			if(act == "&") {
-				sret.addAll(sauxiz);
-				sret.addAll(sauxde);
-				sret.retainAll(sauxiz);
-				sret.retainAll(sauxde);
+			if(act.equals("&")) {
+				for(Documento diz:eiz.keySet()) {
+					Set<Integer> si=new HashSet<Integer>();
+					if (ede.containsKey(diz)) {
+						si.addAll(eiz.get(diz));
+						si.addAll(ede.get(diz));
+						si.retainAll(eiz.get(diz));
+						si.retainAll(ede.get(diz));
+						if (!si.isEmpty()) eret.put(diz, si);
+					}
+				}
 			}
-			else if (act == "|") {
-				sret.addAll(sauxiz);
-				sret.addAll(sauxde);
+			else if (act.equals("|")) {
+				eret=eiz;
+				for(Documento dde:ede.keySet()) {
+					Set<Integer> si=ede.get(dde);
+					if (eret.containsKey(dde)) eret.get(dde).addAll(si);
+					else eret.put(dde,si);
+				}
 			}
-			else if (act == "!") {
-				sret.addAll(sauxiz);
-				sret.addAll(sauxde);
-			}
-			else if(act.charAt(0) == '"') {
-				act=act.substring(1, act.length()-1);
-				//comprobar en cada documento que existe act e ir anyadiendo a sret
+			else if (act.equals("!")) {
+				Map<String, Map<String,Documento>> docs=c.get_por_titulo();
+				for(String clave1:docs.keySet()) {
+					for(String clave2:docs.get(clave1).keySet()) {
+						Set<Integer> si=new HashSet<Integer>();
+						Documento d=docs.get(clave1).get(clave2);
+						for(int i=0; i<d.get_num_frases(); ++i) si.add(i);
+						if (eiz.containsKey(d)) si.removeAll(eiz.get(d));
+						if (ede.containsKey(d)) si.removeAll(ede.get(d));
+						eret.put(d, si);
+					}
+				}
 			}
 			else {
-				sret=c.list_doc_palabra(nact.getValor());
+				if(act.charAt(0) == '"') act=act.substring(1, act.length()-1);
+				act=act.toLowerCase();
+				Set<Documento> saux=c.list_doc_palabra(act);
+				for(Documento doc:saux) {
+					Set<Integer> apa=doc.apariencia_num_frase(act);
+					Documento daux=doc;
+					eret.put(daux, apa);
+				}
 			}
 		}
-		return sret;
+		return eret;
 	}
 	
-	Set<Documento> por_booleano(Cjt_documentos c, String expresion) throws IOException {
-		Set<Documento> d=new HashSet<Documento>();
+	public Set<Documento> por_booleano(Cjt_documentos c, String expresion) throws IOException {
 		Bool_expresion b=new Bool_expresion(expresion);
-		ArrayList<String> p=b.PostOrden();
-		Set<Documento> docs= new HashSet<Documento>(); 
-		for(int i=0; i<p.size(); ++i) {
-			Nodo naux=b.devuelve_expresion();
-			juntar_documentos(c,naux);
-			
-			if(!p.get(i).equals('&') && !p.get(i).equals('|') && !p.get(i).equals('!')) {
-				docs=c.list_doc_palabra(p.get(i));
-			}
-			d.addAll(docs);
-		}
-		return d;
+		Map<Documento,Set<Integer>> res=juntar_documentos(c,b.getraiz());
+		return res.keySet();
 	}
 	
-	Documento por_auttit(Cjt_documentos c, String aut, String tit) {
+	public Documento por_auttit(Cjt_documentos c, String aut, String tit) {
 		aut=aut.toLowerCase();
 		tit=tit.toLowerCase();
 		Documento d=null;
@@ -93,7 +108,7 @@ public class Busquedas implements java.io.Serializable  {
 		return d;
 	}
 	
-	ArrayList<Documento> por_autor(Cjt_documentos c, String aut) {
+	public ArrayList<Documento> por_autor(Cjt_documentos c, String aut) {
 		aut=aut.toLowerCase();
 		ArrayList<Documento> d=new ArrayList<Documento>();
 		if (c.existe_autor(aut)) {
@@ -104,7 +119,7 @@ public class Busquedas implements java.io.Serializable  {
 		return d;
 	}
 	
-	ArrayList<Documento> por_titulo(Cjt_documentos c, String tit) {
+	public ArrayList<Documento> por_titulo(Cjt_documentos c, String tit) {
 		tit=tit.toLowerCase();
 		ArrayList<Documento> d=new ArrayList<Documento>();
 		if (c.existe_titulo(tit)) {
@@ -115,7 +130,7 @@ public class Busquedas implements java.io.Serializable  {
 		return d;
 	}
 	
-	ArrayList<Documento> por_tema(Cjt_documentos c, String tem) {
+	public ArrayList<Documento> por_tema(Cjt_documentos c, String tem) {
 		tem=tem.toLowerCase();
 		ArrayList<Documento> d = new ArrayList<Documento>();
 		if (c.existe_tema(tem)) {
@@ -129,7 +144,7 @@ public class Busquedas implements java.io.Serializable  {
 		return d;
 	}
 	
-	ArrayList<Documento> por_fecha(Cjt_documentos c, String fec) {
+	public ArrayList<Documento> por_fecha(Cjt_documentos c, String fec) {
 		ArrayList<Documento> d = new ArrayList<Documento>();
 		if (c.existe_fecha(fec)) {
 			Map<String,Map<String,Documento>> aux=c.busqueda_por_fecha(fec);
@@ -142,7 +157,7 @@ public class Busquedas implements java.io.Serializable  {
 		return d;
 	}
 	
-	Set<String> por_prefijo(Cjt_documentos c,String pref) throws IOException {
+	public Set<String> por_prefijo(Cjt_documentos c,String pref) throws IOException {
 		TreeMap<String,Map<String,Documento>> t=c.autores_ordenados();
 		if (!pref.isEmpty()) {
 			char l=pref.charAt(pref.length()-1);
@@ -174,5 +189,6 @@ public class Busquedas implements java.io.Serializable  {
 			System.out.println("\"" +sim.get_resultado().get(i).get_titulo()+"\"" + " de " + "\"" +sim.get_resultado().get(i).get_autor()+"\"");
 		}
 	}
+	
 	
 }
