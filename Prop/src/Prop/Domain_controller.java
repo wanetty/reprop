@@ -156,4 +156,17 @@ public class Domain_controller {
 		}
 	}
 	
+	public void GUARDAR(String ruta) {
+		try {
+			PER.setRuta(ruta);
+			PER.guardar(CJT);
+		}catch (Exception e){}
+	}
+
+	public void RECUPERAR(String ruta) {
+		try {
+			PER.setRuta(ruta);
+			PER.recuperar();
+		}catch (Exception e){}
+	}
 }
