@@ -1,7 +1,10 @@
 package Interfaz;
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 import Prop.Domain_controller;
+import Prop.Exception_test;
 
 
 
@@ -43,7 +46,15 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         jButton1.setText("Dar de Alta!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (Exception_test e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -92,7 +103,8 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         this.dispose();
     }                                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws Exception_test, IOException {     
+    	try {
         if(!ruta.getText().isEmpty()){	
         	estado.Crear_raiz(ruta.getText());
         	JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
@@ -100,6 +112,10 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         else {
          JOptionPane.showMessageDialog(null, "Campo Vacio", "Error",JOptionPane.ERROR_MESSAGE);
         }
+    	}catch (Exception_test e) {
+    		JOptionPane.showMessageDialog(null, e.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
+    		
+    	}
     }                                        
 
 

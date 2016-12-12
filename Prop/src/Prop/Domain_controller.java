@@ -1,5 +1,6 @@
 package Prop;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -84,13 +85,11 @@ public class Domain_controller {
 	}
 	*/
 	
-	public void Crear_raiz(String raiz) {
+	public void Crear_raiz(String raiz) throws Exception_test, IOException{
+		File fi = new File(raiz);
+		if (!fi.isFile()) throw new Exception_test("El documento no existe");
 		PER.setRuta(raiz);
-		try {
-			CJT.alta_doc(PER.alta_doc());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		CJT.alta_doc(PER.alta_doc());
 	}
 	//no se si hace falta...
 	public void ALTA_DOC(Documento d) {
