@@ -94,7 +94,7 @@ public class Bool_expresion implements java.io.Serializable  {
 		if(exp.length() == 1 && (exp.charAt(0) == '&' || exp.charAt(0) == '|' ||  exp.charAt(0) == '!' ))return false;
 		if(cuenta_parentesis(exp)%2 != 0) return false;
 		
-		if(cuenta_operadores(exp) == 0 && (exp.charAt(0) != '{' || exp.charAt(exp.length()-1) !='}')){
+		if(cuenta_operadores(exp) == 0 && (exp.charAt(0) != '{' || exp.charAt(exp.length()-1) !='}')&& (exp.charAt(0) != '"' || exp.charAt(exp.length()-1) !='"')){
 			Frase f = new Frase(exp);
 			if(f.midafrase() != 1) return false;
 		}
