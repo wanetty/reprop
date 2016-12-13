@@ -26,8 +26,15 @@ public class Cjt_documentos implements java.io.Serializable  {
 		cjt_size=0;
 	}
 
-	/*Altas*/
+	//No se debe hacer
+	public void alta_doc(String raiz) throws IOException{
+		Documento d= new Documento(raiz);
+		llenar_estructuras(d);
+		frecuencias.anyadir_frecuencias(d);
+		++cjt_size;
+	}
 	
+	/*Altas*/
 	private void llenar_estructuras(Documento d) {
 		String ti=d.get_titulo().toString_consigno();
 		String a=d.get_autor().toString_consigno();
@@ -37,8 +44,8 @@ public class Cjt_documentos implements java.io.Serializable  {
 			autdoc.put(a, d);
 			por_titulo.put(ti, autdoc);
 		}
-		else por_titulo.get(ti).put(a, d);//si titulo ya existe anyadir el autor (un mismo titulo no puede tener el mismo autor por eso el documento no sustituira a uno antiguo )
-
+		if (!por_titulo.get(ti).containsKey(a)) por_titulo.get(ti).put(a, d);//si titulo ya existe anyadir el autor (un mismo titulo no puede tener el mismo autor por eso el documento no sustituira a uno antiguo )
+		//si se sigue el programa es que no ha dado error, poreso ya no hago mas ifs en el caso else
 		if (!por_autor.containsKey(a)) {
 			Map<String,Documento> titulodocaut = new HashMap<String,Documento>();
 			titulodocaut.put(ti,d);
@@ -80,38 +87,28 @@ public class Cjt_documentos implements java.io.Serializable  {
 			else por_fecha.get(nuevo).get(a).put(ti, d); //si lo contiene, anyado solo el titulo y el documento
 		}
 	}
-	
-	public void alta_doc(String raiz) throws IOException{
-		Documento d= new Documento(raiz);
-		llenar_estructuras(d);
-		//actualizo frecuencias
-		frecuencias.anyadir_frecuencias(d);
-		++cjt_size;
-	}
+
 	public void alta_doc(Documento d) throws IOException{
+		//Posible excepcion: titulo o autor vacio(interficie), titulo o autor existente(domain)
 		llenar_estructuras(d);
-		//actualizo frecuencias
 		frecuencias.anyadir_frecuencias(d);
 		++cjt_size;
 	}
-	public void alta_doc(ArrayList<Documento> d) throws IOException{
-		for(int i = 0;i < d.size();++i){
-			alta_doc(d.get(i));
-		}
-	}
+		
 	@SuppressWarnings("deprecation")
 	public void alta_sin_fichero(String text) throws IOException{
+		//Posible excepcion: titulo o autor vacio, osea primera o segunda linea vacia(interficie)
 		Documento d= new Documento();
 		d.guardar_documento(text);
 		llenar_estructuras(d);
-		//actualizo frecuencias
 		frecuencias.anyadir_frecuencias(d);
 	}
 	public void alta_multiple(ArrayList<String> docs) throws IOException {
+		//Se deberia controlar que se halla seleccionado 1 o mas documentos, no seria una excepcion pero seria como un aviso
 		for (int i=0; i<docs.size(); ++i) alta_doc(docs.get(i));
 	}
 	
-	/*Existencias*/
+	/*Existencias*/ //El domain las deberia utilizar para saber en que casos dar excepciones
 	public boolean existe_combinacion(String aut, String tit) {
 		if (por_autor.containsKey(aut) && por_autor.get(aut).containsKey(tit)) return true;
 		return false;
@@ -140,13 +137,13 @@ public class Cjt_documentos implements java.io.Serializable  {
 	/*Bajas*/
 	//Da de baja un documento
 	public void baja_individual_doc(Documento d) throws IOException{
-		if (d!=null) {
+		//El documento del parametro tiene que existir(domain)
 			String aut=d.get_autor().toString_consigno();
 			String tit=d.get_titulo().toString_consigno();
 			String tem = d.get_tema().toString_consigno();
 			String fec=d.get_fecha(); 
-			if (por_titulo.containsKey(tit)) {
-				if (por_titulo.get(tit).containsKey(aut)) {
+			//if (por_titulo.containsKey(tit)) {
+				//if (por_titulo.get(tit).containsKey(aut)) {
 					--cjt_size;
 					por_titulo.get(tit).remove(aut);
 					if (por_titulo.get(tit).isEmpty()) por_titulo.remove(tit);
@@ -168,19 +165,19 @@ public class Cjt_documentos implements java.io.Serializable  {
 						if (por_fecha.get(fec).isEmpty()) por_fecha.remove(fec);
 					}
 					frecuencias.borrar_frecuencias(d);
-					System.out.println("Baja realizada");
-				}
-				else System.out.println("No existe el documento con el autor introducido");
-			}
-			else System.out.println("No existe el documento con el titulo introducido");
-		}
-		else System.out.println("No existe el documento introducido");
+					//System.out.println("Baja realizada");
+				//}
+				//else System.out.println("No existe el documento con el autor introducido");
+			//}
+			//else System.out.println("No existe el documento con el titulo introducido");
+		//else System.out.println("No existe el documento introducido");
 		
 	}
 
 	//Da de baja todos los documentos del autor aut
 	public void baja_multiple(String aut) throws IOException{
-		if (por_autor.containsKey(aut)) {
+		//Autor tiene que existir(domain)
+		//if (por_autor.containsKey(aut)) {
 			for(String clave1 : por_autor.get(aut).keySet()) {
 				String tit=clave1;
 				String tem = por_autor.get(aut).get(clave1).get_tema().toString_consigno();
@@ -196,17 +193,18 @@ public class Cjt_documentos implements java.io.Serializable  {
 				if (por_fecha.get(fec).get(aut).isEmpty()) por_fecha.get(fec).remove(aut);
 				if (por_fecha.get(fec).isEmpty()) por_fecha.remove(fec);
 			}
-			System.out.println("Baja realizada");
-		}
-		else System.out.println("No existe ningun documento con el autor introducido");
+			//System.out.println("Baja realizada");
+		//}
+		//else System.out.println("No existe ningun documento con el autor introducido");
 		por_autor.remove(aut);
-		System.out.println(por_autor);
 	}
 
 
 	/*Modificaciones*/
 
 	public void modificar_autor(String aut, String tit, String autmod) throws IOException {
+		//combinacion autor titulo tiene que existir(domain)
+		//despues del cambio el autor y titulo nuevo no puede existir(domain)
 		Documento dmod=por_autor.get(aut).get(tit);
 		baja_individual_doc(dmod);
 		dmod.modificar_autordoc(autmod);
@@ -215,6 +213,8 @@ public class Cjt_documentos implements java.io.Serializable  {
 	}
 	
 	public void modificar_titulo(String aut, String tit, String titmod) throws IOException {
+		//combinacion autor titulo tiene que existir(domain)
+		//despues del cambio el autor y titulo nuevo no puede existir(domain)
 		Documento dmod=por_autor.get(aut).get(tit);
 		baja_individual_doc(dmod);
 		dmod.modificar_autordoc(titmod);
@@ -223,38 +223,40 @@ public class Cjt_documentos implements java.io.Serializable  {
 	}
 	
 	public void borrar_palabra(Documento d, int numfras, Palabra pborr) throws IOException{
+		//Documento tiene que existir, numfras tiene que estar entre las frases posibles, palabra borrada tiene que existir(domain)
 		d.borrar_palabra(numfras, pborr);
 		frecuencias.borrar_frecuencias(pborr.palabra(), d);
 	}
 	
 	public void anyadir_palabra(Documento d, int numfras, Palabra panyad) throws IOException{
+		//Documento tiene que existir, numfras tiene que estar entre las frases posibles, palabra borrada tiene que existir(domain)
 		d.anyadir_palabra(numfras, panyad);
 		frecuencias.anyadir_frecuencias(panyad.palabra(), d);
 	}
 
 	/*Busquedas*/
-	//Pre:existe algun documento con aut i tit
 	public Documento busqueda_por_auttit(String aut, String tit) {
+		//Tiene que existir algun documento con aut i tit(domain)
 		return por_autor.get(aut).get(tit);
 	}
 	
-	//Pre:existe algun documento con autor aut
 	public Map<String,Documento> busqueda_por_autor(String aut) {
+		//Tiene que existir  algun documento con autor aut(domain)
 		return por_autor.get(aut);
 	}
 	
-	//Pre:existe algun documento con titulo tit
 	public Map<String,Documento> busqueda_por_titulo(String tit){
+		//Tiene que existir algun documento con titulo tit(domain)
 		return por_titulo.get(tit);
 	}
 	
-	//Pre:existe algun documento con tema tem
 	public Map<String, Map<String,Documento>> busqueda_por_tema(String tem){
+		//Tiene que existir algun documento con tema tem(domain)
 		return por_tema.get(tem);
 	}
 
-	//Pre:existe algun documento con fecha fec
 	public Map<String, Map<String,Documento>> busqueda_por_fecha(String fec){
+		//Tiene que existir algun documento con fecha fec(domain)
 		return por_fecha.get(fec);
 	}
 
@@ -268,16 +270,19 @@ public class Cjt_documentos implements java.io.Serializable  {
 	/*Frecuencias*/
 	//Devuelve la frecuencia de una palabra p en el total de conjunto de documentos
 	public double frecuencia_glob_palabra(String p) {
+		//aunque no es una excepcion, si devuelve 0 deberia saltar una ventana diciendo que no existe la palabra(domain)
 		return frecuencias.valor_global(p);
 	}
 
 	//Devuelve el numero de documentos en la que aparece la palabra p
 	public int apariencias_cjtdoc_palabra(String p) {
+		//aunque no es una excepcion, si devuelve 0 deberia saltar una ventana diciendo que no existe la palabra(domain)
 		return frecuencias_globales.apariencias_doc_palabra(p);
 	}
 
 	//Devuelve la lista de documentos que contiene la palabra s 
 	public Set<Documento> list_doc_palabra(String s) {
+		//aunque no es una excepcion, si devuelve una lista vacia deberia saltar una ventana diciendo que no existe la palabra(domain)
 		Set<Documento> res=new HashSet<Documento>();
 		Map<String,Map<String,Double>> maux=frecuencias.frecdocumentos(s);
 		for(String clave1 : maux.keySet()) {
@@ -290,6 +295,8 @@ public class Cjt_documentos implements java.io.Serializable  {
 
 	//Devuelve la frecuencia de una palabra en el documento d
 	public double frecuenciadoc_palabra(Documento d, String p) throws IOException {
+		//el documento tiene que existir(domain)
+		//aunque no es una excepcion, si devuelve una lista vacia deberia saltar una ventana diciendo que no existe la palabra(domain)
 		return frecuencias.valor_documento(p, d);
 	}
 	

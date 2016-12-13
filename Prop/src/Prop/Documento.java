@@ -73,6 +73,7 @@ public class Documento implements java.io.Serializable  {
 	}
 
 	//Da de alta el documento raiz
+	//No se debe hacer
 	public Documento(String raiz) throws IOException {
 		BufferedReader in = new BufferedReader(new FileReader(raiz));
 		String funcional = in.readLine();
@@ -320,9 +321,23 @@ public class Documento implements java.io.Serializable  {
 		System.out.println(tema.toString_consigno());
 		for (int i=0; i<contenido.size(); ++i) {
 			System.out.println(contenido.get(i).toString_consigno());
-			//System.out.println(".");
+			
 		}
 	}
+	
+	public String contenido_toString() {
+		String ret="";
+		String aux;
+		char fl;
+		for(int i=0; i<contenido.size(); ++i) {
+			aux=contenido.get(i).toString_consigno();
+			fl=(char) ('A' + (aux.charAt(0) - 'a'));
+			ret+=fl+aux.substring(1, aux.length());
+			if (i!=contenido.size()-1) ret+=' ';
+		}
+		return ret;
+	}
+	
 	
 	/*
 	public boolean doc_iguales(Documento d) {

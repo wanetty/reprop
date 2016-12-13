@@ -30,7 +30,7 @@ public class Domain_controller {
 			Doc.setTema(new Frase(tema));
 			Doc.setFecha(fecha);
 			ArrayList<Frase> c = new ArrayList<Frase>();
-			String delimitadores= "[.;?!]";//faltan los puntos suspensivos
+			String delimitadores= "[.;?!]";
 			String[] frasesseparadas = contenido.split(delimitadores);
 			for (int i=0; i<frasesseparadas.length; ++i) {
 				Frase aux=new Frase(frasesseparadas[i]);

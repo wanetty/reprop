@@ -80,7 +80,7 @@ public class Busquedas implements java.io.Serializable  {
 			else if (act.charAt(0) == '"') {
 				act=act.substring(1, act.length()-1);
 				act=act.toLowerCase();
-				String delimitadores= "[.;?!] ";
+				String delimitadores= "[( ,.;?!)\'\"\\[\\]]";
 				String[] pseparadas = act.split(delimitadores);
 				Set<Documento> saux=c.list_doc_palabra(pseparadas[0]);
 				for(Documento doc:saux) {
