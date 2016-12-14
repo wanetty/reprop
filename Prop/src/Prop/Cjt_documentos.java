@@ -97,14 +97,14 @@ public class Cjt_documentos implements java.io.Serializable  {
 		
 	@SuppressWarnings("deprecation")
 	public void alta_sin_fichero(String text) throws IOException{
-		//Posible excepcion: titulo o autor vacio, osea primera o segunda linea vacia(interficie)
+		//Posible excepcion: titulo o autor vacio, osea primera o segunda linea vacia(interficie), titulo o autor existente(domain)
 		Documento d= new Documento();
 		d.guardar_documento(text);
 		llenar_estructuras(d);
 		frecuencias.anyadir_frecuencias(d);
 	}
 	public void alta_multiple(ArrayList<String> docs) throws IOException {
-		//Se deberia controlar que se halla seleccionado 1 o mas documentos, no seria una excepcion pero seria como un aviso
+		//Se deberia controlar que se halla seleccionado 1 o mas documentos(interficie)
 		for (int i=0; i<docs.size(); ++i) alta_doc(docs.get(i));
 	}
 	
