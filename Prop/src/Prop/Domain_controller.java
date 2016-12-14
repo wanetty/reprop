@@ -157,8 +157,17 @@ public class Domain_controller {
 	
 	public ArrayList<ArrayList<String>> BUSQUEDA_AUTOR(String autor) {
 		try {
+			Set<String> autores = new HashSet<String>();
+			autores = BUS.por_prefijo(CJT, autor);
 			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
-			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_autor(CJT, autor));
+			ArrayList<Documento> res = new ArrayList<Documento>();
+			ArrayList<Documento> aux = new ArrayList<Documento>();
+			for(String clave : autores) {
+				aux = BUS.por_autor(CJT, clave);
+				for (int k = 0; k < aux.size(); ++k) {
+					res.add(aux.get(k));
+				}
+			}
 			Documento d = new Documento();
 			for (int i = 0; i < res.size(); ++i) {
 				d = res.get(i);
