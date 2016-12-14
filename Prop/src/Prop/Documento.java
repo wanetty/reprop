@@ -168,7 +168,9 @@ public class Documento implements java.io.Serializable  {
 
 	//Modificaciones
 	//de momento suponemos que desde el progama principal le pasara la posicion de la palabra en la frase
-	//nota: hay que anyadir en el caso de usos que el usuario tendria que indicar el numero de la frase a la que pertenece la palabra que se quiere borrar y la palabra borrada.
+	//nota: hay que anyadir en el caso de usos que el usuario tendria que indicar el numero de la frase a la que pertenece la palabra que se 
+
+//quiere borrar y la palabra borrada.
 	//0<=numfras<=numero de frases en total del documento
 	public void borrar_palabra(int numfras, Palabra pborr) throws IOException{
 		if(numfras >= 0 && numfras<contenido.size()) {
@@ -350,14 +352,19 @@ public class Documento implements java.io.Serializable  {
 		if(!(tema.midafrase()== 0)) {
 			res.add(2, tema.toString_consigno());
 		}
-		String aux = contenido_toString();
-		res.add(3, aux);
+		if (contenido.isEmpty()) res.add(3, null);
+		else {
+			String aux = contenido_toString();
+			res.add(3, aux);
+		}
 		return res;
 		
 	}
 	
 	/*
 	public boolean doc_iguales(Documento d) {
-		return d.get_autor().toString_consigno().equals(autor.toString_consigno()) && d.get_titulo().toString_consigno().equals(titulo.toString_consigno());
+		return d.get_autor().toString_consigno().equals(autor.toString_consigno()) && d.get_titulo().toString_consigno().equals
+
+(titulo.toString_consigno());
 	}*/
 }

@@ -146,7 +146,6 @@ public class Domain_controller {
 			Documento d = new Documento();
 			for (int i = 0; i < res.size(); ++i) {
 				d = res.get(i);
-				System.out.println(d.get_autor());
 				res_string.add(i, d.Doc_to_string());
 			}
 		
@@ -225,6 +224,18 @@ public class Domain_controller {
 		}
 	}
 	
+	public ArrayList<ArrayList<String>> ALL_DOCS() throws IOException {
+		ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();  
+		Documento d = new Documento();
+		for(String clave1 : CJT.get_por_titulo().keySet()) {
+			for (String clave2 : CJT.get_por_titulo().get(clave1).keySet()) {
+				d = CJT.get_por_titulo().get(clave1).get(clave2);
+				res_string.add(d.Doc_to_string());
+			}
+		}
+		return res_string;
+	}
+	
 	public void GUARDAR(String ruta) {
 		try {
 			PER.setRuta(ruta);
@@ -238,4 +249,5 @@ public class Domain_controller {
 			CJT = PER.recuperar();
 		}catch (Exception e){}
 	}
+	
 }
