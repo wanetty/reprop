@@ -86,6 +86,11 @@ public class ModificaFrame extends javax.swing.JFrame {
 		jScrollPane1.setViewportView(contenido);
 
 		jButton1.setText("Guardar");
+		jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -184,7 +189,33 @@ public class ModificaFrame extends javax.swing.JFrame {
 
 		private void temaActionPerformed(java.awt.event.ActionEvent evt) {                                     
 			// TODO add your handling code here:
-		}                                    
+		}
+		 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+			 Object [] opciones ={"Si","No"};
+				int eleccion = JOptionPane.showOptionDialog(rootPane,"Esta seguro que desea sobreescribir el documento?","Mensaje de Confirmacion",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE,null,opciones,"Si");
+				if (eleccion == JOptionPane.YES_OPTION)
+				{
+					 if (titulo.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Titulo vacio", " Error", JOptionPane.ERROR_MESSAGE);
+				        else if (autor.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacio", " Error", JOptionPane.ERROR_MESSAGE);
+				        else{
+				           String tit = titulo.getText();
+				           String aut = autor.getText();
+				           String tem = tema.getText();
+				           String conten = contenido.getText();
+				           estado.Crear_manual(tit, aut, tem, conten);
+				           JOptionPane.showMessageDialog(null, "Se han guardado los cambios del documento.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+				           StartWindow ven = new StartWindow(estado);
+				           ven.setVisible(true);
+				           this.dispose();
+				        }
+					
+				}else{
+					
+				}
+		    }                                        
+                                   
 
 
 

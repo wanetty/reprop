@@ -93,17 +93,14 @@ public class GuardarFrame extends javax.swing.JFrame {
         if(ruta.getText().isEmpty()){
         	JOptionPane.showMessageDialog(null,"Campo Vacio", " Error", JOptionPane.ERROR_MESSAGE);
         }
-        //FALTA CODIGO GUARDAR EN DOMAIN_CONTROLLER.
         else {
-        	//estado.guardar(ruta.getText());
+        	estado.GUARDAR(ruta.getText());
         	JOptionPane.showMessageDialog(null,"Se ha guardado correctamente.", " Correcto", JOptionPane.INFORMATION_MESSAGE);
         	dispose();
         }
     }                                        
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        StartWindow ven = new StartWindow(estado);
-        ven.setVisible(true);
         this.dispose();
     }                                        
 

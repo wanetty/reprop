@@ -11,19 +11,20 @@ import javax.swing.JOptionPane;
 import Prop.Domain_controller;
 
 
-public class GuardarySalirFrame extends javax.swing.JFrame {
+public class CargaFrame extends javax.swing.JFrame {
 
 	Domain_controller estado = new Domain_controller();
-	   
-	public GuardarySalirFrame() {
-        initComponents();
-        setLocationRelativeTo(null);
-    }
-	public GuardarySalirFrame(Domain_controller estado) {
-        initComponents();
-        setLocationRelativeTo(null);
-        this.estado = estado;
-    }
+
+	public CargaFrame() {
+		initComponents();
+		setLocationRelativeTo(null);
+	}
+	public CargaFrame(Domain_controller estado) {
+		initComponents();
+		setLocationRelativeTo(null);
+		this.estado = estado;
+	}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +37,7 @@ public class GuardarySalirFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         ruta = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        Recuperar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,10 +50,16 @@ public class GuardarySalirFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Ruta de archivo:");
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ruta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                rutaActionPerformed(evt);
+            }
+        });
+
+        Recuperar.setText("Recuperar");
+        Recuperar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecuperarActionPerformed(evt);
             }
         });
 
@@ -72,8 +79,8 @@ public class GuardarySalirFrame extends javax.swing.JFrame {
                         .addComponent(ruta)))
                 .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(213, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addContainerGap(201, Short.MAX_VALUE)
+                .addComponent(Recuperar)
                 .addGap(211, 211, 211))
         );
         layout.setVerticalGroup(
@@ -84,7 +91,7 @@ public class GuardarySalirFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(ruta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(Recuperar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
@@ -95,26 +102,34 @@ public class GuardarySalirFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        if(ruta.getText().isEmpty()){
-        	JOptionPane.showMessageDialog(null,"Campo Vacio", " Error", JOptionPane.ERROR_MESSAGE);
+    private void RecuperarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        if(!ruta.getText().isEmpty()){
+            estado.RECUPERAR(ruta.getText());
+            JOptionPane.showMessageDialog(null,"Se ha cargado el archivo correctamente.", " Correcto", JOptionPane.INFORMATION_MESSAGE);
+            StartWindow ven = new StartWindow();
+            ven.setVisible(true);
+            this.dispose();
         }
         else {
-        	estado.GUARDAR(ruta.getText());
-        	JOptionPane.showMessageDialog(null,"Se ha guardado correctamente.", " Correcto", JOptionPane.INFORMATION_MESSAGE);
-        	dispose();
+        	JOptionPane.showMessageDialog(null,"Campo Vacio", " Error", JOptionPane.ERROR_MESSAGE);
+            
         }
-    } 
+    }                                         
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        StartWindow ven = new StartWindow(estado);
+        StartWindow ven = new StartWindow();
         ven.setVisible(true);
         this.dispose();
-    }                                   
+    }                                        
+
+    private void rutaActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+    }                                    
 
 
 
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Recuperar;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField ruta;

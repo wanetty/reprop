@@ -15,21 +15,21 @@ import Prop.Domain_controller;
  */
 public class StartWindow extends javax.swing.JFrame {
 
-    
-  Domain_controller estado = new Domain_controller();
-   
+
+	Domain_controller estado = new Domain_controller();
+
 	public StartWindow() {
-        initComponents();
-        setLocationRelativeTo(null);
-    }
+		initComponents();
+		setLocationRelativeTo(null);
+	}
 	public StartWindow(Domain_controller estado) {
-        initComponents();
-        setLocationRelativeTo(null);
-        this.estado = estado;
-    }
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+		initComponents();
+		setLocationRelativeTo(null);
+		this.estado = estado;
+	}
+	@SuppressWarnings("unchecked")
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+	 private void initComponents() {
 
         AltaDoc = new javax.swing.JButton();
         BusquedasDoc = new javax.swing.JButton();
@@ -79,7 +79,7 @@ public class StartWindow extends javax.swing.JFrame {
         jButton1.setText("Cargar archivo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+            	jButton1ActionPerformed(evt);
             }
         });
 
@@ -88,7 +88,7 @@ public class StartWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap(56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(AltaDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -108,7 +108,7 @@ public class StartWindow extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
+                .addContainerGap(145, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AltaDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BusquedasDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -118,83 +118,85 @@ public class StartWindow extends javax.swing.JFrame {
                     .addComponent(Guardar)
                     .addComponent(GuardarSalir)
                     .addComponent(Salir))
-                .addGap(52, 52, 52))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
     }
 
-    private void AltaDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaDocActionPerformed
-        AltaDocumentoFrame ven = new AltaDocumentoFrame(estado);
-        ven.setVisible(true);
-        this.setVisible(false);
-    }
+	private void AltaDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaDocActionPerformed
+		AltaDocumentoFrame ven = new AltaDocumentoFrame(estado);
+		ven.setVisible(true);
+		this.setVisible(false);
+	}
 
-    private void BusquedasDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedasDocActionPerformed
-    	SelecBusqueda ven = new SelecBusqueda(estado);
-        ven.setVisible(true);
-        setVisible(false);
-    }
-    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedasDocActionPerformed
-    	 GuardarFrame ven = new GuardarFrame(estado);
-         ven.setVisible(true);
-    }
-    private void GuardarSalirActionPerformed(java.awt.event.ActionEvent evt) {                                             
-    	GuardarFrame ven = new GuardarFrame(estado);
-        ven.setVisible(true);
-        setVisible(false);
-    }     
-    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {                                      
-    	Object [] opciones ={"Aceptar","Cancelar"};
+	private void BusquedasDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedasDocActionPerformed
+		SelecBusqueda ven = new SelecBusqueda(estado);
+		ven.setVisible(true);
+		setVisible(false);
+	}
+	private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedasDocActionPerformed
+		GuardarFrame ven = new GuardarFrame(estado);
+		ven.setVisible(true);
+	}
+	private void GuardarSalirActionPerformed(java.awt.event.ActionEvent evt) {                                             
+		GuardarySalirFrame ven = new GuardarySalirFrame(estado);
+		ven.setVisible(true);
+		this.dispose();
+	}
+	private void SalirActionPerformed(java.awt.event.ActionEvent evt) {                                      
+		Object [] opciones ={"Aceptar","Cancelar"};
 		int eleccion = JOptionPane.showOptionDialog(rootPane,"Esta seguro que desea salir sin guardar?","Mensaje de Confirmacion",
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
 		if (eleccion == JOptionPane.YES_OPTION)
 		{
 			this.dispose();
-			
+
 		}else {
 		}
 
-    }  
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }       
-    
-    
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+	}  
+	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+		CargaFrame ven = new CargaFrame(estado);
+		ven.setVisible(true);
+		this.dispose();
+	}       
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StartWindow().setVisible(true);
-            }
-        });
-    }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AltaDoc;
-    private javax.swing.JButton BusquedasDoc;
-    private javax.swing.JButton Guardar;
-    private javax.swing.JButton GuardarSalir;
-    private javax.swing.JButton Salir;
-    private javax.swing.JButton jButton1;
-    // End of variables declaration//GEN-END:variables
+	public static void main(String args[]) {
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(StartWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		}
+		//</editor-fold>
+
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new StartWindow().setVisible(true);
+			}
+		});
+	}
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton AltaDoc;
+	private javax.swing.JButton BusquedasDoc;
+	private javax.swing.JButton Guardar;
+	private javax.swing.JButton GuardarSalir;
+	private javax.swing.JButton Salir;
+	private javax.swing.JButton jButton1;
+	// End of variables declaration//GEN-END:variables
 }

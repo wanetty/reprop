@@ -189,7 +189,7 @@ public class BTitAutFrame extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void autorActionPerformed(java.awt.event.ActionEvent evt) {                                      
-
+    		
     }                                     
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
