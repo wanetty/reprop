@@ -106,7 +106,7 @@ public class CargaFrame extends javax.swing.JFrame {
         if(!ruta.getText().isEmpty()){
             estado.RECUPERAR(ruta.getText());
             JOptionPane.showMessageDialog(null,"Se ha cargado el archivo correctamente.", " Correcto", JOptionPane.INFORMATION_MESSAGE);
-            StartWindow ven = new StartWindow();
+            StartWindow ven = new StartWindow(estado);
             ven.setVisible(true);
             this.dispose();
         }
@@ -117,7 +117,7 @@ public class CargaFrame extends javax.swing.JFrame {
     }                                         
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        StartWindow ven = new StartWindow();
+        StartWindow ven = new StartWindow(estado);
         ven.setVisible(true);
         this.dispose();
     }                                        

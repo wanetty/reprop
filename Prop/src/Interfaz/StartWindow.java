@@ -16,7 +16,7 @@ import Prop.Domain_controller;
 public class StartWindow extends javax.swing.JFrame {
 
 
-	Domain_controller estado = new Domain_controller();
+	private Domain_controller estado = new Domain_controller();
 
 	public StartWindow() {
 		initComponents();

@@ -5,6 +5,8 @@
  */
 package Interfaz;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import Prop.Domain_controller;
@@ -15,8 +17,8 @@ import Prop.Domain_controller;
  */
 public class ConsultaFrame extends javax.swing.JFrame {
 
-	  Domain_controller estado = new Domain_controller();
-	   
+	  private Domain_controller estado = new Domain_controller();
+	 private  ArrayList<String> actual = new ArrayList<String>();
 		public ConsultaFrame() {
 	        initComponents();
 	        setLocationRelativeTo(null);
@@ -25,6 +27,13 @@ public class ConsultaFrame extends javax.swing.JFrame {
 	        initComponents();
 	        setLocationRelativeTo(null);
 	        this.estado = estado;
+	    }
+		public ConsultaFrame(Domain_controller estado, ArrayList<String> actual) {
+			this.estado = estado;
+	        this.actual = actual;
+			initComponents();
+	        setLocationRelativeTo(null);
+	        
 	    }
 
     /**
@@ -71,6 +80,7 @@ public class ConsultaFrame extends javax.swing.JFrame {
                 tituloActionPerformed(evt);
             }
         });
+        titulo.setText(actual.get(1));
 
         autor.setEditable(false);
         autor.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +88,7 @@ public class ConsultaFrame extends javax.swing.JFrame {
                 autorActionPerformed(evt);
             }
         });
+        autor.setText(actual.get(0));
 
         tema.setEditable(false);
         tema.addActionListener(new java.awt.event.ActionListener() {
@@ -85,8 +96,10 @@ public class ConsultaFrame extends javax.swing.JFrame {
                 temaActionPerformed(evt);
             }
         });
+        if(actual.get(2) != null) tema.setText(actual.get(2));
 
         contenido.setEditable(false);
+        if(actual.get(3) != null)contenido.setText(actual.get(3));
         jScrollPane1.setViewportView(contenido);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,10 +132,10 @@ public class ConsultaFrame extends javax.swing.JFrame {
                                 .addGap(33, 33, 33))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(296, 296, 296))))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -140,11 +153,11 @@ public class ConsultaFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(jButton4)
                 .addContainerGap())
         );

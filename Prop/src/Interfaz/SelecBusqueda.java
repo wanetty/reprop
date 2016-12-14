@@ -169,7 +169,9 @@ public class SelecBusqueda extends javax.swing.JFrame {
     }                                     
 
     private void AutorActionPerformed(java.awt.event.ActionEvent evt) {                                      
-        // TODO add your handling code here:
+    	BAutFrame ven = new BAutFrame(estado);
+        ven.setVisible(true);
+        setVisible(false);
     }                                     
 
     private void TituloActionPerformed(java.awt.event.ActionEvent evt) {                                       

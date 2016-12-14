@@ -146,8 +146,10 @@ public class Domain_controller {
 			Documento d = new Documento();
 			for (int i = 0; i < res.size(); ++i) {
 				d = res.get(i);
+				System.out.println(d.get_autor());
 				res_string.add(i, d.Doc_to_string());
 			}
+		
 			return res_string;
 		}catch (Exception e) {
 			return null;
