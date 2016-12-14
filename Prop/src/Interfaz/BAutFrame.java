@@ -229,6 +229,7 @@ public class BAutFrame extends javax.swing.JFrame {
         		 DefaultListModel<String> lista = new DefaultListModel<String>();
         	 for (int i = 0; i < todos.size();++i){
         		 actual = todos.get(i);
+
         		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
         	 }
         	 ListaDoc.setModel(lista);

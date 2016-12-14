@@ -222,13 +222,17 @@ public class BTitAutFrame extends javax.swing.JFrame {
 
     private void bajaActionPerformed(java.awt.event.ActionEvent evt) {                                     
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
-    	try {
+    	else {
+    		try {
+    	
 			estado.BAJA_DOC(actual.get(1), actual.get(0));
-			actual = null;
-			ListaDoc.remove(ListaDoc.getLeadSelectionIndex());
+			BTitAutFrame ven = new BTitAutFrame(estado);
+	        ven.setVisible(true);
+	        setVisible(false);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"ERROR DESCONOCIDO", " Error", JOptionPane.ERROR_MESSAGE);
 		}
+    	}
     }                                    
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {                                       

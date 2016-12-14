@@ -1,7 +1,9 @@
 package Interfaz;
 import java.io.IOException;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Prop.Domain_controller;
 import Prop.Exception_test;
@@ -25,12 +27,12 @@ public class AltaTxtFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-    	
 
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         ruta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,8 +48,15 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         jButton1.setText("Dar de Alta!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Explorar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-					jButton1ActionPerformed(evt);
+					jButton2ActionPerformed(evt);
 				} catch (Exception_test e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -65,29 +74,36 @@ public class AltaTxtFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ruta)))
-                .addGap(29, 29, 29))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(193, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(211, 211, 211))
+                        .addComponent(ruta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 183, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(211, 211, 211))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(85, 85, 85)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(ruta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
                 .addContainerGap())
         );
@@ -101,12 +117,17 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         StartWindow ven = new StartWindow(estado);
         ven.setVisible(true);
         this.dispose();
-    }                                        
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws Exception_test, IOException {     
+    }  
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     	try {
         if(!ruta.getText().isEmpty()){	
-        	estado.Crear_raiz(ruta.getText());
+        	try {
+				estado.Crear_raiz(ruta.getText());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
         }
         else {
@@ -116,8 +137,34 @@ public class AltaTxtFrame extends javax.swing.JFrame {
     		JOptionPane.showMessageDialog(null, e.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
     		
     	}
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws Exception_test, IOException {     
+    	JFileChooser explorador = new JFileChooser("/");
+    	explorador.setDialogTitle("Abrir documento...");
+    	explorador.setFileFilter(new FileNameExtensionFilter("Documento de texto",".txt"));
+    	int seleccion = explorador.showDialog(null, "Abrir!");
+    	  
+    	//analizamos la respuesta
+    	switch(seleccion) {
+    	case JFileChooser.APPROVE_OPTION:
+    		ruta.setText(explorador.getSelectedFile().getPath());
+    		estado.Crear_raiz(ruta.getText());
+        	JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+    	 break;
+
+    	case JFileChooser.CANCEL_OPTION:
+    	 break;
+
+    	case JFileChooser.ERROR_OPTION:
+    		JOptionPane.showMessageDialog(null, "Error desconocido", "Error",JOptionPane.ERROR_MESSAGE);
+    	 break;
+    	}
+ 
+    	
     }                                        
 
+    
 
 
              
@@ -125,5 +172,6 @@ public class AltaTxtFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField ruta;
+    private javax.swing.JButton jButton2;
                       
 }
