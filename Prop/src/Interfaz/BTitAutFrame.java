@@ -39,15 +39,14 @@ public class BTitAutFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+       
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         titulo = new javax.swing.JTextField();
         autor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        ListaDoc = new javax.swing.JList<>();
+        ListaDoc = new javax.swing.JList<String>();
         buscar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         Consulta = new javax.swing.JButton();
@@ -55,9 +54,7 @@ public class BTitAutFrame extends javax.swing.JFrame {
         baja = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
-        jMenu1.setText("jMenu1");
-
-        jMenu2.setText("jMenu2");
+       
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Busqueda por titulo y autor");
@@ -202,11 +199,18 @@ public class BTitAutFrame extends javax.swing.JFrame {
     }                                        
 
     private void ConsultaActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
+    	else {ConsultaFrame ven = new ConsultaFrame(estado);
+        ven.setVisible(true); 
+    	}
     }                                        
 
     private void ModificaActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
+    	else {ModificaFrame ven = new ModificaFrame(estado);
+        ven.setVisible(true); 
+        this.setVisible(false);
+    	}
     }                                        
 
     private void bajaActionPerformed(java.awt.event.ActionEvent evt) {                                     
@@ -219,7 +223,7 @@ public class BTitAutFrame extends javax.swing.JFrame {
          else{
         	 String tit = estado.BUSQUEDA_auttit(autor.getText(), titulo.getText()).get_titulo().toString();
         	 String aut = estado.BUSQUEDA_auttit(autor.getText(), titulo.getText()).get_autor().toString();
-        	 DefaultListModel<String> lista = new DefaultListModel<>();
+        	 DefaultListModel<String> lista = new DefaultListModel<String>();
         	 lista.addElement("Titulo: "+ tit +"      Autor: "+ aut);
         	 ListaDoc.setModel(lista);
          }	
@@ -239,8 +243,6 @@ public class BTitAutFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField titulo;
     // End of variables declaration                   
