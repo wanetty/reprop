@@ -30,7 +30,7 @@ public class Domain_controller {
 			Doc.setTema(new Frase(tema));
 			Doc.setFecha(fecha);
 			ArrayList<Frase> c = new ArrayList<Frase>();
-			String delimitadores= "[.;?!]";
+			String delimitadores= "[.;?!]";//faltan los puntos suspensivos
 			String[] frasesseparadas = contenido.split(delimitadores);
 			for (int i=0; i<frasesseparadas.length; ++i) {
 				Frase aux=new Frase(frasesseparadas[i]);
@@ -98,13 +98,109 @@ public class Domain_controller {
 		}catch (Exception e){}
 	}
 	
-	//public void BAJA_DOC(Documento d)
+	public void BAJA_DOC(String titulo, String autor) throws IOException {
+		Documento d = new Documento();
+		d = CJT.busqueda_por_auttit(autor, titulo);
+		CJT.baja_individual_doc(d);
+	}
+	
 	
 	//BUSQUEDA
 	
-	public ArrayList<Documento> BUSQUEDA_PARECIDO(String titulo, String autor, int k, int metodo) {
+	public ArrayList<String> Doc_to_string(Documento d) throws IOException {
+		//0 autor
+		//1 titulo
+		//2 tema
+		//3 contenido
+		ArrayList<String> res = new ArrayList<String>();
+		res.add(0, d.getAutor().toString_consigno());
+		res.add(1, d.getTitulo().toString_consigno());
+		if(!(d.getTema().midafrase()== 0)) {
+			res.add(2, d.getTema().toString_consigno());
+		}
+		String aux = d.contenido_toString();
+		res.add(3, aux);
+		return res;
+		
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_TITULO(String titulo){
 		try {
-			return BUS.por_similitud(CJT, autor, titulo, k, metodo);
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_titulo(CJT, titulo));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		} catch (Exception e){
+			return null;
+		}
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_TEMA(String tema) {
+		try {
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_tema(CJT, tema));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		}catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_AUTOR(String autor) {
+		try {
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_autor(CJT, autor));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		}catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_FECHA(String fecha) {
+		try {
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_fecha(CJT, fecha));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	public ArrayList<String> BUSQUEDA_auttit(String autor, String titulo) {
+		try {
+			return BUS.por_auttit(CJT, autor, titulo).Doc_to_string();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_PARECIDO(String titulo, String autor, int k, int metodo) {
+		try {
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_similitud(CJT, autor, titulo, k, metodo));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
 		}
 		catch (Exception e){
 			return null;
@@ -112,45 +208,17 @@ public class Domain_controller {
 		
 	}
 	
-	/*public ArrayList<Documento> BUSQUEDA_BOOLEANA(String expresion){
-	}
-	*/
-	
-	public ArrayList<Documento> BUSQUEDA_TITULO(String titulo){
+	public ArrayList<ArrayList<String>> BUSQUEDA_BOOLEANA(String expresion) {
 		try {
-			return BUS.por_titulo(CJT, titulo);
-		} catch (Exception e){
-			return null;
-		}
-	}
-	
-	public ArrayList<Documento> BUSQUEDA_TEMA(String tema) {
-		try {
-			return BUS.por_tema(CJT, tema);
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_booleano(CJT, expresion));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
 		}catch (Exception e) {
-			return null;
-		}
-	}
-	
-	public ArrayList<Documento> BUSQUEDA_AUTOR(String autor) {
-		try {
-			return BUS.por_autor(CJT, autor);
-		}catch (Exception e) {
-			return null;
-		}
-	}
-	
-	public ArrayList<Documento> BUSQUEDA_FECHA(String fecha) {
-		try {
-			return BUS.por_fecha(CJT, fecha);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public Documento BUSQUEDA_auttit(String autor, String titulo) {
-		try {
-			return BUS.por_auttit(CJT, autor, titulo);
-		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -165,7 +233,7 @@ public class Domain_controller {
 	public void RECUPERAR(String ruta) {
 		try {
 			PER.setRuta(ruta);
-			PER.recuperar();
+			CJT = PER.recuperar();
 		}catch (Exception e){}
 	}
 }

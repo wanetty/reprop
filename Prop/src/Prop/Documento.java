@@ -325,6 +325,7 @@ public class Documento implements java.io.Serializable  {
 		}
 	}
 	
+
 	public String contenido_toString() {
 		String ret="";
 		String aux;
@@ -338,6 +339,22 @@ public class Documento implements java.io.Serializable  {
 		return ret;
 	}
 	
+	public ArrayList<String> Doc_to_string() throws IOException {
+		//0 autor
+		//1 titulo
+		//2 tema
+		//3 contenido
+		ArrayList<String> res = new ArrayList<String>();
+		res.add(0, autor.toString_consigno());
+		res.add(1, titulo.toString_consigno());
+		if(!(tema.midafrase()== 0)) {
+			res.add(2, tema.toString_consigno());
+		}
+		String aux = contenido_toString();
+		res.add(3, aux);
+		return res;
+		
+	}
 	
 	/*
 	public boolean doc_iguales(Documento d) {
