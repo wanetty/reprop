@@ -142,16 +142,15 @@ public class AltaTxtFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws Exception_test, IOException {     
     	JFileChooser explorador = new JFileChooser("/");
     	explorador.setDialogTitle("Abrir documento...");
-    	explorador.setFileFilter(new FileNameExtensionFilter("Documento de texto",".txt"));
+    	FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+    	explorador.setFileFilter(filter);
     	int seleccion = explorador.showDialog(null, "Abrir!");
     	  
     	//analizamos la respuesta
     	switch(seleccion) {
     	case JFileChooser.APPROVE_OPTION:
     		ruta.setText(explorador.getSelectedFile().getPath());
-    		estado.Crear_raiz(ruta.getText());
-        	JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
-    	 break;
+        	break;
 
     	case JFileChooser.CANCEL_OPTION:
     	 break;
