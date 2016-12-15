@@ -95,7 +95,8 @@ public class Frase implements java.io.Serializable  {
 				}
 				else res+=p.palabra();
 				if(!p.getDetras().equals("-1"))res+=p.getDetras();
-				if (i != frase.size()-1) res+=(" ");
+				if (i != frase.size()-1) res+=(' ');
+				//else res += (".\n");
 			}
 			return res;
 		}

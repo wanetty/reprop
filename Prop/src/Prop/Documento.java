@@ -334,9 +334,13 @@ public class Documento implements java.io.Serializable  {
 		char fl;
 		for(int i=0; i<contenido.size(); ++i) {
 			aux=contenido.get(i).toString_consigno();
+			if (!aux.isEmpty()){
 			fl=(char) ('A' + (aux.charAt(0) - 'a'));
 			ret+=fl+aux.substring(1, aux.length());
-			if (i!=contenido.size()-1) ret+=' ';
+			ret += ".";
+			}
+			else ret += ".\n";
+			//if (i!=contenido.size()-1) ret+=' ';
 		}
 		return ret;
 	}

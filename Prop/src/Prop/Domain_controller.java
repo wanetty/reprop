@@ -199,8 +199,9 @@ public class Domain_controller {
 		try {
 			return BUS.por_auttit(CJT, autor, titulo).Doc_to_string();
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	public ArrayList<ArrayList<String>> BUSQUEDA_PARECIDO(String titulo, String autor, int k, int metodo) {
