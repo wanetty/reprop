@@ -48,7 +48,7 @@ public class StartWindow extends javax.swing.JFrame {
             }
         });
 
-        BusquedasDoc.setText("BÚSQUEDAS DE DOCUMENTOS");
+        BusquedasDoc.setText("BUSQUEDAS DE DOCUMENTOS");
         BusquedasDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BusquedasDocActionPerformed(evt);

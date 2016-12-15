@@ -23,7 +23,7 @@ public class Busquedas implements java.io.Serializable  {
 					s.similitud_n(d,k,c,metd);
 					a = s.get_resultado();
 					if (k >= c.get_cjt_size()) k = c.get_cjt_size()-1;
-					print_resultado(d, k, a,s);//se quita
+					//print_resultado(d, k, a,s);//se quita
 				}
 				//else excepcion System.out.println("No existe este método.");
 			}

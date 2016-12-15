@@ -130,6 +130,8 @@ public class Similitud implements java.io.Serializable  {
 	
 	private double idf(String termino, Cjt_documentos cjt, int metodo){
 		int n = cjt.apariencias_cjtdoc_palabra(termino); 
+		System.out.println(n);
+		System.out.println(termino);
 		if (metodo == 1) return Math.log(1+ (cjt.get_cjt_size() / n)); 
 		else return Math.log((1+ (cjt.get_cjt_size() - n) / n));
 	}

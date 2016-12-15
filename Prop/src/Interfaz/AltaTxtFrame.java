@@ -114,7 +114,7 @@ public class AltaTxtFrame extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        StartWindow ven = new StartWindow(estado);
+        AltaDocumentoFrame ven = new AltaDocumentoFrame(estado);
         ven.setVisible(true);
         this.dispose();
     }  

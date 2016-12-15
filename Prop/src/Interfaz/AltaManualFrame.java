@@ -155,9 +155,9 @@ public class AltaManualFrame extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        StartWindow ven = new StartWindow(estado);
-        ven.setVisible(true);
-        this.dispose();
+    	  AltaDocumentoFrame ven = new AltaDocumentoFrame(estado);
+          ven.setVisible(true);
+          this.dispose();
     }                                        
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            

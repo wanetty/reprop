@@ -17,17 +17,17 @@ import Prop.Domain_controller;
  *
  * @author Papilomavirus
  */
-public class BAutFrame extends javax.swing.JFrame {
+public class BFechFrame extends javax.swing.JFrame {
 
 	Domain_controller estado = new Domain_controller();
 	ArrayList<String> actual = new ArrayList<String>();
 	ArrayList<ArrayList<String>> todos = new ArrayList<ArrayList<String>>();
 	   
-	public BAutFrame() {
+	public BFechFrame() {
         initComponents();
         setLocationRelativeTo(null);
     }
-	public BAutFrame(Domain_controller estado) {
+	public BFechFrame(Domain_controller estado) {
         initComponents();
         setLocationRelativeTo(null);
         this.estado = estado;
@@ -40,7 +40,7 @@ public class BAutFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jLabel2 = new javax.swing.JLabel();
-        autor = new javax.swing.JTextField();
+        fecha = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaDoc = new javax.swing.JList<String>();
@@ -57,15 +57,15 @@ public class BAutFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("Autor");
+        jLabel2.setText("Fecha");
 
-        autor.addActionListener(new java.awt.event.ActionListener() {
+        fecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autorActionPerformed(evt);
+                fechaActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Introduce el autor o el prefijo que deseas buscar:");
+        jLabel3.setText("Introduce la fecha de los documentos que desea buscar:");
 
         ListaDoc.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         ListaDoc.setToolTipText("");
@@ -129,7 +129,7 @@ public class BAutFrame extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(autor, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -160,7 +160,7 @@ public class BAutFrame extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(autor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(13, 13, 13)
                 .addComponent(jLabel4)
                 .addGap(24, 24, 24)
@@ -178,12 +178,12 @@ public class BAutFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void autorActionPerformed(java.awt.event.ActionEvent evt) {                                      
+    private void fechaActionPerformed(java.awt.event.ActionEvent evt) {                                      
 
     }                                     
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        SelecBusqueda ven = new SelecBusqueda(estado);
+    	SelecBusqueda ven = new SelecBusqueda(estado);
         ven.setVisible(true);
         this.dispose();
     }                                        
@@ -217,14 +217,14 @@ public class BAutFrame extends javax.swing.JFrame {
     }                                    
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {                                       
-    	 if (autor.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacio", " Error", JOptionPane.ERROR_MESSAGE);
+    	 if (fecha.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo tema vacio", " Error", JOptionPane.ERROR_MESSAGE);
          else{
         	 /*0 autor
-        	 1Titulo
+        	 1titulo
         	 2 tema
         	 3 contenido*/
-        	 todos  = estado.BUSQUEDA_AUTOR(autor.getText());
-        	 if(todos == null)JOptionPane.showMessageDialog(null,"No hay documentos con este autor.", " Error", JOptionPane.ERROR_MESSAGE);
+        	 todos  = estado.BUSQUEDA_FECHA(fecha.getText());
+        	 if(todos == null)JOptionPane.showMessageDialog(null,"No hay documentos con este fecha.", " Error", JOptionPane.ERROR_MESSAGE);
         	 else { 
         		 DefaultListModel<String> lista = new DefaultListModel<String>();
         	 for (int i = 0; i < todos.size();++i){
@@ -242,7 +242,7 @@ public class BAutFrame extends javax.swing.JFrame {
     private javax.swing.JButton Consulta;
     private javax.swing.JList<String> ListaDoc;
     private javax.swing.JButton Modifica;
-    private javax.swing.JTextField autor;
+    private javax.swing.JTextField fecha;
     private javax.swing.JButton baja;
     private javax.swing.JButton buscar;
     private javax.swing.JButton jButton4;

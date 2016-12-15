@@ -175,7 +175,9 @@ public class SelecBusqueda extends javax.swing.JFrame {
     }                                     
 
     private void TituloActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
+    	BTitFrame ven = new BTitFrame(estado);
+        ven.setVisible(true);
+        setVisible(false);
     }                                      
 
     private void booleanaActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -183,15 +185,21 @@ public class SelecBusqueda extends javax.swing.JFrame {
     }                                        
 
     private void similitudActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+    	BSimFrame ven = new BSimFrame(estado);
+        ven.setVisible(true);
+        setVisible(false);
     }                                         
 
     private void fechaActionPerformed(java.awt.event.ActionEvent evt) {                                      
-        // TODO add your handling code here:
+    	BFechFrame ven = new BFechFrame(estado);
+        ven.setVisible(true);
+        setVisible(false);
     }                                     
 
     private void temaActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
+    	BTemFrame ven = new BTemFrame(estado);
+        ven.setVisible(true);
+        setVisible(false);
     }              
     private void TitAutActionPerformed(java.awt.event.ActionEvent evt) {                                       
     	BTitAutFrame ven = new BTitAutFrame(estado);

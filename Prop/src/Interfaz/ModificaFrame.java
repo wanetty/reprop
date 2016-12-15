@@ -72,7 +72,6 @@ public class ModificaFrame extends javax.swing.JFrame {
 
 		jLabel4.setText("Contenido");
 
-		titulo.setEditable(false);
         titulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tituloActionPerformed(evt);

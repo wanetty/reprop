@@ -52,7 +52,7 @@ public class Frase implements java.io.Serializable  {
 	//consultora
 	
 	
-	//devuelve el numero de palabras que ocntiene la frase
+	//devuelve el numero de palabras que conntiene la frase
 	public int midafrase() throws IOException{
 		return frase.size();
 	}

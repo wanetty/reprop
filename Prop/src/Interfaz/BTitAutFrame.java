@@ -199,7 +199,7 @@ public class BTitAutFrame extends javax.swing.JFrame {
     }                                     
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        StartWindow ven = new StartWindow(estado);
+    	SelecBusqueda ven = new SelecBusqueda(estado);
         ven.setVisible(true);
         this.dispose();
     }                                        
