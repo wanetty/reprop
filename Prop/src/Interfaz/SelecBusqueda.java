@@ -181,7 +181,9 @@ public class SelecBusqueda extends javax.swing.JFrame {
     }                                      
 
     private void booleanaActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    	BBoolFrame ven = new BBoolFrame(estado);
+        ven.setVisible(true);
+        setVisible(false);
     }                                        
 
     private void similitudActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -207,8 +209,11 @@ public class SelecBusqueda extends javax.swing.JFrame {
         setVisible(false);
     }                                      
     private void booleana1ActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }         
+    	BAllFrame ven = new BAllFrame(estado);
+        ven.setVisible(true);
+        setVisible(false);
+    }                        
+       
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton Autor;

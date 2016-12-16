@@ -207,6 +207,7 @@ public class BTemFrame extends javax.swing.JFrame {
 
     private void bajaActionPerformed(java.awt.event.ActionEvent evt) {                                     
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
+    	else{
     	try {
 			estado.BAJA_DOC(actual.get(1), actual.get(0));
 			actual = null;
@@ -214,7 +215,8 @@ public class BTemFrame extends javax.swing.JFrame {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"ERROR DESCONOCIDO", " Error", JOptionPane.ERROR_MESSAGE);
 		}
-    }                                    
+    	}
+    }                                     
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {                                       
     	 if (tema.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo tema vacio", " Error", JOptionPane.ERROR_MESSAGE);
