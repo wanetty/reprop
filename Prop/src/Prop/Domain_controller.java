@@ -24,7 +24,7 @@ public class Domain_controller {
 	}
 	
 
-	public void Crear_manual(String titulo, String autor, String tema, String contenido){
+	public void Crear_manual(String titulo, String autor, String tema, String contenido) throws Custom_exception, IOException{
 		try {
 			if (CJT.existe_combinacion(autor, titulo)) throw new Custom_exception("Combinacion de autor y titulo ya existente");
 			Documento Doc = new Documento();
@@ -44,8 +44,8 @@ public class Domain_controller {
 			Doc.setContenido(c);
 			Doc.construirPesos();
 			CJT.alta_doc(Doc);
-		}catch (Exception e) {
-			e.printStackTrace();
+		}catch (Custom_exception e) {
+			throw e;
 		}
 	}
 	
