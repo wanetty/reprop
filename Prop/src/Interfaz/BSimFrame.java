@@ -73,7 +73,7 @@ public class BSimFrame extends javax.swing.JFrame {
         jLabel1.setText("Titulo ");
 
         jLabel2.setText("Autor");
-
+        setTitle("Gestor de Documentos");
         autor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autorActionPerformed(evt);

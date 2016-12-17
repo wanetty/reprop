@@ -9,6 +9,10 @@ import java.io.IOException;
 
 public class Palabra implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6714490703344669408L;
 	private String palabra;
 	private String adelante;
 	private String detras;

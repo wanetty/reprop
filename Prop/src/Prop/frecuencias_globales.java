@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class frecuencias_globales implements java.io.Serializable  {
 
+
+	private static final long serialVersionUID = -41389441609818123L;
 	private Map <String,Double> global=new HashMap<String,Double>();
 	private Map <String,Map<String,Map<String,Double>>> frecdoc=new HashMap <String,Map<String,Map<String,Double>>>();
 	//String1:palabra,String2:autor,String3:tiutlo,Integer:veces que aparece la palabra en el documento

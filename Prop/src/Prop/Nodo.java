@@ -3,7 +3,11 @@ package Prop;
 public class Nodo implements java.io.Serializable  {
 	
 		 
-	    /* Declaraciones de variables */
+	    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1820110035747029470L;
+	/* Declaraciones de variables */
 	 private String valor;
 	 private Nodo izq;
 	 private Nodo der;

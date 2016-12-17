@@ -38,7 +38,7 @@ public class SModiFrame extends javax.swing.JFrame {
         No = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestor Documentos");
+        setTitle("Gestor de Documentos");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel1.setText("Estas seguro que quieres salir sin guardar los cambios?");

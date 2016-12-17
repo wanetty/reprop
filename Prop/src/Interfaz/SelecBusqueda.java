@@ -39,7 +39,7 @@ public class SelecBusqueda extends javax.swing.JFrame {
         booleana1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("BUQUEDAS DE DOCUMENTOS");
+        setTitle("Gestor de Documentos");
         setResizable(false);
 
         atras.setText("Atras");

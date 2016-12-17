@@ -57,7 +57,7 @@ public class ConsultaFrame extends javax.swing.JFrame {
         contenido = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("GESTOR DOCUMENTOS");
+        setTitle("Gestor de Documentos");
 
         jButton4.setText("Atras");
         jButton4.addActionListener(new java.awt.event.ActionListener() {

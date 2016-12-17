@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Documento implements java.io.Serializable  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8239632605956944790L;
 	private Frase titulo = new Frase(); 
 	public Frase getTitulo() {
 		return titulo;

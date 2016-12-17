@@ -67,7 +67,7 @@ public class BAllFrame extends javax.swing.JFrame {
         Consulta = new javax.swing.JButton();
         Modifica = new javax.swing.JButton();
         baja = new javax.swing.JButton();
-
+        setTitle("Gestor de Documentos");
         jMenu1.setText("jMenu1");
 
         jMenu2.setText("jMenu2");

@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Frase implements java.io.Serializable  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7359658011779350346L;
 	private ArrayList<Palabra> frase = new ArrayList<Palabra>();
 	
 	//constructoras

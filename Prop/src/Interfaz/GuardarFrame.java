@@ -33,7 +33,7 @@ public class GuardarFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("GUARDADO");
+        setTitle("Gestor de Documentos");
         setResizable(false);
 
         jButton4.setText("Atras");

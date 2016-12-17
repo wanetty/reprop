@@ -11,6 +11,10 @@ import java.util.Set;
 import java.util.TreeMap;
 public class Similitud implements java.io.Serializable  {
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9164983264905386856L;
 	private ArrayList<Documento> resultado;
 	
 	public Similitud(){
@@ -130,8 +134,6 @@ public class Similitud implements java.io.Serializable  {
 	
 	private double idf(String termino, Cjt_documentos cjt, int metodo){
 		int n = cjt.apariencias_cjtdoc_palabra(termino); 
-		System.out.println(n);
-		System.out.println(termino);
 		if (metodo == 1) return Math.log(1+ (cjt.get_cjt_size() / n)); 
 		else return Math.log((1+ (cjt.get_cjt_size() - n) / n));
 	}

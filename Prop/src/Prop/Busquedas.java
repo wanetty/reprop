@@ -11,6 +11,11 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Busquedas implements java.io.Serializable  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5148622133913761858L;
+
 	public ArrayList<Documento> por_similitud(Cjt_documentos c, String aut, String tit, int k, int metd) throws IOException {
 		aut=aut.toLowerCase();
 		tit=tit.toLowerCase();

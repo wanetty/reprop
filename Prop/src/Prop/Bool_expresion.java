@@ -11,6 +11,10 @@ import java.util.ArrayList;
 public class Bool_expresion implements java.io.Serializable  {
 	//creadoras
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8427674267883649129L;
 	private Nodo estrucexp;
 	private int cant;
 	private int altura;

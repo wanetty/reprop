@@ -54,7 +54,7 @@ public class BBoolFrame extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         jMenu2.setText("jMenu2");
-
+        setTitle("Gestor de Documentos");
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setText("Expresion a tratar: ");

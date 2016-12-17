@@ -33,7 +33,7 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         ruta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-
+        setTitle("Gestor de Documentos");
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton4.setText("Atras");

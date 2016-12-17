@@ -63,8 +63,7 @@ public class BTitAutFrame extends javax.swing.JFrame {
        
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Busqueda por titulo y autor");
-
+        setTitle("Gestor de Documentos");
         jLabel1.setText("Titulo ");
 
         jLabel2.setText("Autor");

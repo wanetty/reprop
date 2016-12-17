@@ -34,7 +34,7 @@ public class AltaDocumentoFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("ALTA DOCUMENTO");
+        setTitle("Gestor de Documentos");
         setAlwaysOnTop(true);
 
         jButton1.setText("Archivo Txt");
@@ -104,9 +104,9 @@ public class AltaDocumentoFrame extends javax.swing.JFrame {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    	/*        AltaMultipleFrame ven = new AltaMultipleFrame();
+    	 AltaMltFrame ven = new AltaMltFrame();
         ven.setVisible(true);
-        this.dispose();*/
+        this.dispose();
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

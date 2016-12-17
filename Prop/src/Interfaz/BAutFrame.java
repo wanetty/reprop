@@ -51,6 +51,7 @@ public class BAutFrame extends javax.swing.JFrame {
         baja = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
+        setTitle("Gestor de Documentos");
         jMenu1.setText("jMenu1");
 
         jMenu2.setText("jMenu2");

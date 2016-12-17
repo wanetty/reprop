@@ -56,7 +56,7 @@ public class BFechFrame extends javax.swing.JFrame {
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        setTitle("Gestor de Documentos");
         jLabel2.setText("Fecha");
 
         fecha.addActionListener(new java.awt.event.ActionListener() {

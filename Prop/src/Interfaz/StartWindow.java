@@ -39,7 +39,7 @@ public class StartWindow extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("GESTOR DE DOCUMENTOS");
+        setTitle("Gestor de Documentos");
 
         AltaDoc.setText("ALTA DOCUMENTOS");
         AltaDoc.addActionListener(new java.awt.event.ActionListener() {
