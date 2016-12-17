@@ -1,0 +1,30 @@
+Eduard.
+Sotfware.
+Infromatica.
+Qué es Software:
+Software es un término informático que hace referencia a un programa o conjunto de programas de cómputo que incluye datos, procedimientos y pautas que permiten realizar distintas tareas en un sistema informático.
+
+Comúnmente se utiliza este término para referirse de una forma muy genérica a los programas de un dispositivo informático.
+
+Es un término procedente del inglés, aceptado por la RAE y formado por oposición al término hardware.
+
+Software de aplicación
+Un software de aplicación son los programas diseñados para facilitar algunas tareas específicas como procesadores de texto, de imagen, navegadores de Internet, etc., para cualquier medio informático ya sea en computadores, tablets o celulares.
+
+Software libre y software propietario
+El concepto de software libre se utiliza para referirse a aquellos programas que permiten al usuario utilizar, copiar, modificar y distribuirlo.
+
+En oposición a este término, se habla de software propietario para indicar que un programa informático no es completamente libre. En este sentido, el titular del software prohibe o restringe su uso, redistribución o modificación.
+
+Software educativo
+Software educativo son los programas informáticos de naturaleza pedagógica creados para diseñar, facilitar, complementar y/o evaluar un proceso de enseñanza y aprendizaje.
+
+Existen además herramientas genéricas que pueden tener una utilidad educativa como los programas de presentación de diapositivas o reproductores de vídeo, aunque no se suelen consideran específicamente como 'software educativo', sino simplemente como 'recurso educativo'.
+
+El software educativo se puede aplicar a distintos tipos de educación y en distintos niveles. Del mismo modo, el formato, las características y funciones que pueden presentar son variados. Igualmente, el soporte en que se utilizan es amplio, como computadoras, tablets o celulares.
+
+Software y hardware
+Ambos conceptos informáticos están interrelacionados. El hardware son los elementos físicos que componen un sistema informático (por ejemplo, el teclado o la CPU), mientras que el software es el soporte lógico e intangible (por ejemplo, un programa anti-virus o un procesador de textos) y que permite desarrollar diversas funciones.
+
+Tipos de software
+De forma genérica se pueden distinguir varios tipos de software en función del uso o utilidad: software de sistema, software de programación y software de aplicación. El software malicioso o malintencionado (utilizado también en su forma original en inglés malicious software o simplemente malware) es el que se crea con fines ilícitos como obtener información privada del usuario o dañar el sistema.

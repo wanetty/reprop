@@ -1,0 +1,8 @@
+Farmacia.
+Medicamentos.
+Salud.
+Los archivos de texto plano (plain text), son aquellos formados exclusivamente por texto (sólo caracteres), sin ningún formato; es decir, no requieren ser interpretados para leerse (aunque pueden ser procesados en algunos casos). También son llamados archivos de texto llano, simple o sin formato.
+
+En otras palabras, son archivos que contienen solo texto, pero no hay información sobre el tipo de letra, ni formas (negrita, subrayados...), ni tamaños.
+
+Técnicamente cualquier archivo puede abrirse como texto plano desde un editor de texto. Obviamente si se abriera un archivo de música MP3, una persona no entendería su contenido. En cambio si se abre un archivo HTML como texto plano, se vería el texto de la página web y todas las etiquetas que, procesadas, le darían un formato.
