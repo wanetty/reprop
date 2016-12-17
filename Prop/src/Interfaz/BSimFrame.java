@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 import Prop.Domain_controller;
+import Prop.Custom_exception;
 import Prop.Documento;
 
 /**
@@ -89,7 +90,15 @@ public class BSimFrame extends javax.swing.JFrame {
         buscar.setText("BUSCAR");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
+                try {
+					buscarActionPerformed(evt);
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -117,7 +126,12 @@ public class BSimFrame extends javax.swing.JFrame {
         baja.setText("Baja");
         baja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaActionPerformed(evt);
+                try {
+					bajaActionPerformed(evt);
+				} catch (Custom_exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -260,7 +274,7 @@ public class BSimFrame extends javax.swing.JFrame {
     	}
     }                                        
 
-    private void bajaActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void bajaActionPerformed(java.awt.event.ActionEvent evt) throws Custom_exception {                                     
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
     	else {
     		try {
@@ -275,30 +289,30 @@ public class BSimFrame extends javax.swing.JFrame {
     	}
     }                                    
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {                                       
-    	 if (titulo.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Titulo vacio", " Error", JOptionPane.ERROR_MESSAGE);
-         else if (autor.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacio", " Error", JOptionPane.ERROR_MESSAGE);
-         else{
-        	 /*0 autor
-        	 1Titulo
-        	 2 tema
-        	 3 contenido*/
-        	 int metodo;
-        	 if(jRadioButton1.isSelected()) metodo = 1;
-        	 else metodo = 2;
-        	 todos  = estado.BUSQUEDA_PARECIDO(titulo.getText(), autor.getText(), Integer.parseInt(Kdoc.getText()), 1);
-        	 if(todos == null)JOptionPane.showMessageDialog(null,"No hay documentos con este titulo.", " Error", JOptionPane.ERROR_MESSAGE);
-        	 else { 
-        		 DefaultListModel<String> lista = new DefaultListModel<String>();
-        	 for (int i = 0; i < todos.size();++i){
-        		 actual = todos.get(i);
-
-        		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
-        	 }
-        	 ListaDoc.setModel(lista);
-         }	
-         }
-    }                                      
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws NumberFormatException, IOException {                                       
+   	 if (titulo.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Titulo vacio", " Error", JOptionPane.ERROR_MESSAGE);
+        else if (autor.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacio", " Error", JOptionPane.ERROR_MESSAGE);
+        else{
+       	 /*0 autor
+       	 1Titulo
+       	 2 tema
+       	 3 contenido*/
+       	 int metodo;
+       	 if(jRadioButton1.isSelected()) metodo = 1;
+       	 else metodo = 2;
+       	 try {
+       		 todos  = estado.BUSQUEDA_PARECIDO(titulo.getText(), autor.getText(), Integer.parseInt(Kdoc.getText()), 1);
+       		 DefaultListModel<String> lista = new DefaultListModel<String>();
+       		 for (int i = 0; i < todos.size();++i){
+       		 actual = todos.get(i);
+       		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
+       		 }
+       		 ListaDoc.setModel(lista);
+       	 }catch(Custom_exception e) {
+       		 JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+       	 }
+        }
+   }                                           
 
     
 

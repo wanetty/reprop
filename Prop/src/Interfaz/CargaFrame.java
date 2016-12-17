@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Prop.Domain_controller;
-import Prop.Exception_test;
 
 
 public class CargaFrame extends javax.swing.JFrame {
@@ -66,10 +65,7 @@ public class CargaFrame extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
 					jButton2ActionPerformed(evt);
-				} catch (Exception_test e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
+				}catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -148,7 +144,7 @@ public class CargaFrame extends javax.swing.JFrame {
     private void rutaActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }      
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws Exception_test, IOException {     
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {     
     	JFileChooser explorador = new JFileChooser("/");
     	explorador.setDialogTitle("Abrir documento...");
     	FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");

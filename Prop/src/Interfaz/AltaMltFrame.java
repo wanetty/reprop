@@ -11,8 +11,8 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import Prop.Custom_exception;
 import Prop.Domain_controller;
-import Prop.Exception_test;
 
 /**
  *
@@ -237,8 +237,8 @@ public class AltaMltFrame extends javax.swing.JFrame {
     	while (tabla.getValueAt(i, 0) != null){
     		try {
 				estado.Crear_raiz(tabla.getValueAt(i, 0).toString());
-			} catch (Exception_test e) {
-				e.printStackTrace();
+			}catch(Custom_exception e) {
+				JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
+import Prop.Custom_exception;
 import Prop.Domain_controller;
 
 /**
@@ -74,7 +75,15 @@ public class BTitFrame extends javax.swing.JFrame {
         buscar.setText("BUSCAR");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
+                try {
+					buscarActionPerformed(evt);
+				} catch (Custom_exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -102,7 +111,12 @@ public class BTitFrame extends javax.swing.JFrame {
         baja.setText("Baja");
         baja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaActionPerformed(evt);
+                try {
+					bajaActionPerformed(evt);
+				} catch (Custom_exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -205,7 +219,7 @@ public class BTitFrame extends javax.swing.JFrame {
     	}
     }                                        
 
-    private void bajaActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void bajaActionPerformed(java.awt.event.ActionEvent evt) throws Custom_exception {                                     
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
     	else{
     	try {
@@ -218,26 +232,26 @@ public class BTitFrame extends javax.swing.JFrame {
     	}
     }                                     
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {                                       
-    	 if (titulo.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo titulo vacio", " Error", JOptionPane.ERROR_MESSAGE);
-         else{
-        	 /*0 autor
-        	 1Titulo
-        	 2 tema
-        	 3 contenido*/
-        	 todos  = estado.BUSQUEDA_TITULO(titulo.getText());
-        	 if(todos == null)JOptionPane.showMessageDialog(null,"No hay documentos con este titulo.", " Error", JOptionPane.ERROR_MESSAGE);
-        	 else { 
-        		 DefaultListModel<String> lista = new DefaultListModel<String>();
-        	 for (int i = 0; i < todos.size();++i){
-        		 actual = todos.get(i);
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws Custom_exception, IOException {                                       
+   	 if (titulo.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo titulo vacio", " Error", JOptionPane.ERROR_MESSAGE);
+        else{
+       	 /*0 autor
+       	 1Titulo
+       	 2 tema
+       	 3 contenido*/
+       	 todos  = estado.BUSQUEDA_TITULO(titulo.getText());
+       	 if(todos.isEmpty())JOptionPane.showMessageDialog(null,"No hay documentos con este titulo.", " Error", JOptionPane.ERROR_MESSAGE);
+       	 else { 
+       		 DefaultListModel<String> lista = new DefaultListModel<String>();
+       	 for (int i = 0; i < todos.size();++i){
+       		 actual = todos.get(i);
 
-        		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
-        	 }
-        	 ListaDoc.setModel(lista);
-         }	
-         }
-    }    
+       		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
+       	 }
+       	 ListaDoc.setModel(lista);
+        }	
+        }
+   }   
     
 
     // Variables declaration - do not modify                     

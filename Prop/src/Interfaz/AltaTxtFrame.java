@@ -5,8 +5,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Prop.Custom_exception;
 import Prop.Domain_controller;
-import Prop.Exception_test;
 
 
 
@@ -48,7 +48,12 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         jButton1.setText("Dar de Alta!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -57,9 +62,6 @@ public class AltaTxtFrame extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
 					jButton2ActionPerformed(evt);
-				} catch (Exception_test e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -119,27 +121,21 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         this.dispose();
     }  
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-    	try {
-        if(!ruta.getText().isEmpty()){	
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                         
+    	if(!ruta.getText().isEmpty()){	
         	try {
 				estado.Crear_raiz(ruta.getText());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+			}catch(Custom_exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
 			}
-        	JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
         }
         else {
          JOptionPane.showMessageDialog(null, "Campo Vacio", "Error",JOptionPane.ERROR_MESSAGE);
         }
-    	}catch (Exception_test e) {
-    		JOptionPane.showMessageDialog(null, e.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
-    		
-    	}
     }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws Exception_test, IOException {     
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {     
     	JFileChooser explorador = new JFileChooser("/");
     	explorador.setDialogTitle("Abrir documento...");
     	FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");

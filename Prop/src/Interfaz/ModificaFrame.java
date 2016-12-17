@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import Prop.Custom_exception;
 import Prop.Domain_controller;
 
 /**
@@ -102,7 +103,12 @@ public class ModificaFrame extends javax.swing.JFrame {
 		jButton1.setText("Guardar");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -205,7 +211,7 @@ public class ModificaFrame extends javax.swing.JFrame {
 		private void temaActionPerformed(java.awt.event.ActionEvent evt) {                                     
 			// TODO add your handling code here:
 		}
-		 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+		 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                         
 			 Object [] opciones ={"Si","No"};
 				int eleccion = JOptionPane.showOptionDialog(rootPane,"Esta seguro que desea sobreescribir el documento?","Mensaje de Confirmacion",
 						JOptionPane.YES_NO_OPTION,
@@ -223,9 +229,16 @@ public class ModificaFrame extends javax.swing.JFrame {
 							estado.BAJA_DOC(actual.get(1), actual.get(0));
 						} catch (IOException e) {
 							JOptionPane.showMessageDialog(null,"ERROR DESCONOCIDO", " Error", JOptionPane.ERROR_MESSAGE);
+						}catch(Custom_exception e){
+							JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+
 						}
+				           try {
 				           estado.Crear_manual(tit, aut, tem, conten);
 				           JOptionPane.showMessageDialog(null, "Se han guardado los cambios del documento.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+				        }catch (Custom_exception e) {
+							JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+				        }
 				           StartWindow ven = new StartWindow(estado);
 				           ven.setVisible(true);
 				           this.dispose();

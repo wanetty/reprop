@@ -354,15 +354,15 @@ public class Documento implements java.io.Serializable  {
 		//2 tema
 		//3 contenido
 		ArrayList<String> res = new ArrayList<String>();
-		res.add(0, autor.toString_consigno());
-		res.add(1, titulo.toString_consigno());
+		res.add(autor.toString_consigno());
+		res.add(titulo.toString_consigno());
 		if(!(tema.midafrase()== 0)) {
-			res.add(2, tema.toString_consigno());
+			res.add(tema.toString_consigno());
 		}
-		if (contenido.isEmpty()) res.add(3, null);
+		if (contenido.isEmpty()) res.add("");
 		else {
 			String aux = contenido_toString();
-			res.add(3, aux);
+			res.add(aux);
 		}
 		return res;
 		

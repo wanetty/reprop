@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 import Prop.Domain_controller;
+import Prop.Custom_exception;
 import Prop.Documento;
 
 /**
@@ -102,7 +103,12 @@ public class BAllFrame extends javax.swing.JFrame {
         baja.setText("Baja");
         baja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaActionPerformed(evt);
+                try {
+					bajaActionPerformed(evt);
+				} catch (Custom_exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -169,7 +175,7 @@ public class BAllFrame extends javax.swing.JFrame {
     	}
     }                                        
 
-    private void bajaActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void bajaActionPerformed(java.awt.event.ActionEvent evt) throws Custom_exception {                                     
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
     	else {
     		try {
@@ -180,6 +186,9 @@ public class BAllFrame extends javax.swing.JFrame {
 	        setVisible(false);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"ERROR DESCONOCIDO", " Error", JOptionPane.ERROR_MESSAGE);
+		}catch(Custom_exception e) {
+			JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+
 		}
     	}
     }                                    

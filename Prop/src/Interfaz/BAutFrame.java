@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
+import Prop.Custom_exception;
 import Prop.Domain_controller;
 
 /**
@@ -75,7 +76,12 @@ public class BAutFrame extends javax.swing.JFrame {
         buscar.setText("BUSCAR");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
+                try {
+					buscarActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -103,7 +109,12 @@ public class BAutFrame extends javax.swing.JFrame {
         baja.setText("Baja");
         baja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bajaActionPerformed(evt);
+                try {
+					bajaActionPerformed(evt);
+				} catch (Custom_exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -206,7 +217,7 @@ public class BAutFrame extends javax.swing.JFrame {
     	}
     }                                        
 
-    private void bajaActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void bajaActionPerformed(java.awt.event.ActionEvent evt) throws Custom_exception {                                     
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
     	else{
     	try {
@@ -219,7 +230,7 @@ public class BAutFrame extends javax.swing.JFrame {
     	}
     }                                     
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {                                       
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                       
     	 if (autor.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacio", " Error", JOptionPane.ERROR_MESSAGE);
          else{
         	 /*0 autor
@@ -227,7 +238,7 @@ public class BAutFrame extends javax.swing.JFrame {
         	 2 tema
         	 3 contenido*/
         	 todos  = estado.BUSQUEDA_AUTOR(autor.getText());
-        	 if(todos == null)JOptionPane.showMessageDialog(null,"No hay documentos con este autor.", " Error", JOptionPane.ERROR_MESSAGE);
+        	 if(todos.isEmpty())JOptionPane.showMessageDialog(null,"No hay documentos con este autor.", " Error", JOptionPane.ERROR_MESSAGE);
         	 else { 
         		 DefaultListModel<String> lista = new DefaultListModel<String>();
         	 for (int i = 0; i < todos.size();++i){
