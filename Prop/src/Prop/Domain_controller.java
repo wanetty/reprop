@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 public class Domain_controller {
 	
@@ -31,12 +32,15 @@ public class Domain_controller {
 			Doc.setAutor(new Frase(autor));
 			Doc.setTema(new Frase(tema));
 			Doc.setFecha(fecha);
-			ArrayList<Frase> c = new ArrayList<Frase>();
-			String delimitadores= "[.;?!]";//faltan los puntos suspensivos
-			String[] frasesseparadas = contenido.split(delimitadores);
-			for (int i=0; i<frasesseparadas.length; ++i) {
-				Frase aux=new Frase(frasesseparadas[i]);
+			ArrayList<Frase> c = new ArrayList<Frase>();//faltan los puntos suspensivos.;?!
+			StringTokenizer frasesseparadas = new StringTokenizer(contenido,".;?!",true);
+			int i=0;
+			while(frasesseparadas.hasMoreTokens()) {
+				String saux=frasesseparadas.nextToken();
+				if (frasesseparadas.hasMoreTokens()) saux+=frasesseparadas.nextToken();
+				Frase aux=new Frase(saux);
 				c.add(aux);
+				++i;
 			}
 			Doc.setContenido(c);
 			Doc.construirPesos();
