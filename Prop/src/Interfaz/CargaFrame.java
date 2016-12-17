@@ -130,23 +130,13 @@ public class CargaFrame extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void RecuperarActionPerformed(java.awt.event.ActionEvent evt) {                                          
-    	try {
-            if(!ruta.getText().isEmpty()){	
-            	try {
-    				estado.Crear_raiz(ruta.getText());
-    			} catch (IOException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
-            	JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
-             JOptionPane.showMessageDialog(null, "Campo Vacio", "Error",JOptionPane.ERROR_MESSAGE);
-            }
-        	}catch (Exception_test e) {
-        		JOptionPane.showMessageDialog(null, e.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
-        		
-        	}
+    	if(!ruta.getText().isEmpty()){	
+			estado.RECUPERAR(ruta.getText());
+			JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+		 JOptionPane.showMessageDialog(null, "Campo Vacio", "Error",JOptionPane.ERROR_MESSAGE);
+		}
     }                                         
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
