@@ -19,20 +19,15 @@ public class Frase implements java.io.Serializable  {
 	}
 	//crea una frase a partir de un string de frase acabado en punto o algun signo
 	public Frase (String fra) throws IOException{
-		StringTokenizer psep = new StringTokenizer(fra," ");
-		while(psep.hasMoreTokens()) {
-			String saux= psep.nextToken();
+		String delimitadores= "\\s";
+		String[] pseparadas = fra.split(delimitadores);
+		for(int i=0; i<pseparadas.length; ++i) {
+			String saux= pseparadas[i];
 			Palabra paux = new Palabra();
-			if(!(saux.charAt(0)>='a' && saux.charAt(0)<='z') && !(saux.charAt(0)>='A' && saux.charAt(0)<='Z')){
-				/*int i=1;
-				boolean trobat=false;
-				while (i<saux.length() && !trobat) {
-					if (saux.charAt(i) == '\n' || saux.charAt(i) == '\r') ++i; //tratar multiples saltos de linea
-					else trobat=true;
-				}*/
+			if(saux.length() > 1 && !(saux.charAt(0)>='a' && saux.charAt(0)<='z') && !(saux.charAt(0)>='A' && saux.charAt(0)<='Z')){
 				paux.setAdelante(saux.substring(0,1));
 			}
-			if(!(saux.charAt(saux.length()-1)>='a' && saux.charAt(saux.length()-1)<='z') && !(saux.charAt(saux.length()-1)>='A' && saux.charAt(saux.length()-1)<='Z')){
+			if(saux.length() > 1 && !(saux.charAt(saux.length()-1)>='a' && saux.charAt(saux.length()-1)<='z') && !(saux.charAt(saux.length()-1)>='A' && saux.charAt(saux.length()-1)<='Z')){
 				paux.setDetras(saux.substring(saux.length()-1,saux.length()));
 			}
 			if(paux.getAdelante().equals("-1") && paux.getDetras().equals("-1"))paux.modificar(saux);
@@ -88,16 +83,26 @@ public class Frase implements java.io.Serializable  {
 		else return "-1";
 	}
 	
-	public String toString_consigno() {///transforma una frase en string con mayusculas
-		//String res = null;
-		String res="";
+	public String toString_consigno() {///transforma una frase en string
+		String res = null;
 		if (!frase.isEmpty()){
 			for(int i=0; i<frase.size(); ++i) {
 				Palabra p=frase.get(i);
-				if (i != 0) res+=' ';
-				if (!(p.getAdelante() == "-1")) res+=p.getAdelante();
-				res += p.palabra();
-				if (!(p.getDetras() == "-1")) res+=p.getDetras();
+				if (res == null) {
+					if(p.getAdelante().equals("-1"))res=p.palabra();
+					else {
+						res = p.getAdelante();
+						res += p.palabra();
+					}
+				}
+				else if(!p.getAdelante().equals("-1")){
+					res+=p.getAdelante();
+					res += p.palabra();
+				}
+				else res+=p.palabra();
+				if(!p.getDetras().equals("-1"))res+=p.getDetras();
+				if (i != frase.size()-1) res+=(' ');
+				//else res += (".\n");
 			}
 			return res;
 		}

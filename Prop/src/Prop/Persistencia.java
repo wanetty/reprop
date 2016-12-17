@@ -33,6 +33,7 @@ public class Persistencia  {
 	// Ahora se da de alta los documentos llamando a la capa de persistencia.
 	public Documento alta_doc(){
 		try {
+			ArrayList<Frase> contenido = new ArrayList<Frase>();
 			Documento Doc = new Documento();
 			BufferedReader in = new BufferedReader(new FileReader(ruta));
 			String funcional = in.readLine();
@@ -49,25 +50,20 @@ public class Persistencia  {
 					Doc.setTitulo(new Frase(funcional));
 					funcional=in.readLine();
 					Doc.setTema(new Frase(funcional));
-					ArrayList<Frase> contenido = new ArrayList<Frase>();
 					funcional=in.readLine();
-					boolean primer=true;
+					String delimitadores= "[.;?!:]";
+					String original=funcional+'\n';
 					while (funcional != null){
-						StringTokenizer frasesseparadas = new StringTokenizer(funcional,".;?!",true);int i=0;
-						if (!primer) funcional='\n'+funcional;
-						else primer=false;
-						funcional=funcional.substring(0, funcional.length()-1);
-						while(frasesseparadas.hasMoreTokens()) {
-							String saux=frasesseparadas.nextToken();
-							if (frasesseparadas.hasMoreTokens()) saux+=frasesseparadas.nextToken();
-							Frase aux=new Frase(saux);
-							contenido.add(aux);
-							++i;
+						String[] frasesseparadas = funcional.split(delimitadores);
+						for (int i=0; i<frasesseparadas.length; ++i) {
+							funcional=frasesseparadas[i];
+							contenido.add(new Frase(funcional));
 						}
 						funcional = in.readLine();
-						
+						if (funcional != null) original+=funcional+'\n';
 					}
 					Doc.setContenido(contenido);
+					Doc.setContorg(original);
 					Doc.construirPesos();
 					return Doc;
 				}

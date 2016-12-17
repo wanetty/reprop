@@ -16,6 +16,21 @@ public class Documento implements java.io.Serializable  {
 	 */
 	private static final long serialVersionUID = 8239632605956944790L;
 	private Frase titulo = new Frase(); 
+	
+	private Frase autor = new Frase();
+	private Frase tema = new Frase();
+	private Date fecha = new Date();
+	private ArrayList<Frase> contenido = new ArrayList<Frase>();
+	private Map<String, Double> pesos = new HashMap<String, Double>();//constructoras
+	private String contoriginal;
+
+	public Documento(){
+		titulo=null;
+		autor=null;
+		tema=null;
+		contoriginal="";
+	}
+	
 	public Frase getTitulo() {
 		return titulo;
 	}
@@ -63,49 +78,15 @@ public class Documento implements java.io.Serializable  {
 	public void setPesos(Map<String, Double> pesos) {
 		this.pesos = pesos;
 	}
-
-	private Frase autor = new Frase();
-	private Frase tema = new Frase();
-	private Date fecha = new Date();
-	private ArrayList<Frase> contenido = new ArrayList<Frase>();
-	private Map<String, Double> pesos = new HashMap<String, Double>();//constructoras
-
-	public Documento(){
-		titulo=null;
-		autor=null;
-		tema=null;
+	
+	public void setContorg(String contoriginal) {
+		this.contoriginal=contoriginal;
+	}
+	
+	public String getContorg() {
+		return contoriginal;
 	}
 
-	//Da de alta el documento raiz
-	//No se debe hacer
-	public Documento(String raiz) throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader(raiz));
-		String funcional = in.readLine();
-		if (!funcional.isEmpty()) {
-			autor=new Frase(funcional);
-			funcional=in.readLine();
-			if (!funcional.isEmpty()) {
-				titulo=new Frase(funcional);
-				funcional=in.readLine();
-				tema=new Frase(funcional);
-				funcional=in.readLine();
-				String delimitadores= "[.;?!:]";
-				while (funcional != null){
-					String[] frasesseparadas = funcional.split(delimitadores);
-					for (int i=0; i<frasesseparadas.length; ++i) {
-						funcional=frasesseparadas[i];
-						contenido.add(new Frase(funcional));
-					}
-					funcional = in.readLine();
-				}
-				construirPesos();
-				System.out.println("Documento leido correctamente");
-			}
-			else System.out.println("Formato de documento incorrecto: autor no puede ser vacio");
-		}
-		else System.out.println("Formato de documento incorrecto: titulo no puede ser vacio");
-		in.close();
-	}
 
 	public Documento(Frase ti,Frase a,Frase te,ArrayList<Frase> c) throws IOException{
 		titulo = ti;
@@ -338,12 +319,13 @@ public class Documento implements java.io.Serializable  {
 		char fl;
 		for(int i=0; i<contenido.size(); ++i) {
 			aux=contenido.get(i).toString_consigno();
-			if (!(aux.charAt(0) == '\n' || aux.charAt(0) == '\r') && i != 0 && !aux.equals("..")) {
-				ret+=' ';
-			}
 			if (!aux.isEmpty()){
-			ret+=aux;
+			fl=(char) ('A' + (aux.charAt(0) - 'a'));
+			ret+=fl+aux.substring(1, aux.length());
+			ret += ".";
 			}
+			else ret += ".\n";
+			//if (i!=contenido.size()-1) ret+=' ';
 		}
 		return ret;
 	}
@@ -354,15 +336,15 @@ public class Documento implements java.io.Serializable  {
 		//2 tema
 		//3 contenido
 		ArrayList<String> res = new ArrayList<String>();
-		res.add(autor.toString_consigno());
-		res.add(titulo.toString_consigno());
+		res.add(0, autor.toString_consigno());
+		res.add(1, titulo.toString_consigno());
 		if(!(tema.midafrase()== 0)) {
-			res.add(tema.toString_consigno());
+			res.add(2, tema.toString_consigno());
 		}
-		if (contenido.isEmpty()) res.add("");
+		if (contenido.isEmpty()) res.add(3, null);
 		else {
-			String aux = contenido_toString();
-			res.add(aux);
+			//String aux = contenido_toString();
+			res.add(3, contoriginal);
 		}
 		return res;
 		
