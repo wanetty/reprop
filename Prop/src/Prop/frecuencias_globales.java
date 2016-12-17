@@ -24,6 +24,7 @@ public class frecuencias_globales implements java.io.Serializable  {
 			for (int j = 0; j < sizeFrase; ++j){
 				Palabra palActual = fraseActual.posfrase(j);
 				String palKey = palActual.palabra();
+				palKey=palKey.toLowerCase();
 				if (!palActual.esfuncional()) {
 					anyadir_frecuencias(palKey,d);
 				}
@@ -147,12 +148,14 @@ public class frecuencias_globales implements java.io.Serializable  {
 	//Consultoras
 	
 	public double valor_global(String p) {//devuelve la frecuencia global de la palabra p
+		p=p.toLowerCase();
 		if (global.containsKey(p)) return global.get(p);
 		else return 0;
 	}
 	
 	//devuelve una lista de los documentos identificados por el autor y el titulo a la que pertenece la palabra s
 	public Map<String,Map<String,Double>> frecdocumentos(String s) {
+		s=s.toLowerCase();
 		if (frecdoc.containsKey(s)) return frecdoc.get(s);
 		else {//excepcion: la palabra no existe en ningun documento
 			Map<String,Map<String,Double>> vacio= new HashMap<String,Map<String,Double>>();
@@ -161,6 +164,7 @@ public class frecuencias_globales implements java.io.Serializable  {
 	}
 	
 	public double valor_documento(String p, Documento d) throws IOException {//devuelve la frecuencia de la palabra en el documento
+		p=p.toLowerCase();
 		String a, t;
 		a=d.get_autor().toString_consigno();
 		t=d.get_titulo().toString_consigno();
@@ -173,6 +177,7 @@ public class frecuencias_globales implements java.io.Serializable  {
 	}
 	
 	public double valor_documento(String p, String a, String t) {//devuelve la frecuencia de la palabra en el documento que tiene como autor a y titulo t
+		p=p.toLowerCase();
 		if (frecdoc.containsKey(p)) {
 			if (frecdoc.get(p).containsKey(a)) {
 				if(frecdoc.get(p).get(a).containsKey(t)) return frecdoc.get(p).get(a).get(t); 
@@ -182,6 +187,7 @@ public class frecuencias_globales implements java.io.Serializable  {
 	}
 	
 	public static int apariencias_doc_palabra(String p) {
+		p=p.toLowerCase();
 		if (numdoc.containsKey(p)) return numdoc.get(p);
 		else return 0;
 	}
