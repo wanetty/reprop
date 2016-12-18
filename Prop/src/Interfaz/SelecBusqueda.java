@@ -42,7 +42,7 @@ public class SelecBusqueda extends javax.swing.JFrame {
         setTitle("Gestor de Documentos");
         setResizable(false);
 
-        atras.setText("Atras");
+        atras.setText("Home");
         atras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 atrasActionPerformed(evt);

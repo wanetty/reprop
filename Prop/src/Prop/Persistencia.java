@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 
@@ -73,18 +75,30 @@ public class Persistencia  {
 		}
 	}
 
+	/*private static final long serialVersionUID = 1527375506289726741L;
+	private Map<String, Map<String,Documento>> por_titulo = new HashMap<String,Map<String,Documento>>();//guarda todos los documentos por titulo y los autores que lo tienen y su documento
+	private Map<String, Map<String,Documento>> por_autor = new HashMap<String,Map<String,Documento>>();//guarda todos 	los documentos de un autor
+	private Map<String, Map<String, Map<String,Documento>>> por_tema = new HashMap<String, Map<String, Map<String,Documento>>>();//guarda todos los documentos por autor y titulo de un tema concreto
+	private Map<String, Map<String, Map<String,Documento>>> por_fecha = new HashMap<String,Map<String, Map<String,Documento>>>();//guarda todos los documentos por autor y titulo de un dia concreto
+	private frecuencias_globales frecuencias= new frecuencias_globales();
+	private int cjt_size;*/
+	
 	public void guardar(Cjt_documentos conj) throws FileNotFoundException, IOException{
-		
-		ObjectOutputStream salida=new ObjectOutputStream(new FileOutputStream(ruta));
+		FileOutputStream fet = new  FileOutputStream(ruta);
+		ObjectOutputStream salida=new ObjectOutputStream(fet);
+	     
 	      salida.writeObject(conj);
+	      
 	      salida.close();
+	      fet.close();
 	}
 	
 	public Cjt_documentos recuperar () throws ClassNotFoundException{
 	  try { 
+		  Cjt_documentos conj  = new Cjt_documentos();
 	ObjectInputStream entrada =new ObjectInputStream(new FileInputStream(ruta));
-     Cjt_documentos conj = (Cjt_documentos) entrada.readObject();
-     entrada.close();
+	conj =(Cjt_documentos)entrada.readObject();
+    entrada.close();
    return conj;
 	} catch (IOException e) {
 		// TODO Auto-generated catch block

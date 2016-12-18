@@ -140,9 +140,9 @@ public class BSimFrame extends javax.swing.JFrame {
         jLabel4.setText("Documentos que cumplen con la búsqueda:");
 
         jLabel5.setText("K documentos parecidos: ");
-        jRadioButton1.setText("Metodo1");
+        jRadioButton1.setText("IDF smooth");
         jRadioButton1.setSelected(true);
-        jRadioButton2.setText("Metodo2");
+        jRadioButton2.setText("IDF Probabilistico");
         
         grupo.add(jRadioButton1);
         grupo.add(jRadioButton2);
@@ -251,24 +251,23 @@ public class BSimFrame extends javax.swing.JFrame {
     private void autorActionPerformed(java.awt.event.ActionEvent evt) {                                      
     		
     }                                     
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     	SelecBusqueda ven = new SelecBusqueda(estado);
         ven.setVisible(true);
         this.dispose();
-    }                                        
-
+    }   
     private void ConsultaActionPerformed(java.awt.event.ActionEvent evt) {                                         
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
     	else {
-    	ConsultaFrame ven = new ConsultaFrame(estado,actual);
+    	ConsultaFrame ven = new ConsultaFrame(estado,todos.get(ListaDoc.getLeadSelectionIndex()));
         ven.setVisible(true); 
     	}
     }                                        
 
     private void ModificaActionPerformed(java.awt.event.ActionEvent evt) {                                         
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
-    	else {ModificaFrame ven = new ModificaFrame(estado,actual);
+    	else {
+    	ModificaFrame ven = new ModificaFrame(estado,todos.get(ListaDoc.getLeadSelectionIndex()));
         ven.setVisible(true); 
         this.setVisible(false);
     	}
@@ -276,13 +275,11 @@ public class BSimFrame extends javax.swing.JFrame {
 
     private void bajaActionPerformed(java.awt.event.ActionEvent evt) throws Custom_exception {                                     
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
-    	else {
-    		try {
-    	
+    	else{
+    	try {
 			estado.BAJA_DOC(actual.get(1), actual.get(0));
-			BSimFrame ven = new BSimFrame(estado);
-	        ven.setVisible(true);
-	        setVisible(false);
+			actual = null;
+			ListaDoc.remove(ListaDoc.getLeadSelectionIndex());
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"ERROR DESCONOCIDO", " Error", JOptionPane.ERROR_MESSAGE);
 		}

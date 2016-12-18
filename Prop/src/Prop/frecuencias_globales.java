@@ -12,7 +12,7 @@ public class frecuencias_globales implements java.io.Serializable  {
 	private Map <String,Double> global=new HashMap<String,Double>();
 	private Map <String,Map<String,Map<String,Double>>> frecdoc=new HashMap <String,Map<String,Map<String,Double>>>();
 	//String1:palabra,String2:autor,String3:tiutlo,Integer:veces que aparece la palabra en el documento
-	private static Map <String,Integer> numdoc= new HashMap<String,Integer>();
+	private  Map <String,Integer> numdoc= new HashMap<String,Integer>();
 	
 	public frecuencias_globales() {}
 	
@@ -188,10 +188,10 @@ public class frecuencias_globales implements java.io.Serializable  {
 		return 0;
 	}
 	
-	public static int apariencias_doc_palabra(String p) {
+	public int apariencias_doc_palabra(String p) {
 		p=p.toLowerCase();
 		if (numdoc.containsKey(p)) return numdoc.get(p);
-		else return 0;
+		return -1;
 	}
 	
 }

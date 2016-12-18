@@ -39,13 +39,7 @@ public class Cjt_documentos implements java.io.Serializable  {
 		this.frecuencias = frecuencias;
 	}
 
-	//No se debe hacer
-	public void alta_doc(String raiz) throws IOException{
-		Documento d= new Documento(raiz);
-		llenar_estructuras(d);
-		frecuencias.anyadir_frecuencias(d);
-		++cjt_size;
-	}
+	
 	
 	/*Altas*/
 	private void llenar_estructuras(Documento d) {
@@ -116,11 +110,7 @@ public class Cjt_documentos implements java.io.Serializable  {
 		llenar_estructuras(d);
 		frecuencias.anyadir_frecuencias(d);
 	}
-	public void alta_multiple(ArrayList<String> docs) throws IOException {
-		//Se deberia controlar que se halla seleccionado 1 o mas documentos(interficie)
-		for (int i=0; i<docs.size(); ++i) alta_doc(docs.get(i));
-	}
-	
+
 	/*Existencias*/ //El domain las deberia utilizar para saber en que casos dar excepciones
 	public boolean existe_combinacion(String aut, String tit) {
 		if (por_autor.containsKey(aut) && por_autor.get(aut).containsKey(tit)) return true;
@@ -290,7 +280,7 @@ public class Cjt_documentos implements java.io.Serializable  {
 	//Devuelve el numero de documentos en la que aparece la palabra p
 	public int apariencias_cjtdoc_palabra(String p) {
 		//aunque no es una excepcion, si devuelve 0 deberia saltar una ventana diciendo que no existe la palabra(domain)
-		return frecuencias_globales.apariencias_doc_palabra(p);
+		return frecuencias.apariencias_doc_palabra(p);
 	}
 
 	//Devuelve la lista de documentos que contiene la palabra s 
@@ -322,5 +312,10 @@ public class Cjt_documentos implements java.io.Serializable  {
 	public Map<String, Map<String,Documento>> get_por_titulo(){
 		return por_titulo;
 	}
+	
+	
+	
+	
+	
 	
 }

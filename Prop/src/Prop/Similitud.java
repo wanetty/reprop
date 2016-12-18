@@ -11,9 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 public class Similitud implements java.io.Serializable  {
 		
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -9164983264905386856L;
 	private ArrayList<Documento> resultado;
 	
