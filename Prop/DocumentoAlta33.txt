@@ -1,5 +1,5 @@
-Tipo planta.
 Profesor Oak.
+Tipo planta.
 Los Pokémon de tipo planta suelen ser pacíficos y les gusta cuidar de las flores y a los demás, pero también son grandes luchadores y pueden envenenar, paralizar o dormir al rival en combate.
 
 Normalmente su cuerpo suele ser igual a alguna especie vegetal, en cuyo caso el Pokémon crece en un desarrollo muy similar a un vegetal. Cuando no es así, los Pokémon suelen desarrollar hojas, flores, entre otros que tienen un crecimiento propio, pero que son controladas por el Pokémon. Otra cosa que caracteriza a los Pokémon de tipo planta es que varios de sus movimientos permiten recuperar puntos de salud, como arraigo, drenadoras o síntesis.

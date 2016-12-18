@@ -1,5 +1,5 @@
-Tipo lucha.
 Profesor Oak.
+Tipo lucha.
 Este tipo de Pokémon son especialistas en el combate cuerpo a cuerpo, se podría decir que son opuestos a los del tipo psíquico, ya que estos últimos dependen del ataque especial mientras que los del tipo lucha se especializan en ataque físico, en su mayoría sus estadísticas están equilibradas, (como Hitmontop o Medicham) o veloces luchadores con grandes puntos de ataque (como Lucario e Infernape). Su desarrollo varía: de veloz desarrollo como Monferno a Infernape; o tardíos en su desarrollo como Croagunk a Toxicroak. Algunos incluso requieren diversas condiciones para evolucionar (Tyrogue necesita igualar su ataque con su defensa para evolucionar en Hitmontop, Riolu evoluciona de día mediante la amistad, y Poliwhirl necesita la piedra agua).
 
 El hecho de que varios Pokémon de tipo lucha evolucionen de métodos especiales, hacen referencia a los viajes internos que realizan los luchadores en busca de conocimiento para triunfar o de la paz interior.
