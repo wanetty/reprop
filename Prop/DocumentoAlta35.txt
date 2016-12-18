@@ -1,5 +1,6 @@
 Profesor Oak.
 Tipo Veneno.
+
 El tipo veneno es uno de los 18 tipos elementales en el mundo Pokémon. Pertenece a Pokémon que suelen encontrarse en zonas donde hay cuevas, pantanos o en sus cercanías, excepto en los Pokémon que tienen como primer tipo el tipo planta o tipo bicho. La mayoría de movimientos de tipo veneno pueden envenenar.
 
 Muchos Pokémon de este tipo pueden expulsar de sus cuerpos distintas sustancias venenosas como gases, ácidos, venenos, esporas y a veces olores malolientes. También los Pokémon del tipo veneno están basados en seres vivientes que son generalmente venenosos como serpientes, arañas, ranas, plantas y hongos, y también en cosas contaminantes como lodo y bolsas de basura.
