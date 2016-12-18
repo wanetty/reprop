@@ -5,9 +5,13 @@
  */
 package Interfaz;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import Prop.Custom_exception;
 import Prop.Domain_controller;
 
 
@@ -52,7 +56,15 @@ public class GuardarySalirFrame extends javax.swing.JFrame {
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -95,13 +107,18 @@ public class GuardarySalirFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, IOException {                                         
         if(ruta.getText().isEmpty()){
         	JOptionPane.showMessageDialog(null,"Campo Vacio", " Error", JOptionPane.ERROR_MESSAGE);
         }
         else {
+        	try {
         	estado.GUARDAR(ruta.getText());
         	JOptionPane.showMessageDialog(null,"Se ha guardado correctamente.", " Correcto", JOptionPane.INFORMATION_MESSAGE);
+        	}catch(Custom_exception e) {
+            	JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+
+        	}
         	dispose();
         }
     } 

@@ -93,9 +93,11 @@ public class Domain_controller {
 	
 	public void Crear_raiz(String raiz) throws Custom_exception, IOException{
 		try {
-			String[] aux = raiz.split("\\.");
-			String extension = aux[1];
+			if(raiz.length() < 4) throw new Custom_exception("Extension de documento incorrecta");
+			else {
+				String extension = raiz.substring(raiz.length()-3);
 			if (!extension.equals("txt")) throw new Custom_exception("Extension de documento incorrecta");
+			}
 			File fi = new File(raiz);
 			if (!fi.isFile()) throw new Custom_exception("El documento no existe");
 			PER.setRuta(raiz);
@@ -270,21 +272,27 @@ public class Domain_controller {
 		return res_string;
 	}
 	
-	public void GUARDAR(String ruta) {
+	public void GUARDAR(String ruta) throws Custom_exception, FileNotFoundException, IOException {
 		try {
-			String[] aux = ruta.split("\\.");
-			String extension = aux[1];
-			if (!extension.equals("prop")) throw new Custom_exception("Extension de archivo incorrecta");	
+			if(ruta.length() < 5) throw new Custom_exception("Extension de documento incorrecta");
+			else {
+				String extension = ruta.substring(ruta.length()-3);
+			if (!extension.equals("prop")) throw new Custom_exception("Extension de documento incorrecta");
+			}
 			PER.setRuta(ruta);
 			PER.guardar(CJT);
-		}catch (Exception e){}
+		}catch (Custom_exception e){
+			throw e;
+		}
 	}
 
 	public void RECUPERAR(String ruta) throws Custom_exception, ClassNotFoundException {
 		try {
-			String[] aux = ruta.split("\\.");
-			String extension = aux[1];
-			if (!extension.equals("prop")) throw new Custom_exception("Extension de archivo incorrecta");	
+			if(ruta.length() < 5) throw new Custom_exception("Extension de documento incorrecta");
+			else {
+				String extension = ruta.substring(ruta.length()-3);
+			if (!extension.equals("prop")) throw new Custom_exception("Extension de documento incorrecta");
+			}
 			File fi = new File(ruta);
 			if (!fi.isFile()) throw new Custom_exception("El archivo no existe");
 			PER.setRuta(ruta);
