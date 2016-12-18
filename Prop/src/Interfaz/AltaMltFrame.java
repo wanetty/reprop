@@ -14,10 +14,7 @@ import javax.swing.JOptionPane;
 import Prop.Custom_exception;
 import Prop.Domain_controller;
 
-/**
- *
- * @author Papilomavirus
- */
+
 public class AltaMltFrame extends javax.swing.JFrame {
 
 	private Domain_controller estado = new Domain_controller();
@@ -31,8 +28,7 @@ public class AltaMltFrame extends javax.swing.JFrame {
 		setLocationRelativeTo(null);
 		this.estado = estado;
 	}
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    @SuppressWarnings("unchecked")                         
     private void initComponents() {
     	setTitle("Gestor de Documentos");
 
@@ -205,7 +201,7 @@ public class AltaMltFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
+    }                      
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
        JFileChooser selector=new JFileChooser();
@@ -249,12 +245,10 @@ public class AltaMltFrame extends javax.swing.JFrame {
 
   
 
-
-    // Variables declaration - do not modify                     
+                   
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabla;
-    // End of variables declaration                   
+    private javax.swing.JTable tabla;                 
 }

@@ -20,7 +20,7 @@ public class Persistencia  {
 	private String ruta;
 	
 	public Persistencia(){
-		ruta = null;
+		ruta = "";
 	}
 
 	public String getRuta() {

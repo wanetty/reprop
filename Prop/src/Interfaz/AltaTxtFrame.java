@@ -24,8 +24,7 @@ public class AltaTxtFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.estado = estado;
     }
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    @SuppressWarnings("unchecked")                          
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();

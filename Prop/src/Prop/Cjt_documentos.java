@@ -1,15 +1,9 @@
 package Prop;
 import java.util.Date;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -42,6 +36,7 @@ public class Cjt_documentos implements java.io.Serializable  {
 	
 	
 	/*Altas*/
+	@SuppressWarnings({ "static-access", "deprecation" })
 	private void llenar_estructuras(Documento d) {
 		String ti=d.get_titulo().toString_consigno();
 		String a=d.get_autor().toString_consigno();
@@ -77,7 +72,7 @@ public class Cjt_documentos implements java.io.Serializable  {
 		int anyoaux=f.getYear();
 		int mesaux=f.getMonth();
 		int diaaux=f.getDate();
-		String anyo = null, mes=null, dia=null;
+		String anyo = "", mes="", dia="";
 		anyo=anyo.valueOf(anyoaux);
 		mes=mes.valueOf(mesaux);
 		dia=dia.valueOf(diaaux);
@@ -264,6 +259,7 @@ public class Cjt_documentos implements java.io.Serializable  {
 	}
 
 	//Devuelve TreeMap de autores ordenados por orden alfabetico
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TreeMap autores_ordenados() throws IOException{
 		TreeMap t = new TreeMap();
 		t.putAll(por_autor);

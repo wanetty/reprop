@@ -93,8 +93,7 @@ public class Bool_expresion implements java.io.Serializable  {
 		boolean comillas = false;
 		int claves = 0;
 		if (exp.isEmpty())return false;
-		
-		//>Implementar que operador en medio de espacios no pete.
+		if (exp.charAt(0) == ')' || exp.charAt(0) == '}' || exp.charAt(0) == ' ')return false;
 		if(exp.length() == 1 && (exp.charAt(0) == '&' || exp.charAt(0) == '|' ||  exp.charAt(0) == '!' ))return false;
 		if(cuenta_parentesis(exp)%2 != 0) return false;
 		

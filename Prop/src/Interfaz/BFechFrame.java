@@ -14,11 +14,9 @@ import javax.swing.JOptionPane;
 import Prop.Custom_exception;
 import Prop.Domain_controller;
 
-/**
- *
- * @author Papilomavirus
- */
+
 public class BFechFrame extends javax.swing.JFrame {
+
 
 	Domain_controller estado = new Domain_controller();
 	ArrayList<String> actual = new ArrayList<String>();
