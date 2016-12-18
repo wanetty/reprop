@@ -83,6 +83,9 @@ public class BBoolFrame extends javax.swing.JFrame {
 				} catch (Custom_exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
             }
         });
@@ -232,7 +235,7 @@ public class BBoolFrame extends javax.swing.JFrame {
     	}
     }                                    
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws IOException, Custom_exception {                                       
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {                                       
    	 if (bool.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo de expresion vacio", " Error", JOptionPane.ERROR_MESSAGE);
         else{
        	 /*0 autor
@@ -253,6 +256,9 @@ public class BBoolFrame extends javax.swing.JFrame {
         }	
         }catch(Custom_exception e) {
         	JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e) {
+        	JOptionPane.showMessageDialog(null,"Expresión incorrecta", " Error", JOptionPane.ERROR_MESSAGE);
         }
         }
    }    

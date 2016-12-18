@@ -242,7 +242,7 @@ public class Domain_controller {
 		
 	}
 	
-	public ArrayList<ArrayList<String>> BUSQUEDA_BOOLEANA(String expresion) throws IOException, Custom_exception {
+	public ArrayList<ArrayList<String>> BUSQUEDA_BOOLEANA(String expresion) throws Exception {
 		try {
 			Bool_expresion b = new Bool_expresion(expresion);
 			if (b.isnull()) throw new Custom_exception("Expresion incorrecta");
@@ -256,6 +256,8 @@ public class Domain_controller {
 			}
 			return res_string;
 		}catch (Custom_exception e) {
+			throw e;
+		}catch (Exception e) {
 			throw e;
 		}
 	}

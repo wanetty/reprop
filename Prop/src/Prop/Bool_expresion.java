@@ -27,11 +27,16 @@ public class Bool_expresion implements java.io.Serializable  {
 	}
 
 	//inicializadora de variable contruyendo el arbol segun la expresion que nos pasan
-	public Bool_expresion(String expresion) throws IOException{
+	public Bool_expresion(String expresion) throws Exception{
 		Nodo aux = null;
+		try {
 		if(comprueba(expresion))aux = analiza(estrucexp,expresion);	
 		if (correcto) this.estrucexp = aux;
 		else estrucexp = null;
+		}
+		catch (Exception e) {
+			throw e;
+		}
 	}
 	//consultoras
 	//pre : cierto&h
@@ -128,7 +133,8 @@ public class Bool_expresion implements java.io.Serializable  {
 
 
 	}
-	private Nodo analiza(Nodo actual, String expresion) throws IOException{			
+	private Nodo analiza(Nodo actual, String expresion) throws Exception{
+		try {
 		actual = new Nodo();
 		if(cuenta_operadores(expresion) < 1){
 			if(expresion.charAt(0) == '!'){
@@ -185,10 +191,13 @@ public class Bool_expresion implements java.io.Serializable  {
 				return actual;
 			}
 		}
+		}catch(Exception e) {
+			throw e;
+		}
 
 
 	}
-	private Nodo separador (Nodo actual, String expresion) throws IOException {
+	private Nodo separador (Nodo actual, String expresion) throws Exception {
 		String delimitadores= "[ .,;?!\'\"\\[\\]]+";
 		String[] pseparadas = expresion.split(delimitadores);
 		Palabra auxp = new Palabra("&");
@@ -212,8 +221,11 @@ public class Bool_expresion implements java.io.Serializable  {
 			else if(i < aux.size()-1)ret += aux.get(i) + " ";
 			else ret += aux.get(i);
 		}
-		System.out.println(ret);
+		try {
 		return analiza(actual,ret);
+		}catch (Exception e) {
+			throw e;
+		}
 
 	}
 	private void cantidad(Nodo reco) {

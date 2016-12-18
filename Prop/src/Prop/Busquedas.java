@@ -111,10 +111,14 @@ public class Busquedas implements java.io.Serializable  {
 		return eret;
 	}
 	
-	public Set<Documento> por_booleano(Cjt_documentos c, String expresion) throws IOException {
+	public Set<Documento> por_booleano(Cjt_documentos c, String expresion) throws Exception {
+		try {
 		Bool_expresion b=new Bool_expresion(expresion);
 		Map<Documento,Set<Integer>> res=juntar_documentos(c,b.getraiz());
 		return res.keySet();
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 	
 	public Documento por_auttit(Cjt_documentos c, String aut, String tit) {
