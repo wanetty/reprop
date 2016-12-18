@@ -80,6 +80,9 @@ public class BBoolFrame extends javax.swing.JFrame {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (Custom_exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
             }
         });
@@ -229,24 +232,28 @@ public class BBoolFrame extends javax.swing.JFrame {
     	}
     }                                    
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                       
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws IOException, Custom_exception {                                       
    	 if (bool.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo de expresion vacio", " Error", JOptionPane.ERROR_MESSAGE);
         else{
        	 /*0 autor
        	 1Titulo
        	 2 tema
        	 3 contenido*/
-       	 todos  = estado.BUSQUEDA_BOOLEANA(bool.getText());
-       	 if(todos.isEmpty())JOptionPane.showMessageDialog(null,"No hay documentos con este bool.", " Error", JOptionPane.ERROR_MESSAGE);
-       	 else { 
-       		 DefaultListModel<String> lista = new DefaultListModel<String>();
-       	 for (int i = 0; i < todos.size();++i){
-       		 actual = todos.get(i);
-
-       		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
-       	 }
+        try {
+	       	 todos  = estado.BUSQUEDA_BOOLEANA(bool.getText());
+	       	 if(todos.isEmpty())JOptionPane.showMessageDialog(null,"No hay documentos con este bool.", " Error", JOptionPane.ERROR_MESSAGE);
+	       	 else { 
+	       		 DefaultListModel<String> lista = new DefaultListModel<String>();
+	       	 for (int i = 0; i < todos.size();++i){
+	       		 actual = todos.get(i);
+	
+	       		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
+	       	 }
        	 ListaDoc.setModel(lista);
         }	
+        }catch(Custom_exception e) {
+        	JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+        }
         }
    }    
     

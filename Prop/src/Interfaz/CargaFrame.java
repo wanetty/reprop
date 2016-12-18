@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Prop.Custom_exception;
 import Prop.Domain_controller;
 
 
@@ -75,7 +76,12 @@ public class CargaFrame extends javax.swing.JFrame {
         Recuperar.setText("Recuperar");
         Recuperar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecuperarActionPerformed(evt);
+                try {
+					RecuperarActionPerformed(evt);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -125,10 +131,14 @@ public class CargaFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void RecuperarActionPerformed(java.awt.event.ActionEvent evt) {                                          
-    	if(!ruta.getText().isEmpty()){	
-			estado.RECUPERAR(ruta.getText());
-			JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+    private void RecuperarActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException {                                          
+    	if(!ruta.getText().isEmpty()){
+    		try {
+    			estado.RECUPERAR(ruta.getText());
+    			JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+    		}catch (Custom_exception e) {
+    			 JOptionPane.showMessageDialog(null, e.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
+    		}
 		}
 		else {
 		 JOptionPane.showMessageDialog(null, "Campo Vacio", "Error",JOptionPane.ERROR_MESSAGE);

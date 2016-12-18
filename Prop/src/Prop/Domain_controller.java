@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -92,6 +93,9 @@ public class Domain_controller {
 	
 	public void Crear_raiz(String raiz) throws Custom_exception, IOException{
 		try {
+			String[] aux = raiz.split("\\.");
+			String extension = aux[1];
+			if (!extension.equals("txt")) throw new Custom_exception("Extension de documento incorrecta");
 			File fi = new File(raiz);
 			if (!fi.isFile()) throw new Custom_exception("El documento no existe");
 			PER.setRuta(raiz);
@@ -236,8 +240,10 @@ public class Domain_controller {
 		
 	}
 	
-	public ArrayList<ArrayList<String>> BUSQUEDA_BOOLEANA(String expresion) throws IOException/*, Custom_exception*/ {
-		//try {
+	public ArrayList<ArrayList<String>> BUSQUEDA_BOOLEANA(String expresion) throws IOException, Custom_exception {
+		try {
+			Bool_expresion b = new Bool_expresion(expresion);
+			if (b.isnull()) throw new Custom_exception("Expresion incorrecta");
 			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
 			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_booleano(CJT, expresion));
 			//if (res.isEmpty()) throw new Custom_exception("No existe ningun documento que cumpla la expresión");
@@ -247,9 +253,9 @@ public class Domain_controller {
 				res_string.add(i, d.Doc_to_string());
 			}
 			return res_string;
-		//}catch (Custom_exception e) {
-			//throw e;
-		//}
+		}catch (Custom_exception e) {
+			throw e;
+		}
 	}
 	
 	public ArrayList<ArrayList<String>> ALL_DOCS() throws IOException {
@@ -266,16 +272,26 @@ public class Domain_controller {
 	
 	public void GUARDAR(String ruta) {
 		try {
+			String[] aux = ruta.split("\\.");
+			String extension = aux[1];
+			if (!extension.equals("prop")) throw new Custom_exception("Extension de archivo incorrecta");	
 			PER.setRuta(ruta);
 			PER.guardar(CJT);
 		}catch (Exception e){}
 	}
 
-	public void RECUPERAR(String ruta) {
+	public void RECUPERAR(String ruta) throws Custom_exception, ClassNotFoundException {
 		try {
+			String[] aux = ruta.split("\\.");
+			String extension = aux[1];
+			if (!extension.equals("prop")) throw new Custom_exception("Extension de archivo incorrecta");	
+			File fi = new File(ruta);
+			if (!fi.isFile()) throw new Custom_exception("El archivo no existe");
 			PER.setRuta(ruta);
 			CJT = PER.recuperar();
-		}catch (Exception e){}
+		}catch (Custom_exception e){
+			throw e;
+		}
 	}
 	
 }
