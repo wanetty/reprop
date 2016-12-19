@@ -51,6 +51,7 @@ public class BFechFrame extends javax.swing.JFrame {
         baja = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
+
         jMenu1.setText("jMenu1");
 
         jMenu2.setText("jMenu2");
@@ -130,6 +131,7 @@ public class BFechFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(0, 0, Short.MAX_VALUE))
+                           
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

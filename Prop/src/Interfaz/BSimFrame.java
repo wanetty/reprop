@@ -313,9 +313,7 @@ public class BSimFrame extends javax.swing.JFrame {
        		 ListaDoc.setModel(lista);
        	 }catch(Custom_exception e) {
        		 JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
-       	 }catch(NumberFormatException e) {
-        		JOptionPane.showMessageDialog(null,"K debe ser un natural", " Error", JOptionPane.ERROR_MESSAGE);
-        	 }
+       	 }
         }
    }                                           
 

@@ -43,7 +43,7 @@ public class BAllFrame extends javax.swing.JFrame {
     }
 
 	private void llenartodos(){
-    	 DefaultListModel<String> lista = new DefaultListModel<String>();
+    	lista.clear();
     	 try {
 			todos  = estado.ALL_DOCS();
 		} catch (IOException e) {

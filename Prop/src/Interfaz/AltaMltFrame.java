@@ -148,6 +148,94 @@ public class AltaMltFrame extends javax.swing.JFrame {
                 {null},
                 {null},
                 {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
                 {null}
             },
             new String [] {
@@ -210,13 +298,16 @@ public class AltaMltFrame extends javax.swing.JFrame {
 				if(r==JFileChooser.APPROVE_OPTION){
 					File archivos[]=selector.getSelectedFiles();
 					int i=0;
+					boolean max = false;
 					for(File f:archivos){
-						tabla.setValueAt(f.getPath(), i, 0);
-						i++;
-						if(i >99){
+						if(!max)tabla.setValueAt(f.getPath(), i, 0);
+						else {}
+						if(i > 100){
 							JOptionPane.showMessageDialog(null, "Maximos documentos seleccionados.", "Error",JOptionPane.ERROR_MESSAGE);
+							max = true;
 							break;
 						}
+						i++;
 					}
 					i=0;
 				}
