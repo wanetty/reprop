@@ -1,0 +1,13 @@
+Metroidover
+Cámara de Compresión
+Videojuegos
+
+La Cámara de Compresión es una habitación de gran tamaño dividida originalmente en dos estancias grandes. Probablemente fuera utilizada por los Alímbicos como sistema de control para el Ordenador Cerebrum. Como forma de seguridad, está habitación puede generar campos de fuerza que bloquean el acceso y dividen toda la habitación en cinco partes. Después de la desaparición de los Alímbicos, la habitación se quedó en este estado.
+
+Existen dos maneras de acceder a la cámara; se trata de dos túneles para Morfosfera diferentes ambos provenientes del Ordenador Cerebrum. Uno de ellos (el situado en el medio de dicho ordenador) accede a la parte superior derecha; el acceso al piso inferior está bloqueado por campos de fuerza transparentes y el acceso a la parte superior izquierda por un Campo de Fuerza Verde que puede ser destruido con el rayo Destruktor. En esta misma área se encuentra un Portal Fortaleza que requiere de tres Artefactos Alímbicos para ser activado.
+
+La parte superior izquierda es accedida destruyendo el Campo de Fuerza Verde con el Destruktor desde la parte superior derecha. Es una zona parecida, que también tiene un campo de fuerza transparente que impide el acceso a la zona inferior. Una flota de Psicobot v1.0 y una Torreta v1.4 protegen la zona. Esta habitación posee varios de los interruptores que controlan los campos de fuerza; Samus debe desactivarlos.
+
+A la parte inferior de la cámara se accede por otro túnel de Morfosfera en el Ordenador Cerebrum (el túnel se encuentra en la zona inferior de la pared izquierda de dicha sala). Al igual que la zona superior, varios campos de fuerza bloquean la sala. Una flota de Psicobot v4.0 protege la sala. En la sala paralela a esa, un Ithrak menor protege la Llave Escudo de la habitación. La obtención de dicha llave produce la desaparición de otro campo de fuerza que lleva a un túnel para Morfosfera y un propulsor.
+
+Finalmente, la habitación posee una parte que se encuentra aún más arriba que las partes superiores. Es un pequeño centro lleno de paneles y ordenadores. Además, posee ventanales desde donde se puede controlar toda la sala. Es posible que los Alímbicos utilizaran esta pequeña sala para controlar toda la cámara. Un Artefacto Alímbico está guardado aquí. Al obtenerlo, otro de los campos de fuerza desparece, liberando a un Guardián en el proceso.
