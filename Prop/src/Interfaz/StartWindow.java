@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Interfaz;
-
+/*Eduard Gonzalez Moreno*/
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;

@@ -1,5 +1,5 @@
 package Interfaz;
-
+/*Eduard Gonzalez Moreno*/
 import Prop.Domain_controller;
 
 /*

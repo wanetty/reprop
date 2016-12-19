@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Interfaz;
-
+/*Eduard Gonzalez Moreno*/
 import java.io.IOException;
 import java.util.ArrayList;
 

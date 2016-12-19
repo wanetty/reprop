@@ -1,3 +1,4 @@
+/*Eduard González Moreno*/
 package Prop;
 
 public class Nodo implements java.io.Serializable  {

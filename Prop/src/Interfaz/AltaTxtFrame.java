@@ -1,3 +1,4 @@
+/*Eduard Gonzalez Moreno*/
 package Interfaz;
 import java.io.IOException;
 

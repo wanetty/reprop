@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Interfaz;
-
+/*Eduard Gonzalez Moreno*/
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 import Prop.Custom_exception;
 import Prop.Domain_controller;
-
+/*Eduard Gonzalez Moreno*/
 public class GuardarFrame extends javax.swing.JFrame {
 
 	Domain_controller estado = new Domain_controller();

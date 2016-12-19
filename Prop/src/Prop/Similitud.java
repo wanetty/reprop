@@ -89,14 +89,7 @@ public class Similitud implements java.io.Serializable  {
 		return similitudCos;
 	}
 	
-	/*
-	private void llenar_map(Map<String,Double> mapA, Documento a){
-		for(String clave : a.get_pesos().keySet()) {
-			Double frec = a.get_pesos().get(clave);
-			mapA.put(clave, frec);
-		}
-	}
-	*/
+
 	
 	private void tf(Map<String,Double> a, double n) {
 		for (String clave : a.keySet()){
