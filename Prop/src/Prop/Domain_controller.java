@@ -177,7 +177,7 @@ public class Domain_controller {
 	public ArrayList<ArrayList<String>> BUSQUEDA_AUTOR(String autor) throws IOException{
 		//try {
 			Set<String> autores = new HashSet<String>();
-			autores = BUS.por_prefijo(CJT, autor);
+			autores = BUS.por_prefijo(CJT, autor.toLowerCase());
 			//if(autores.isEmpty()) throw new Custom_exception("No existe ningun documento con este autor");
 			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
 			ArrayList<Documento> res = new ArrayList<Documento>();
@@ -216,8 +216,8 @@ public class Domain_controller {
 	}
 	public ArrayList<String> BUSQUEDA_auttit(String autor, String titulo) throws Custom_exception, IOException {
 		try {
-			if (!CJT.existe_combinacion(autor, titulo)) throw new Custom_exception("No existe ningun documento con esta combinacion de autor y titulo");
-			return BUS.por_auttit(CJT, autor, titulo).Doc_to_string();
+			if (!CJT.existe_combinacion(autor.toLowerCase(), titulo.toLowerCase())) throw new Custom_exception("No existe ningun documento con esta combinacion de autor y titulo");
+			return BUS.por_auttit(CJT, autor.toLowerCase(), titulo.toLowerCase()).Doc_to_string();
 		} catch (Custom_exception e) {
 			throw e;
 		}
@@ -226,9 +226,9 @@ public class Domain_controller {
 	
 	public ArrayList<ArrayList<String>> BUSQUEDA_PARECIDO(String titulo, String autor, int k, int metodo) throws Custom_exception, IOException{
 		try {
-			if (!CJT.existe_combinacion(autor, titulo)) throw new Custom_exception("No existe ningun documento con esta combinacion de autor y titulo");
+			if (!CJT.existe_combinacion(autor.toLowerCase(), titulo.toLowerCase())) throw new Custom_exception("No existe ningun documento con esta combinacion de autor y titulo");
 			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
-			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_similitud(CJT, autor, titulo, k, metodo));
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_similitud(CJT, autor.toLowerCase(), titulo.toLowerCase(), k, metodo));
 			Documento d = new Documento();
 			for (int i = 0; i < res.size(); ++i) {
 				d = res.get(i);
