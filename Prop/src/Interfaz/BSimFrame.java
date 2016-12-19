@@ -292,6 +292,7 @@ public class BSimFrame extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws NumberFormatException, IOException {                                       
    	 if (titulo.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Titulo vacio", " Error", JOptionPane.ERROR_MESSAGE);
         else if (autor.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo Autor vacio", " Error", JOptionPane.ERROR_MESSAGE);
+        else if (Kdoc.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo \"K Documentos parecidos\" vacio", " Error", JOptionPane.ERROR_MESSAGE);
         else{
        	 /*0 autor
        	 1Titulo
@@ -302,7 +303,7 @@ public class BSimFrame extends javax.swing.JFrame {
        	 else metodo = 2;
        	 try {
        		
-       		 todos  = estado.BUSQUEDA_PARECIDO(titulo.getText(), autor.getText(), Integer.parseInt(Kdoc.getText()), 1);
+       		 todos  = estado.BUSQUEDA_PARECIDO(titulo.getText(), autor.getText(), Integer.parseInt(Kdoc.getText()), metodo);
 
   	       		 lista.clear();
        		 for (int i = 0; i < todos.size();++i){
