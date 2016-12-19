@@ -157,7 +157,7 @@ public class CargaFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {     
     	JFileChooser explorador = new JFileChooser("/");
     	explorador.setDialogTitle("Abrir documento...");
-    	FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+    	FileNameExtensionFilter filter = new FileNameExtensionFilter("PROP FILES", "prop");
     	explorador.setFileFilter(filter);
     	int seleccion = explorador.showDialog(null, "Abrir!");
     	  

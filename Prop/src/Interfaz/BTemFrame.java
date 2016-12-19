@@ -23,6 +23,7 @@ public class BTemFrame extends javax.swing.JFrame {
 	Domain_controller estado = new Domain_controller();
 	ArrayList<String> actual = new ArrayList<String>();
 	ArrayList<ArrayList<String>> todos = new ArrayList<ArrayList<String>>();
+	DefaultListModel<String> lista = new DefaultListModel<String>();
 	   
 	public BTemFrame() {
         initComponents();
@@ -223,9 +224,11 @@ public class BTemFrame extends javax.swing.JFrame {
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
     	else{
     	try {
-			estado.BAJA_DOC(actual.get(1), actual.get(0));
-			actual = null;
-			ListaDoc.remove(ListaDoc.getLeadSelectionIndex());
+    		actual = todos.get(ListaDoc.getLeadSelectionIndex());
+    	    estado.BAJA_DOC(actual.get(1), actual.get(0));
+    	    todos.remove(ListaDoc.getLeadSelectionIndex());
+    		lista.remove(ListaDoc.getLeadSelectionIndex());
+    		ListaDoc.setModel(lista);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"ERROR DESCONOCIDO", " Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -240,9 +243,13 @@ public class BTemFrame extends javax.swing.JFrame {
        	 2 tema
        	 3 contenido*/
        	 todos  = estado.BUSQUEDA_TEMA(tema.getText());
-       	 if(todos.isEmpty())JOptionPane.showMessageDialog(null,"No hay documentos con este tema.", " Error", JOptionPane.ERROR_MESSAGE);
-       	 else { 
-       		 DefaultListModel<String> lista = new DefaultListModel<String>();
+       	if(todos.isEmpty()){
+     		 JOptionPane.showMessageDialog(null,"No hay documentos que cumplan esta expresion.", " Error", JOptionPane.ERROR_MESSAGE);
+     		 lista.clear();
+     		 ListaDoc.setModel(lista);
+     	 }
+     	 else { 
+	       		 lista.clear();
        	 for (int i = 0; i < todos.size();++i){
        		 actual = todos.get(i);
 

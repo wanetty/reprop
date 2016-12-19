@@ -26,6 +26,7 @@ public class BAllFrame extends javax.swing.JFrame {
 	Domain_controller estado = new Domain_controller();
 	ArrayList<ArrayList<String>> todos = new ArrayList<ArrayList<String>>();
 	ArrayList<String> actual;
+	DefaultListModel<String> lista = new DefaultListModel<String>();
 	   
 	public BAllFrame() {
         initComponents();
@@ -46,8 +47,9 @@ public class BAllFrame extends javax.swing.JFrame {
     	 try {
 			todos  = estado.ALL_DOCS();
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
+    	 
     	 for (int i = 0; i < todos.size();++i){
     		 actual = todos.get(i);
     		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
@@ -180,9 +182,11 @@ public class BAllFrame extends javax.swing.JFrame {
     	if(ListaDoc.isSelectionEmpty())JOptionPane.showMessageDialog(null,"Ningun documento seleccionado", " Error", JOptionPane.ERROR_MESSAGE);
     	else{
     	try {
-			estado.BAJA_DOC(actual.get(1), actual.get(0));
-			actual = null;
-			ListaDoc.remove(ListaDoc.getLeadSelectionIndex());
+    		actual = todos.get(ListaDoc.getLeadSelectionIndex());
+    	    estado.BAJA_DOC(actual.get(1), actual.get(0));
+    	    todos.remove(ListaDoc.getLeadSelectionIndex());
+    		lista.remove(ListaDoc.getLeadSelectionIndex());
+    		ListaDoc.setModel(lista);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"ERROR DESCONOCIDO", " Error", JOptionPane.ERROR_MESSAGE);
 		}
