@@ -93,10 +93,10 @@ public class Domain_controller {
 	
 	public void Crear_raiz(String raiz) throws Custom_exception, IOException{
 		try {
-			if(raiz.length() < 4) throw new Custom_exception("Extension de documento incorrecta");
+			if(raiz.length() <= 4) throw new Custom_exception("Extension de documento no permitida");
 			else {
 				String extension = raiz.substring(raiz.length()-4);
-			if (!extension.equals(".txt")) throw new Custom_exception("Extension de documento incorrecta");
+			if (!extension.equals(".txt")) throw new Custom_exception("Extension de documento no permitida");
 			}
 			File fi = new File(raiz);
 			if (!fi.isFile()) throw new Custom_exception("El documento no existe");
@@ -276,10 +276,10 @@ public class Domain_controller {
 	
 	public void GUARDAR(String ruta) throws Custom_exception, FileNotFoundException, IOException {
 		try {
-			if(ruta.length() < 5) throw new Custom_exception("Extension de documento incorrecta");
+			if(ruta.length() <= 5) throw new Custom_exception("Extension de documento no permitida");
 			else {
 				String extension = ruta.substring(ruta.length()-5);
-			if (!extension.equals(".prop")) throw new Custom_exception("Extension de documento incorrecta");
+			if (!extension.equals(".prop")) throw new Custom_exception("Extension de documento permitida");
 			}
 			PER.setRuta(ruta);
 			PER.guardar(CJT);
@@ -290,10 +290,10 @@ public class Domain_controller {
 
 	public void RECUPERAR(String ruta) throws Custom_exception, ClassNotFoundException {
 		try {
-			if(ruta.length() < 5) throw new Custom_exception("Extension de documento incorrecta");
+			if(ruta.length() <= 5) throw new Custom_exception("Extension de documento no permitida");
 			else {
 				String extension = ruta.substring(ruta.length()-5);
-			if (!extension.equals(".prop")) throw new Custom_exception("Extension de documento incorrecta");
+			if (!extension.equals(".prop")) throw new Custom_exception("Extension de documento no permitida");
 			}
 			File fi = new File(ruta);
 			if (!fi.isFile()) throw new Custom_exception("El archivo no existe");
