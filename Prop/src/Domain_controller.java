@@ -1,0 +1,266 @@
+package Prop;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+public class Domain_controller {
+	
+	private Persistencia PER = new Persistencia();
+	private Cjt_documentos CJT = new Cjt_documentos();
+	private Busquedas BUS = new Busquedas();
+	
+	
+	
+	public Domain_controller(){
+	}
+	
+
+	public void Crear_manual(String titulo, String autor, String tema, String contenido) throws Custom_exception, IOException{
+		try {
+			if (CJT.existe_combinacion(autor, titulo)) throw new Custom_exception("Combinacion de autor y titulo ya existente");
+			Documento Doc = new Documento();
+			Date fecha = new Date();
+			Doc.setTitulo(new Frase(titulo));
+			Doc.setAutor(new Frase(autor));
+			Doc.setTema(new Frase(tema));
+			Doc.setFecha(fecha);
+			Doc.setContorg(contenido);
+			ArrayList<Frase> c = new ArrayList<Frase>();
+			String delimitadores= "[.;?!]";//faltan los puntos suspensivos
+			String[] frasesseparadas = contenido.split(delimitadores);
+			for (int i=0; i<frasesseparadas.length; ++i) {
+				Frase aux=new Frase(frasesseparadas[i]);
+				c.add(aux);
+			}
+			Doc.setContenido(c);
+			Doc.construirPesos();
+			CJT.alta_doc(Doc);
+		}catch (Custom_exception e) {
+			throw e;
+		}
+	}
+		
+	public void Crear_raiz(String raiz) throws Custom_exception, IOException{
+		try {
+			if(raiz.length() <= 4) throw new Custom_exception("Extension de documento no permitida");
+			else {
+				String extension = raiz.substring(raiz.length()-4);
+			if (!extension.equals(".txt")) throw new Custom_exception("Extension de documento no permitida");
+			}
+			File fi = new File(raiz);
+			if (!fi.isFile()) throw new Custom_exception("El documento no existe");
+			PER.setRuta(raiz);
+			Documento d = new Documento();
+			d = PER.alta_doc();
+			if(CJT.existe_combinacion(d.getAutor().toString_consigno(), d.getTitulo().toString_consigno())) throw new Custom_exception("Combinación de titulo y autor ya existente");
+			CJT.alta_doc(d);
+		} catch(Custom_exception e) {
+			throw e;
+		}
+	}
+	
+	public void BAJA_DOC(String titulo, String autor) throws IOException, Custom_exception {
+		try {
+			if (!CJT.existe_combinacion(autor.toLowerCase(), titulo.toLowerCase())) throw new Custom_exception("El documento no existe");
+			Documento d = new Documento();
+			d = CJT.busqueda_por_auttit(autor, titulo);
+			CJT.baja_individual_doc(d);
+		}catch (Custom_exception e) {
+			throw e;
+		}
+	}
+	
+	
+	//BUSQUEDA
+	
+	public ArrayList<String> Doc_to_string(Documento d) throws IOException {
+		//0 autor
+		//1 titulo
+		//2 tema
+		//3 contenido
+		ArrayList<String> res = new ArrayList<String>();
+		res.add(0, d.getAutor().toString_consigno());
+		res.add(1, d.getTitulo().toString_consigno());
+		if(!(d.getTema().midafrase()== 0)) {
+			res.add(2, d.getTema().toString_consigno());
+		}
+		String aux = d.contenido_toString();
+		res.add(3, aux);
+		return res;
+		
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_TITULO(String titulo) throws Custom_exception, IOException{
+		//try {
+			//if (!CJT.existe_titulo(titulo)) throw new Custom_exception("No existe ningun documento con este titulo");
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_titulo(CJT, titulo.toLowerCase()));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		//} catch (Custom_exception e){
+			//throw e;
+		//}
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_TEMA(String tema) throws Custom_exception, IOException {
+		//try {
+			//if(! CJT.existe_tema(tema)) throw new Custom_exception("No existe ningun documento con este tema");
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_tema(CJT, tema));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+		
+			return res_string;
+		//}catch (Custom_exception e) {
+			// throw e;
+		//}
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_AUTOR(String autor) throws IOException{
+		//try {
+			Set<String> autores = new HashSet<String>();
+			autores = BUS.por_prefijo(CJT, autor.toLowerCase());
+			//if(autores.isEmpty()) throw new Custom_exception("No existe ningun documento con este autor");
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>();
+			ArrayList<Documento> aux = new ArrayList<Documento>();
+			for(String clave : autores) {
+				aux = BUS.por_autor(CJT, clave);
+				for (int k = 0; k < aux.size(); ++k) {
+					res.add(aux.get(k));
+				}
+			}
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		//}catch (Custom_exception e) {
+			//throw e;
+		//}
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_FECHA(String fecha) throws IOException/*, Custom_exception*/ {
+		//try {
+			//if(!CJT.existe_fecha(fecha)) throw new Custom_exception("No existe ningun documento con esta fecha");
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_fecha(CJT, fecha));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		/*} catch (Custom_exception e) {
+			throw e;
+		}*/
+	}
+	public ArrayList<String> BUSQUEDA_auttit(String autor, String titulo) throws Custom_exception, IOException {
+		try {
+			if (!CJT.existe_combinacion(autor.toLowerCase(), titulo.toLowerCase())) throw new Custom_exception("No existe ningun documento con esta combinacion de autor y titulo");
+			return BUS.por_auttit(CJT, autor.toLowerCase(), titulo.toLowerCase()).Doc_to_string();
+		} catch (Custom_exception e) {
+			throw e;
+		}
+		//return null;
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_PARECIDO(String titulo, String autor, int k, int metodo) throws Custom_exception, IOException{
+		try {
+			if (!CJT.existe_combinacion(autor.toLowerCase(), titulo.toLowerCase())) throw new Custom_exception("No existe ningun documento con esta combinacion de autor y titulo");
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_similitud(CJT, autor.toLowerCase(), titulo.toLowerCase(), k, metodo));
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		}
+		catch (Custom_exception e){
+			throw e;
+		}
+		
+	}
+	
+	public ArrayList<ArrayList<String>> BUSQUEDA_BOOLEANA(String expresion) throws Exception {
+		try {
+			Bool_expresion b = new Bool_expresion(expresion);
+			if (b.isnull()) throw new Custom_exception("Expresion incorrecta");
+			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_booleano(CJT, expresion));
+			//if (res.isEmpty()) throw new Custom_exception("No existe ningun documento que cumpla la expresión");
+			Documento d = new Documento();
+			for (int i = 0; i < res.size(); ++i) {
+				d = res.get(i);
+				res_string.add(i, d.Doc_to_string());
+			}
+			return res_string;
+		}catch (Custom_exception e) {
+			throw e;
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public ArrayList<ArrayList<String>> ALL_DOCS() throws IOException {
+		ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();  
+		Documento d = new Documento();
+		for(String clave1 : CJT.get_por_titulo().keySet()) {
+			for (String clave2 : CJT.get_por_titulo().get(clave1).keySet()) {
+				d = CJT.get_por_titulo().get(clave1).get(clave2);
+				res_string.add(d.Doc_to_string());
+			}
+		}
+		return res_string;
+	}
+	
+	public void GUARDAR(String ruta) throws Custom_exception, FileNotFoundException, IOException {
+		try {
+			if(ruta.length() <= 5) throw new Custom_exception("Extension de documento no permitida");
+			else {
+				String extension = ruta.substring(ruta.length()-5);
+			if (!extension.equals(".prop")) throw new Custom_exception("Extension de documento permitida");
+			}
+			PER.setRuta(ruta);
+			PER.guardar(CJT);
+		}catch (Custom_exception e){
+			throw e;
+		}
+	}
+
+	public void RECUPERAR(String ruta) throws Custom_exception, ClassNotFoundException {
+		try {
+			if(ruta.length() <= 5) throw new Custom_exception("Extension de documento no permitida");
+			else {
+				String extension = ruta.substring(ruta.length()-5);
+			if (!extension.equals(".prop")) throw new Custom_exception("Extension de documento no permitida");
+			}
+			File fi = new File(ruta);
+			if (!fi.isFile()) throw new Custom_exception("El archivo no existe");
+			PER.setRuta(ruta);
+			CJT = PER.recuperar();
+		}catch (Custom_exception e){
+			throw e;
+		}
+	}
+	
+}
