@@ -235,11 +235,12 @@ public class AltaMltFrame extends javax.swing.JFrame {
     		try {
 				estado.Crear_raiz(tabla.getValueAt(i, 0).toString());
 			}catch(Custom_exception e) {
-				JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,e.getMessage() +"\n"+ tabla.getValueAt(i, 0).toString() , " Error", JOptionPane.ERROR_MESSAGE);
 				++fail;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+    		tabla.setValueAt(null, i, 0);
     		++i;
        }
     	int tot = i - fail;

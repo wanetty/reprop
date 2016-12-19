@@ -231,7 +231,7 @@ public class BFechFrame extends javax.swing.JFrame {
     }                                     
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                       
-   	 if (fecha.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo tema vacio", " Error", JOptionPane.ERROR_MESSAGE);
+   	 if (fecha.getText().isEmpty())JOptionPane.showMessageDialog(null,"Campo fecha vacio vacio", " Error", JOptionPane.ERROR_MESSAGE);
         else{
        	 /*0 autor
        	 1titulo

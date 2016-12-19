@@ -135,7 +135,7 @@ public class CargaFrame extends javax.swing.JFrame {
     	if(!ruta.getText().isEmpty()){
     		try {
     			estado.RECUPERAR(ruta.getText());
-    			JOptionPane.showMessageDialog(null, "Se ha dado de alta el archivo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+    			JOptionPane.showMessageDialog(null, "Se ha dado cargado el fichero con existo.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
     		}catch (Custom_exception e) {
     			 JOptionPane.showMessageDialog(null, e.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
     		}
