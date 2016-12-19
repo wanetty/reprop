@@ -112,7 +112,7 @@ public class Domain_controller {
 	
 	public void BAJA_DOC(String titulo, String autor) throws IOException, Custom_exception {
 		try {
-			if (!CJT.existe_combinacion(autor, titulo)) throw new Custom_exception("El documento no existe");
+			if (!CJT.existe_combinacion(autor.toLowerCase(), titulo.toLowerCase())) throw new Custom_exception("El documento no existe");
 			Documento d = new Documento();
 			d = CJT.busqueda_por_auttit(autor, titulo);
 			CJT.baja_individual_doc(d);
@@ -145,7 +145,7 @@ public class Domain_controller {
 		try {
 			if (!CJT.existe_titulo(titulo)) throw new Custom_exception("No existe ningun documento con este titulo");
 			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
-			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_titulo(CJT, titulo));
+			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_titulo(CJT, titulo.toLowerCase()));
 			Documento d = new Documento();
 			for (int i = 0; i < res.size(); ++i) {
 				d = res.get(i);
@@ -278,7 +278,7 @@ public class Domain_controller {
 		try {
 			if(ruta.length() < 5) throw new Custom_exception("Extension de documento incorrecta");
 			else {
-				String extension = ruta.substring(ruta.length()-3);
+				String extension = ruta.substring(ruta.length()-4);
 			if (!extension.equals("prop")) throw new Custom_exception("Extension de documento incorrecta");
 			}
 			PER.setRuta(ruta);
@@ -292,7 +292,7 @@ public class Domain_controller {
 		try {
 			if(ruta.length() < 5) throw new Custom_exception("Extension de documento incorrecta");
 			else {
-				String extension = ruta.substring(ruta.length()-3);
+				String extension = ruta.substring(ruta.length()-4);
 			if (!extension.equals("prop")) throw new Custom_exception("Extension de documento incorrecta");
 			}
 			File fi = new File(ruta);
