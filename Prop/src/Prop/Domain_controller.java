@@ -95,8 +95,8 @@ public class Domain_controller {
 		try {
 			if(raiz.length() < 4) throw new Custom_exception("Extension de documento incorrecta");
 			else {
-				String extension = raiz.substring(raiz.length()-3);
-			if (!extension.equals("txt")) throw new Custom_exception("Extension de documento incorrecta");
+				String extension = raiz.substring(raiz.length()-4);
+			if (!extension.equals(".txt")) throw new Custom_exception("Extension de documento incorrecta");
 			}
 			File fi = new File(raiz);
 			if (!fi.isFile()) throw new Custom_exception("El documento no existe");
@@ -278,8 +278,8 @@ public class Domain_controller {
 		try {
 			if(ruta.length() < 5) throw new Custom_exception("Extension de documento incorrecta");
 			else {
-				String extension = ruta.substring(ruta.length()-4);
-			if (!extension.equals("prop")) throw new Custom_exception("Extension de documento incorrecta");
+				String extension = ruta.substring(ruta.length()-5);
+			if (!extension.equals(".prop")) throw new Custom_exception("Extension de documento incorrecta");
 			}
 			PER.setRuta(ruta);
 			PER.guardar(CJT);
@@ -292,8 +292,8 @@ public class Domain_controller {
 		try {
 			if(ruta.length() < 5) throw new Custom_exception("Extension de documento incorrecta");
 			else {
-				String extension = ruta.substring(ruta.length()-4);
-			if (!extension.equals("prop")) throw new Custom_exception("Extension de documento incorrecta");
+				String extension = ruta.substring(ruta.length()-5);
+			if (!extension.equals(".prop")) throw new Custom_exception("Extension de documento incorrecta");
 			}
 			File fi = new File(ruta);
 			if (!fi.isFile()) throw new Custom_exception("El archivo no existe");
