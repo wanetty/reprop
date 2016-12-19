@@ -33,20 +33,20 @@ public class Persistencia  {
 	}
 
 	// Ahora se da de alta los documentos llamando a la capa de persistencia.
-	public Documento alta_doc(){
+	public Documento alta_doc() throws Custom_exception, IOException{
 		try {
 			ArrayList<Frase> contenido = new ArrayList<Frase>();
 			Documento Doc = new Documento();
 			BufferedReader in = new BufferedReader(new FileReader(ruta));
 			String funcional = in.readLine();
 			if (funcional.isEmpty()) {
-				throw new Documento_exception("Formato de documento incorrecto: autor no puede ser vacio");
+				throw new Custom_exception("Formato de documento incorrecto: autor no puede ser vacio");
 			}
 			else {
 				Doc.setAutor(new Frase(funcional));
 				funcional=in.readLine();
 				if (funcional.isEmpty()) {
-					throw new Documento_exception("Formato de documento incorrecto: titulo no puede ser vacio");
+					throw new Custom_exception("Formato de documento incorrecto: titulo no puede ser vacio");
 				}
 				else {
 					Doc.setTitulo(new Frase(funcional));
@@ -70,8 +70,8 @@ public class Persistencia  {
 					return Doc;
 				}
 			}
-		}catch (Exception e) {
-			return null;
+		}catch (Custom_exception e) {
+			throw e;
 		}
 	}
 
