@@ -230,17 +230,20 @@ public class AltaMltFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
       int i= 0; 
+      int fail = 0; 
     	while (tabla.getValueAt(i, 0) != null){
     		try {
 				estado.Crear_raiz(tabla.getValueAt(i, 0).toString());
 			}catch(Custom_exception e) {
 				JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+				++fail;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
     		++i;
        }
-    	JOptionPane.showMessageDialog(null, "Se ha dado de alta " + i +  " archivos.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
+    	int tot = i - fail;
+    	JOptionPane.showMessageDialog(null, "Se ha dado de alta " + tot +  " archivos de los " + i + " propuestos.", "Correcto",JOptionPane.INFORMATION_MESSAGE);
     }                                        
 
   
