@@ -115,11 +115,11 @@ public class GuardarySalirFrame extends javax.swing.JFrame {
         	try {
         	estado.GUARDAR(ruta.getText());
         	JOptionPane.showMessageDialog(null,"Se ha guardado correctamente.", " Correcto", JOptionPane.INFORMATION_MESSAGE);
+        	dispose();
         	}catch(Custom_exception e) {
             	JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
 
         	}
-        	dispose();
         }
     } 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
