@@ -256,6 +256,7 @@ public class BTitAutFrame extends javax.swing.JFrame {
        	 1Titulo
        	 2 tema
        	 3 contenido*/
+        try {
        	 actual = estado.BUSQUEDA_auttit(autor.getText(), titulo.getText());
        	 if (actual.isEmpty())JOptionPane.showMessageDialog(null,"Documento inexistente", " Error", JOptionPane.ERROR_MESSAGE);
        	 else {
@@ -263,7 +264,9 @@ public class BTitAutFrame extends javax.swing.JFrame {
        		 lista.addElement("Titulo: "+ actual.get(1)+"\n" +"      Autor: "+ actual.get(0)+"\n");
            	 ListaDoc.setModel(lista);
        	 }
-       	
+        }catch(Custom_exception e) {
+        	JOptionPane.showMessageDialog(null,e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+        }
         }	
    }                                        
 

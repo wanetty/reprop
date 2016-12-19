@@ -142,8 +142,8 @@ public class Domain_controller {
 	}
 	
 	public ArrayList<ArrayList<String>> BUSQUEDA_TITULO(String titulo) throws Custom_exception, IOException{
-		try {
-			if (!CJT.existe_titulo(titulo)) throw new Custom_exception("No existe ningun documento con este titulo");
+		//try {
+			//if (!CJT.existe_titulo(titulo)) throw new Custom_exception("No existe ningun documento con este titulo");
 			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
 			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_titulo(CJT, titulo.toLowerCase()));
 			Documento d = new Documento();
@@ -152,14 +152,14 @@ public class Domain_controller {
 				res_string.add(i, d.Doc_to_string());
 			}
 			return res_string;
-		} catch (Custom_exception e){
-			throw e;
-		}
+		//} catch (Custom_exception e){
+			//throw e;
+		//}
 	}
 	
 	public ArrayList<ArrayList<String>> BUSQUEDA_TEMA(String tema) throws Custom_exception, IOException {
-		try {
-			if(! CJT.existe_tema(tema)) throw new Custom_exception("No existe ningun documento con este tema");
+		//try {
+			//if(! CJT.existe_tema(tema)) throw new Custom_exception("No existe ningun documento con este tema");
 			ArrayList<ArrayList<String>> res_string = new ArrayList<ArrayList<String>>();
 			ArrayList<Documento> res = new ArrayList<Documento>(BUS.por_tema(CJT, tema));
 			Documento d = new Documento();
@@ -169,9 +169,9 @@ public class Domain_controller {
 			}
 		
 			return res_string;
-		}catch (Custom_exception e) {
-			 throw e;
-		}
+		//}catch (Custom_exception e) {
+			// throw e;
+		//}
 	}
 	
 	public ArrayList<ArrayList<String>> BUSQUEDA_AUTOR(String autor) throws IOException{
