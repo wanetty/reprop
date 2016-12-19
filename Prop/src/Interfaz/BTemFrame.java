@@ -244,7 +244,7 @@ public class BTemFrame extends javax.swing.JFrame {
        	 3 contenido*/
        	 todos  = estado.BUSQUEDA_TEMA(tema.getText());
        	if(todos.isEmpty()){
-     		 JOptionPane.showMessageDialog(null,"No hay documentos que cumplan esta expresion.", " Error", JOptionPane.ERROR_MESSAGE);
+     		 JOptionPane.showMessageDialog(null,"No hay documentos documentos que contengan este tema.", " Error", JOptionPane.ERROR_MESSAGE);
      		 lista.clear();
      		 ListaDoc.setModel(lista);
      	 }

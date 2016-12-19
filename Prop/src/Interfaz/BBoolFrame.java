@@ -67,7 +67,7 @@ public class BBoolFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Introduce el aubool el prefijo que deseas buscar:");
+        jLabel3.setText("Introduce el la expresion booleana para buscar:");
 
         ListaDoc.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         ListaDoc.setToolTipText("");
